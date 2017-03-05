@@ -1,0 +1,22 @@
+---
+
+  - includes:
+        - brains/en_say.yml
+        - brains/en_systemdate.yml
+        - brains/en_neurotransmitter.yml
+        - brains/en_uri.yml
+
+  - name: "default-synapse"
+    signals:
+      - order: "default-synapse"
+    neurons:
+      - say:
+          message:
+            - "I haven't understood"
+            - "I don't know this order"
+            - "Please renew your order"
+            - "Would you please reword your order"
+            - "Can ou please reformulate your order"
+            - "I don't recognize that order"
+
+

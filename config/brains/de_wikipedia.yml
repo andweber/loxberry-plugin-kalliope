@@ -1,0 +1,13 @@
+---
+- name: "wikipedia-searcher"
+  signals:
+    - order: "schaue auf Wikipedia nach {{ query }}"
+  neurons:
+    - wikipedia_searcher:
+        language: "de"
+        sentences: 1
+        args:
+          - query
+        file_template: "templates/de_wikipedia_returned_value.j2"
+
+

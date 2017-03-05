@@ -1,0 +1,26 @@
+{% set ConrolState = {
+    "on": "an",
+    "off": "aus"
+    }[control_newstate] | default("unbekannt")
+-%}
+
+{% if status_code == "Complete" %}
+    {% if control_name is not none %}
+        {{control_name}} ist jetzt {{ConrolState}}
+    {% else %}
+        erledigt
+    {% endif %}
+    
+{% elif  status_code == "StateChangeError"%}
+    {% if control_name is not none %}
+        {{control_name}} konnte nicht auf {{ControlState}} gesetzt werden.
+    {% else %}
+        Zustand konnte nicht geändert werden.
+    {% endif %}    
+
+{% elif  status_code == "IncompleteRequest"%}
+    Dein Auftrag war unvollständig.  
+
+{% else %}
+    Oh ein Fehler ist aufgetreten. Ich kenne das Ergebnis {{status_code}} nicht.
+{% endif %}

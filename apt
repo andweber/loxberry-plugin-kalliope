@@ -1,0 +1,22 @@
+# These packages will be installed by apt-get -y install PACKAGENAME
+# One line per package, use exact packagename as you would do for apt-get.
+#
+python-dev
+python-virtualenv
+libsmpeg0
+libttspico-utils
+libsmpeg0
+flac
+dialog
+libffi-dev
+libffi-dev
+libssl-dev
+portaudio19-dev
+build-essential
+libssl-dev
+libffi-dev
+sox
+libatlas3-base
+mplayer
+pulseaudio
+pulseaudio-utils

@@ -1,0 +1,35 @@
+---
+
+  - includes:
+        - brains/de_say.yml
+        - brains/de_systemdate.yml
+        - brains/de_neurotransmitter.yml
+        - brains/de_uri.yml
+        - brains/de_kill_switch.yml
+        - brains/de_orders.yml
+        - brains/de_loxscontrol_light.yml
+        - brains/de_loxberry_install.yml
+
+  - name: "default-synapse"
+    signals:
+      - order: "default-synapse"
+    neurons:
+      - say:
+          message:
+            - "Ich habe nicht verstanden!"
+            - "Ich verstehe diesen Befehl nicht."
+            - "Bitte wiederhole deine Frage."
+            - "Könntest du bitte die Frage wiederholen?"
+            - "Ich verstehe das nicht."
+            - "Wie bitte?"
+
+  - name: "default-ok"
+    signals:
+      - order: "default-ok"
+    neurons:
+      - say:
+          message:
+            - "In Ordnung."
+            - "Okay."
+            - "Gut."
+            - "Ja."
