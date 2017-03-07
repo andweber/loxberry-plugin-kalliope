@@ -1,19 +1,111 @@
-#!/bin/sh
-
-# This is a sample DAEMON file which is started at boottime. iIt must be names
-# "start" here and will be renamed according to your Pluginname during
-# installation. CAUTION! MAKE SURE YOUR SCRIPT EXITS CLEANLY! It is a good idea
+#!/bin/bash
+######################### LoxBerry Plugin KalliopeLoxSControl ##############
+# Startup Daemon
+# Autor:        Andreas Weber, andweber@gmail.com
+# Version:      0.2 - 07.03.2017
+#
+############################################################################
+# Disclaimer
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+############################################################################
+# CAUTION! MAKE SURE YOUR SCRIPT EXITS CLEANLY! It is a good idea
 # to start your daemon as background process. If you do something wrong here
 # your user's systems may hang forever during boottime!
-
+#
 # Will be executed as user "root".
-
-# Name this file "daemon.sh" in your plugin-archive. It will be renamed to NAME
+#
+# Name this file "daemon" in your plugin-archive. It will be renamed to NAME
 # during installation
+############################################################################
 
-if [ -x /usr/bin/logger ]
-then
-    /usr/bin/logger "This is just a sample DAEMON script from Sample Plugin"
+pluginname=$(basename $0 .sh)
+brainfolder=REPLACEINSTALLFOLDER/config/plugins/REPLACEFOLDERNAME
+logfolder=REPLACEINSTALLFOLDER/log/plugins/REPLACEFOLDERNAME/kalliope.log
+
+if [ -x /usr/bin/logger ]; then
+    /usr/bin/logger "loxberry-plugin-$pluginname - DAEMON Script from Kalliope Plugin"
 fi
+
+is_running() {
+	/bin/ps -C "kalliope" -opid= > /dev/null 2>&1
+}
+
+case "$1" in
+    start)
+    if is_running; then
+    	PID=`/bin/ps -C "kalliope" -opid=`
+        echo "<INFO> Kalliope is already running. PID: $PID"
+    else
+        echo "<INFO> Starting Kalliope..."
+        cd REPLACEINSTALLFOLDER/data/plugins/REPLACEFOLDERNAME
+        if [ $EUID -eq 0 ]; then		
+            su loxberry -c ". pyvenv/bin/activate && kalliope start --debug --brain-file $brainfolder/brain.yml >> $logfolder &"
+        else
+            . pyvenv/bin/activate 
+            kalliope start --debug --brain-file $brainfolder/brain.yml >> $logfolder &
+        fi
+        if ! is_running; then
+            echo "<FAIL> Unable to start kalliope."
+            exit 1
+        fi
+    fi
+    ;;
+    stop)
+    if is_running; then
+    	PID=`/bin/ps -C "kalliope" -opid=`
+        echo -n "<INFO> Stopping Kalliope..."
+        kill $PID 
+        for i in {1..10}
+        do
+            if ! is_running; then
+                break
+            fi
+
+            echo -n "."
+            sleep 1
+        done
+        echo
+
+        if is_running; then
+            echo "<ERROR> Kalliope could not be stopped; may still be shuting down or shutdown may have failed."
+            exit 1
+        else
+            echo "<INFO> Kalliope is stopped."
+        fi
+    else
+        echo "<INFO> Kalliope is not running."
+    fi
+    ;;
+    restart)
+    /bin/sh $0 stop
+    if is_running; then
+        echo "<INFO> Unable to stop Kalliope, will not try to restart."
+        exit 1
+    fi
+    /bin/sh $0 start
+    ;;
+    status)
+    if is_running; then
+    	PID=`/bin/ps -C "kalliope" -opid=`
+        echo "Kalliope is running. PID: $PID"
+    else
+        echo "Kalliope is stopped."
+        exit 1
+    fi
+    ;;
+    *)
+    echo "Usage: $0 {start|stop|restart|status}"
+    echo "No command given, assuming start."
+    /bin/bash $0 start
+    ;;
+esac
 
 exit 0

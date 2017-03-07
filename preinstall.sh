@@ -48,7 +48,8 @@ echo "<INFO> (Short) Name is: $ARGV2"
 echo "<INFO> Installation folder is: $ARGV3"
 echo "<INFO> Installation folder is: $ARGV4"
 ############################################################################
-
+# Definitions
+kalliope_installversion=v0.4.2
 
 # Download Pip
 echo "<INFO> Getting latest pip from https://bootstrap.pypa.io"
@@ -63,9 +64,9 @@ fi
 
 # Download Kalliope
 echo "<INFO> Getting latest kalliope from https://github.com/kalliope-project/kalliope/archive/master.zip"
-/usr/bin/wget --progress=dot:mega -t 10 -O /tmp/uploads/$ARGV1/data/master.zip https://github.com/kalliope-project/kalliope/archive/master.zip
+/usr/bin/wget --progress=dot:mega -t 10 -O /tmp/uploads/$ARGV1/data/kalliope.zip https://github.com/kalliope-project/kalliope/archive/$kalliope_installversion.zip
 
-if [ ! -f /tmp/uploads/$ARGV1/data/master.zip ]; then
+if [ ! -f /tmp/uploads/$ARGV1/data/kalliope.zip ]; then
     echo "<FAIL> Something went wrong while trying to download kalliope."
     exit 1
 else
@@ -74,12 +75,12 @@ else
     # Unpack Kalliope
     echo "<INFO> Unpacking..."
     cd /tmp/uploads/$ARGV1/data/
-    unzip master.zip
+    unzip kalliope.zip
     if [ $? -ne 0 ]; then
         echo "<FAIL> Unpacking kalliope failed."
         exit 1
     else
-        rm master.zip
+        rm kalliope.zip
         echo "<OK> Kalliope unpacked. Ready for install."            
     fi
 

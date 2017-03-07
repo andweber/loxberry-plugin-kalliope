@@ -49,7 +49,8 @@ echo "<INFO> Installation folder is: $ARGV3"
 echo "<INFO> Plugin version is: $ARGV4"
 echo "<INFO> Base folder is: $ARGV5"
 ############################################################################
-
+# Definitions
+kalliope_installversion=0.4.2
 ############################################################################
 # SECTION A
 # Definition of Helper Functions and check input
@@ -105,7 +106,7 @@ else
 fi
 
 # Install kalliope
-if [ ! -f $ARGV5/data/plugins/$ARGV3/kalliope-master/setup.py ]; then
+if [ ! -f $ARGV5/data/plugins/$ARGV3/kalliope-$kalliope_installversion/setup.py ]; then
     echo "<FAIL> Something went wrong during Preinstall. Kalliope not found."
     exit 1
 else
@@ -206,6 +207,10 @@ fi
 # Replace correct absolut path in settings, its a symlink so take care of this
 /bin/sed -i --follow-symlinks "s:REPLACEFOLDERNAME:$ARGV3:g" $ARGV5/config/plugins/$ARGV3/settings.yml 
 /bin/sed -i --follow-symlinks "s:REPLACEINSTALLFOLDER:$ARGV5:g" $ARGV5/config/plugins/$ARGV3/settings.yml 
+
+# Replace correct absolut path in daemon
+/bin/sed -i "s:REPLACEFOLDERNAME:$ARGV3:g" $ARGV5/system/daemons/plugins/$ARGV2
+/bin/sed -i "s:REPLACEINSTALLFOLDER:$ARGV5:g" $ARGV5/system/daemons/plugins/$ARGV2
 
 #symlink settings that we can start kalliope from data path
 ln -s $ARGV5/config/plugins/$ARGV3/settings.yml $ARGV5/data/plugins/$ARGV3/settings.yml
