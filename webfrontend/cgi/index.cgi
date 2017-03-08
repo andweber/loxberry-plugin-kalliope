@@ -51,7 +51,7 @@ print "<div class=\"ui-body ui-body-a ui-corner-all loxberry-logo\">\n";
 print "<div style=\"margin: 5%;\">\n";
 
 print "<center>";
-print "<br><br>This is the Sample Plugin. It just do nothing.<br><br><br>";
+print "<br><br>This is the Kalliope LoxBerry Plugin. This still needs to be done.<br><br><br>";
 print "Goodbye.";
 print "</center>";
 

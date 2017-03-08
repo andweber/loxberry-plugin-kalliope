@@ -43,6 +43,7 @@ Version 0.2
 - basic settings in webfrontend
 - LoxSControl is running (directly started from cmdl)
 - working at least for german and english
+- Plugin upgrade is possible
 
 Version 0.3
 - Proof of Voice Control Kalliope
