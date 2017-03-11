@@ -50,7 +50,7 @@ echo "<INFO> Plugin version is: $ARGV4"
 echo "<INFO> Base folder is: $ARGV5"
 ############################################################################
 # Definitions
-kalliope_installversion=0.4.2
+kalliope_installversion=0.4.3
 ############################################################################
 # SECTION A
 # Definition of Helper Functions and check input
@@ -112,14 +112,14 @@ if [ ! -f $ARGV5/data/plugins/$ARGV3/kalliope-$kalliope_installversion/setup.py 
 else
     echo "<OK> Kalliope install found."
     echo "<INFO> Installing..."
-    cd $ARGV5/data/plugins/$ARGV3/kalliope-master
+    cd $ARGV5/data/plugins/$ARGV3/kalliope-$kalliope_installversion
     #python setup.py install --user    
-    $ARGV5/data/plugins/$ARGV3/pyvenv/bin/pip install kalliope
+    $ARGV5/data/plugins/$ARGV3/pyvenv/bin/pip install .
     if [ $? -ne 0 ]; then
         echo "<FAIL> Installing kalliope failed."
         exit 1
     else
-        rm -rf $ARGV5/data/plugins/$ARGV3/kalliope-master
+        rm -rf $ARGV5/data/plugins/$ARGV3/kalliope-$kalliope_installversion
         echo "<OK> Kalliope installed successfully."            
     fi
 

@@ -50,7 +50,7 @@ case "$1" in
             su loxberry -c ". pyvenv/bin/activate && kalliope start --debug --brain-file $brainfolder/brain.yml >> $logfolder &"
         else
             . pyvenv/bin/activate 
-            kalliope start --debug --brain-file $brainfolder/brain.yml >> $logfolder &
+            kalliope start --debug --brain-file $brainfolder/brain.yml > $logfolder &
         fi
         if ! is_running; then
             echo "<FAIL> Unable to start kalliope."

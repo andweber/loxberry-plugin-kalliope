@@ -20,6 +20,11 @@ This project is a non-commercial community project and not connected to the comp
 
 You can download the last stable version of this plugin from [http://plugins.loxberry.de/](http://plugins.loxberry.de/) or you download this repository as *.zip.
 
+LoxBerry contains a [bug](https://github.com/mschlenstedt/Loxberry/issues/165). As long as this is not fixed use the following manual fix:
+1. Log into loxberry with an ssh as root
+2. type ```adduser loxberry audio```
+3. logout
+
 Navigate in the LoxBerry Webfrontend to Plugin-Installation, select the downloaded *.zip and install the plugin. 
 
 Navigate to the plugin configuration site and configure the plugin as descriped in the webfrontend.
@@ -35,7 +40,7 @@ The Kalliope brain is stored in the plugin config folder and can be adjusted and
 
 ## RoadMap
 
-Version 0.1
+[Done] Version 0.1
 - plugin installs Kalliope
 - kalliope is running after reboot (config found, starting up correctly)
 
