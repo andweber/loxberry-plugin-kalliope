@@ -47,10 +47,10 @@ case "$1" in
         echo "<INFO> Starting Kalliope..."
         cd REPLACEINSTALLFOLDER/data/plugins/REPLACEFOLDERNAME
         if [ $EUID -eq 0 ]; then		
-            su loxberry -c ". pyvenv/bin/activate && kalliope start --debug --brain-file $brainfolder/brain.yml >> $logfolder &"
+            su loxberry -c ". pyvenv/bin/activate && kalliope start --debug --brain-file $brainfolder/brain.yml >$logfolder 2>$logfolder &"
         else
             . pyvenv/bin/activate 
-            kalliope start --debug --brain-file $brainfolder/brain.yml > $logfolder &
+            kalliope start --debug --brain-file $brainfolder/brain.yml >$logfolder 2>$logfolder &
         fi
         if ! is_running; then
             echo "<FAIL> Unable to start kalliope."
@@ -85,12 +85,12 @@ case "$1" in
     fi
     ;;
     restart)
-    /bin/sh $0 stop
+    /bin/bash $0 stop
     if is_running; then
         echo "<INFO> Unable to stop Kalliope, will not try to restart."
         exit 1
     fi
-    /bin/sh $0 start
+    /bin/bash $0 start
     ;;
     status)
     if is_running; then
