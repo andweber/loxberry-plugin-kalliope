@@ -16,7 +16,7 @@ This project is a non-commercial community project and not connected to the comp
 
 ## Installation
 
-/!\ You need to have a running [LoxBerry](http://www.loxwiki.eu:80/x/o4CO) installation with a microphone and an audio output connected. You can get the latest version from [https://download.loxberry.de/](https://download.loxberry.de/). Consult the [installation instructions](http://www.loxwiki.eu:80/x/r4CO) for more details.
+/!\ You need to have a running [LoxBerry](http://www.loxwiki.eu:80/x/o4CO) installation with a microphone and an audio output connected. You can get the latest version from [https://download.loxberry.de/](https://download.loxberry.de/). Consult the [installation instructions](http://www.loxwiki.eu:80/x/r4CO) for more details. For issues with audio or microphone the [audio guide](Audio.md) may help.
 
 You can download the last stable version of this plugin from [http://plugins.loxberry.de/](http://plugins.loxberry.de/) or you download this repository as *.zip.
 
