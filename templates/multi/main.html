@@ -1,0 +1,221 @@
+<div align="right"><font size="-1"><TMPL_VAR NAME=PLUGINVERSION></font></div>
+<center>
+<table border=0 cellpadding=5>
+<tr>
+	<td>
+		<img src="/system/images/icons/<TMPL_VAR NAME=PSUBFOLDER>/icon_256.png">
+	</td>
+        <td>
+ 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+	<td>    <!-- TODO: run start and stop script -->
+                        <fieldset>
+                        <select onChange="disable_kalliope();" id="running" name="running" data-role="flipswitch" data-theme="e">
+                        <option value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
+                        <option value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+                        </select>
+                        </fieldset>
+                        <script>
+                        // Select option depending on saved config
+                        $( "#running").val( "<TMPL_VAR NAME=RUNNING>" );
+                        </script>
+	</td>
+</tr>
+</table>
+<table border=0 cellpadding=5>
+<tr>
+	<td>
+	<a  id="btncfgaudio" data-icon="audio" data-role="button" data-mini="true" href="./cfgaudio.cgi" target="_blank"><TMPL_VAR NAME=T::BUTTON.CFGAUDIO></a>
+	</td>
+	<td>
+	<a id="btnshowlog" data-icon="search" data-role="button" data-mini="true" href="./logfiles.cgi" target="_blank"><TMPL_VAR NAME=T::BUTTON.SHOWLOGFILE></a>
+	</td>
+	<td>
+	<a  id="btneditbrain" data-icon="edit" data-role="button" data-mini="true" href="./editbrain.cgi" class="ui-disabled"><TMPL_VAR NAME=T::BUTTON.EDITBRAIN></a>
+	</td>
+</tr>
+</table>
+</center>
+
+<form method="post" data-ajax="false" name="main_form" id="main_form" action="./index.cgi">
+<input type="hidden" name="saveformdata" value="1">
+
+<table border=0 width="100%" cellpadding="10">
+<tr>
+	<td colspan=4>
+	<h2><TMPL_VAR NAME=T::FORMTABLE.GENERALSETTINGS></h2>
+	</td>
+</tr>
+<tr>
+	<td width="20%">
+	<label id="labelauto"><TMPL_VAR NAME=T::FORMTABLE.MINISERVER></label>
+	</td>
+	<td width="55%">
+	<!--<table border=0 width="100%">
+	<tr>
+		<td width="20%">
+		<fieldset>
+		<select onChange="disable_cron();" id="read" name="read" data-role="flipswitch">
+		<option value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
+		<option value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+		</select>
+		</fieldset>
+		<script>
+		      // Select option depending on saved config
+		      $( "#read").val( "<TMPL_VAR NAME=READ>" );
+		</script>
+		</td>
+		<td>
+		<select id="cron" name="cron" data-mini="true" data-native-menu="true">
+		    <option value="1"><TMPL_VAR NAME=T::FORMTABLE.1MINUTE></option>
+		    <option value="3"><TMPL_VAR NAME=T::FORMTABLE.3MINUTE></option>
+		    <option value="5"><TMPL_VAR NAME=T::FORMTABLE.5MINUTE></option>
+		    <option value="10"><TMPL_VAR NAME=T::FORMTABLE.10MINUTE></option>
+		    <option value="15"><TMPL_VAR NAME=T::FORMTABLE.15MINUTE></option>
+		    <option value="30"><TMPL_VAR NAME=T::FORMTABLE.30MINUTE></option>
+		    <option value="60"><TMPL_VAR NAME=T::FORMTABLE.60MINUTE></option>
+		</select>
+		<script>
+		    // Select option depending on saved config
+		    $( "#cron").val( "<TMPL_VAR NAME=CRON>" );
+		</script>
+		</td>
+	</tr>
+	</table>-->
+	</td>
+	<td width="5%" valign="middle">
+	&nbsp;
+	</td>
+	<td width="20%">
+	<font size="-1"><TMPL_VAR NAME=T::FORMTABLE.MINISERVER_HELP></font>
+	</td>
+</tr>
+<tr>
+	<td width="20%">
+		<label id="labelrestapi"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI></label>
+	</td>
+	<td width="55%">
+		<table border=0	width="100%">
+		<tr>
+			<td width="20%">
+			<fieldset>
+			<select onChange="disable_restapi();" id="restapi" name="restapi" data-role="flipswitch" data-theme="e">
+			<option	value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
+			<option	value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+			</select>
+			</fieldset>
+			<script>
+			// Select option depending on saved config
+			$( "#sendudp").val( "<TMPL_VAR NAME=RESTAPI>" );
+			</script>
+			</td>
+			<td>
+			<table border=0 width="100%">
+			<tr>
+				<td>
+				<label id="labelrestapiport"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PORT></label>
+				</td>
+				<td>
+				<input id="restapiport" name="restapiport" type="text" data-validation="number" class="textfield" value="<TMPL_VAR NAME=UDPPORT>"
+				data-validation-allowing="range[1;65000]"
+				data-validation-error-msg="<TMPL_VAR NAME=SERIAL> <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PORT> <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PORT_VALIDATION>">
+				</td>
+			</tr>
+			</table>
+			</td>
+		</tr>
+		</table>
+	</td>
+	<td width="5%" valign="middle">
+	 &nbsp;
+	</td>
+	<td width="20%">
+	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP></font>
+	</td>
+</tr>
+<!--<tr>
+	<td width="20%">
+	<label id="labelsendhtml"><TMPL_VAR NAME=T::FORMTABLE.SEND_HTTP></label>
+	</td>
+	<td width="55%">
+	<table border=0 width="100%">
+	<tr>
+		<td>
+		<fieldset>
+		<select id="sendhtml" name="sendhtml" data-role="flipswitch" disabled=disabled>
+		<option value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
+		<option selected=selected value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+		</select>
+		</fieldset>
+		</td>
+		<td>
+		<TMPL_VAR NAME=T::FORMTABLE.VIRTUALHTTPINPUT> <a href="/plugins/<TMPL_VAR NAME=PSUBFOLDER>/index.php" target="_blank">http://<TMPL_VAR NAME=HOST>/plugins/<TMPL_VAR NAME=PSUBFOLDER>/index.php</a>
+		</td>
+	</tr>
+	</table>
+	</td>
+	<td width="5%" valign="middle">
+	&nbsp;
+	</td>
+	<td width="20%">
+	<font size="-1"><TMPL_VAR NAME=T::FORMTABLE.SEND_HTTP_HELP></font>
+	</td>
+</tr>-->
+<tr>
+	<td colspan=4>
+	&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td>
+	&nbsp;
+	</td>
+	<td colspan=3>
+	<div id="form-error-message" class="form-error-message"></div>
+	</td>
+</tr>
+
+</table>
+
+<p>
+&nbsp;
+</p>
+
+<p>
+<center>
+	<a id="btncancel" data-role="button" data-inline="true" data-mini="true" data-icon="delete"
+	href="/admin/index.cgi"><TMPL_VAR NAME=T::BUTTON.CANCEL></a>
+	<button type="submit" form="main_form" id="btnsubmit" data-role="button" data-inline="true"
+	data-mini="true" data-icon="check"><TMPL_VAR NAME=T::BUTTON.SAVE></button>
+</center>
+</p>
+
+</form>
+
+
+<script>
+	// Error messages
+	var $messages = $('#form-error-message');
+	$.validate({
+		modules : 'security',
+		scrollToTopOnError : true,
+		errorMessagePosition : $messages,
+	});
+
+	// Disable some options on Load depending on selected value
+
+	function disable_kalliope() {
+	//	if ( $( "#read" ).val() == "0" ) {
+	//		$( "#cron" ).addClass('ui-disabled');
+	//		$( "#cron" ).selectmenu();
+	//		$( "#cron" ).selectmenu('refresh', true);
+	//	}
+	//	if ( $( "#read" ).val() == "1" ) {
+	//		$( "#cron" ).removeClass('ui-disabled');
+	//		$( "#cron" ).selectmenu();
+	//		$( "#cron" ).selectmenu('refresh', true);
+	//	}
+	}
+
+</script>

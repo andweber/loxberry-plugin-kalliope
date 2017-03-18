@@ -212,6 +212,10 @@ fi
 /bin/sed -i "s:REPLACEFOLDERNAME:$ARGV3:g" $ARGV5/system/daemons/plugins/$ARGV2
 /bin/sed -i "s:REPLACEINSTALLFOLDER:$ARGV5:g" $ARGV5/system/daemons/plugins/$ARGV2
 
+# Replace webfrontend
+/bin/sed -i "s:REPLACEFOLDERNAME:$ARGV3:g" $ARGV5/config/plugins/$ARGV3/webfrontend.cfg
+/bin/sed -i "s:REPLACEBYNAME:$ARGV2:g" $ARGV5/config/plugins/$ARGV3/webfrontend.cfg
+
 #symlink settings that we can start kalliope from data path
 ln -s $ARGV5/config/plugins/$ARGV3/settings.yml $ARGV5/data/plugins/$ARGV3/settings.yml
 

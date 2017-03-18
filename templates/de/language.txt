@@ -1,0 +1,50 @@
+[BUTTON]
+STATUSNAME="Kalliope ist:"
+CFGAUDIO="Mikrofon und Sound einstellen und testen"
+SHOWLOGFILE="Logfiles zeigen"
+EDITBRAIN="Verknüpfungen"
+SAVE="Speichern"
+CANCEL="Abbrechen"
+
+[GENERIC]
+ON="An"
+OFF="Aus"
+
+[FORMTABLE]
+GENERALSETTINGS="Allgemeine Einstellungen"
+MINISERVER="Miniserver:"
+MINISERVER_HELP="Miniserver der gesteuert wird"
+RESTAPI="Fernsteuerung:"
+RESTAPI_PORT="UDP Port:"
+RESTAPI_PORT_VALIDATION="Bitte eine gültige Portnummer zwischen 1 and 65000 eingeben."
+RESTAPI_HELP="Ermöglicht die Fernsteuerung von Kalliope z.B. über den Miniserver"
+SEND_HTTP="Zählerdaten per HTTP abrufen:"
+SEND_HTTP_HELP="Hole die Zählerdaten per HTTP. Diese Option ist automatisch aktiviert."
+VIRTUALHTTPINPUT="URL:"
+
+[FORMTABLEROWS]
+ROWTITLE="I/R Lesekopf - Seriennummer:"
+NAME="Beschreibung:"
+NAME_VALIDATION="Nur alphanummerische Zeichen sowie - und _ sind erlaubt."
+NAME_HELP="Wird nur zur einfacheren Identifizierung verwendet."
+METER="Zähler:"
+METER_HELP="Wähle Deinen Zähler oder wähle 'Manuelle Konfiguration'."
+PLEASESELECT="Bitte auswählen..."
+MANUAL="Manuelle Konfiguration"
+MANUALSETTINGS="Manuelle Einstellungen:"
+MANUALSETTINGS_HELP="Konfiguriere die Einstellungen des seriellen Ports und des Zählern manuell."
+PROTOCOL="Protokoll:"
+BAUDRATE="Max. Baudrate:"
+STARTBAUDRATE="Initiale Baudrate:"
+PARITY="Parity:"
+HANDSHAKE="Handshake:"
+DATABITS="Databits:"
+STOPBITS="Stopbits:"
+TIMEOUT="Timeout:"
+DELAY="Verzögerung:"
+
+[LOGFILETABLEROWS]
+ROWTITLE="I/R Lesekopf - Seriennummer:"
+LABEL="Logfile:"
+TITLE="Logfiles"
+

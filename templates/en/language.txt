@@ -1,0 +1,49 @@
+[BUTTON]
+STATUSNAME="Kalliope is:"
+CFGAUDIO="Configure Audio and Micro"
+SHOWLOGFILE="Show Logfiles"
+EDITBRAIN="Edit Brain"
+SAVE="Save"
+CANCEL="Cancel"
+
+[GENERIC]
+ON="On"
+OFF="Off"
+
+[FORMTABLE]
+GENERALSETTINGS="General Settings"
+MINISERVER="Miniserver:"
+MINISERVER_HELP="Specify miniserver which shall be controlled"
+RESTAPI="Remote Control:"
+RESTAPI_PORT="UDP Port:"
+RESTAPI_PORT_VALIDATION="Please enter a valid port between 1 and 65000."
+RESTAPI_HELP="Allow remote control of kalliope for example for the Miniserver."
+SEND_HTTP="Get data by HTTP:"
+SEND_HTTP_HELP="Get meter data by HTTP. Activated automatically."
+VIRTUALHTTPINPUT="URL:"
+
+[FORMTABLEROWS]
+ROWTITLE="I/R Head - Serial:"
+NAME="Description:"
+NAME_VALIDATION="Only alphanumeric letters, - and _ are allowed."
+NAME_HELP="Is only used for easier identification."
+METER="Meter:"
+METER_HELP="Select your meter or choose 'Manual Configuration'."
+PLEASESELECT="Please select..."
+MANUAL="Manual Configuration"
+MANUALSETTINGS="Manual Settings:"
+MANUALSETTINGS_HELP="Configure settings of the serial port and meter protocol manually."
+PROTOCOL="Protocol:"
+BAUDRATE="Max. Baudrate:"
+STARTBAUDRATE="Initial Baudrate:"
+PARITY="Parity:"
+HANDSHAKE="Handshake:"
+DATABITS="Databits:"
+STOPBITS="Stopbits:"
+TIMEOUT="Timeout:"
+DELAY="Delay:"
+
+[LOGFILETABLEROWS]
+ROWTITLE="I/R Head - Serial:"
+LABEL="Logfile:"
+TITLE="Logfiles"

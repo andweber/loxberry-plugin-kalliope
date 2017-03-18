@@ -20,3 +20,8 @@ libatlas3-base
 mplayer
 pulseaudio
 pulseaudio-utils
+libyaml-tiny-perl
+#libconfig-yaml-perl
+libstring-escape-perl
+
+
