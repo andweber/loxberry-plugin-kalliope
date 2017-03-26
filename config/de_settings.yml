@@ -60,9 +60,6 @@ text_to_speech:
   - pico2wave:
       language: "de-DE"
       cache: True
-  - voxygen:
-      voice: "Sylvia"
-      cache: True
   - acapela:
       language: "sonid15"
       voice: "Manon"

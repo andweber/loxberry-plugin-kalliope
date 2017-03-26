@@ -1,42 +1,61 @@
 <div align="right"><font size="-1"><TMPL_VAR NAME=PLUGINVERSION></font></div>
 <center>
+
+<!-- This is the logo with weblink -->
 <table border=0 cellpadding=5>
 <tr>
 	<td>
 		<img src="/system/images/icons/<TMPL_VAR NAME=PSUBFOLDER>/icon_256.png">
 	</td>
-        <td>
+    <td>
  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </td>
-	<td>    <!-- TODO: run start and stop script -->
-                        <fieldset>
-                        <select onChange="disable_kalliope();" id="running" name="running" data-role="flipswitch" data-theme="e">
+    </td>
+	<td>
+        <fieldset>
+                        <select onChange="disable_kalliope();" id="running" name="running" data-role="flipswitch" data-theme="e" disabled=disabled>
                         <option value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
                         <option value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
                         </select>
-                        </fieldset>
-                        <script>
+        </fieldset>
+        <script>
                         // Select option depending on saved config
                         $( "#running").val( "<TMPL_VAR NAME=RUNNING>" );
-                        </script>
+       </script>
 	</td>
+    <td>
+ 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+    <td><font size="-1">
+            <TMPL_VAR NAME=T::GENERIC.HP></br>
+            <a href="https://kalliope-project.github.io/">https://kalliope-project.github.io/</a>
+            </font>
+    </td>
 </tr>
 </table>
+
+<!-- Line of buttons -->
 <table border=0 cellpadding=5>
 <tr>
+	<td>
+	<a  id="btncfgaudio" data-icon="gear" data-role="button" data-mini="true" href="./config.cgi" target="_blank"><TMPL_VAR NAME=T::BUTTON.CONFIG></a>
+	</td>
 	<td>
 	<a  id="btncfgaudio" data-icon="audio" data-role="button" data-mini="true" href="./cfgaudio.cgi" target="_blank"><TMPL_VAR NAME=T::BUTTON.CFGAUDIO></a>
 	</td>
 	<td>
-	<a id="btnshowlog" data-icon="search" data-role="button" data-mini="true" href="./logfiles.cgi" target="_blank"><TMPL_VAR NAME=T::BUTTON.SHOWLOGFILE></a>
+	<a id="btnshowlog" data-icon="search" data-role="button" data-mini="true" href="../../system/tools/logfile.cgi?logfile=plugins/<TMPL_VAR NAME=PSUBFOLDER>/<TMPL_VAR NAME=LOGFILE>&header=html&format=template" target="_blank"><TMPL_VAR NAME=T::BUTTON.SHOWLOGFILE></a>
 	</td>
 	<td>
 	<a  id="btneditbrain" data-icon="edit" data-role="button" data-mini="true" href="./editbrain.cgi" class="ui-disabled"><TMPL_VAR NAME=T::BUTTON.EDITBRAIN></a>
 	</td>
+	<td>
+	<a  id="btnusage" data-icon="edit" data-role="button" data-mini="true" href="./usage.cgi" class="ui-disabled"><TMPL_VAR NAME=T::BUTTON.USAGE></a>
+	</td>    
 </tr>
 </table>
 </center>
 
+<!-- main form with action -->
 <form method="post" data-ajax="false" name="main_form" id="main_form" action="./index.cgi">
 <input type="hidden" name="saveformdata" value="1">
 
@@ -48,65 +67,89 @@
 </tr>
 <tr>
 	<td width="20%">
-	<label id="labelauto"><TMPL_VAR NAME=T::FORMTABLE.MINISERVER></label>
+		<label id="labelrestapi"><TMPL_VAR NAME=T::FORMTABLE.MSSPEECHCONTROL></label>
 	</td>
-	<td width="55%">
-	<!--<table border=0 width="100%">
-	<tr>
-		<td width="20%">
-		<fieldset>
-		<select onChange="disable_cron();" id="read" name="read" data-role="flipswitch">
-		<option value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
-		<option value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
-		</select>
-		</fieldset>
-		<script>
-		      // Select option depending on saved config
-		      $( "#read").val( "<TMPL_VAR NAME=READ>" );
-		</script>
-		</td>
-		<td>
-		<select id="cron" name="cron" data-mini="true" data-native-menu="true">
-		    <option value="1"><TMPL_VAR NAME=T::FORMTABLE.1MINUTE></option>
-		    <option value="3"><TMPL_VAR NAME=T::FORMTABLE.3MINUTE></option>
-		    <option value="5"><TMPL_VAR NAME=T::FORMTABLE.5MINUTE></option>
-		    <option value="10"><TMPL_VAR NAME=T::FORMTABLE.10MINUTE></option>
-		    <option value="15"><TMPL_VAR NAME=T::FORMTABLE.15MINUTE></option>
-		    <option value="30"><TMPL_VAR NAME=T::FORMTABLE.30MINUTE></option>
-		    <option value="60"><TMPL_VAR NAME=T::FORMTABLE.60MINUTE></option>
-		</select>
-		<script>
-		    // Select option depending on saved config
-		    $( "#cron").val( "<TMPL_VAR NAME=CRON>" );
-		</script>
-		</td>
-	</tr>
-	</table>-->
+	<td width="40%">
+		<table border=0	width="100%">
+		<tr>
+			<td width="20%">
+			<fieldset>
+			<select id="speechcontrol" name="speechcontrol" data-role="flipswitch" data-theme="e"  disabled=disabled>
+			<option value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
+			<option selected=selected value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+			</select>
+			</fieldset>
+			<script>
+			// Select option depending on saved config
+			$( "#speechcontrol").val( "<TMPL_VAR NAME=LOXSCONTROL>" );
+			</script>
+			</td>
+            <td>
+            <select id="miniserver" name="miniserver" data-mini="true" data-native-menu="true" disabled=disabled>
+                <option value="1"><TMPL_VAR NAME=MINISERVER1></option>                
+            </select>
+            <script>
+            // Select option depending on saved config
+            $( "#miniserver").val( "<TMPL_VAR NAME=MINISERVER_SELECTED>" );
+            </script>
+			</td>
+		</tr>
+		</table>
 	</td>
 	<td width="5%" valign="middle">
-	&nbsp;
+	 &nbsp;
 	</td>
+	<td width="35%">
+	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.MSSPEECHCONTROL_HELP></font>
+	</td>
+</tr>
+<tr>
 	<td width="20%">
-	<font size="-1"><TMPL_VAR NAME=T::FORMTABLE.MINISERVER_HELP></font>
+		<label id="labelrestapi"><TMPL_VAR NAME=T::FORMTABLE.TTS></label>
+	</td>
+	<td width="40%">
+		<table border=0	width="100%">
+		<tr>
+			<td width="20%">
+			<fieldset>
+			<select id="tts_active" name="tts_active" data-role="flipswitch" data-theme="e" disabled=disabled>
+			<option	value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
+			<option	selected=selected value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+			</select>
+			</fieldset>
+			</td>
+			<td>
+            &nbsp;
+			</td>
+		</tr>
+		</table>
+	</td>
+	<td width="5%" valign="middle">
+	 &nbsp;
+	</td>
+	<td width="35%">
+	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.TTS_HELP><br> 
+     <pre>http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/id/SYNAPSENNAME</pre>
+     <TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_2> <a href="https://github.com/andweber/kalliope/blob/master/Docs/brain.md"><TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_3></a></font>
 	</td>
 </tr>
 <tr>
 	<td width="20%">
 		<label id="labelrestapi"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI></label>
 	</td>
-	<td width="55%">
+	<td width="40%">
 		<table border=0	width="100%">
 		<tr>
 			<td width="20%">
 			<fieldset>
-			<select onChange="disable_restapi();" id="restapi" name="restapi" data-role="flipswitch" data-theme="e">
+			<select onChange="disable_restapi();" id="restapi" name="restapi" data-role="flipswitch" data-theme="e" >
 			<option	value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
 			<option	value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
 			</select>
 			</fieldset>
 			<script>
 			// Select option depending on saved config
-			$( "#sendudp").val( "<TMPL_VAR NAME=RESTAPI>" );
+			$( "#restapi" ).val( "<TMPL_VAR NAME=RESTAPI>" );
 			</script>
 			</td>
 			<td>
@@ -116,11 +159,41 @@
 				<label id="labelrestapiport"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PORT></label>
 				</td>
 				<td>
-				<input id="restapiport" name="restapiport" type="text" data-validation="number" class="textfield" value="<TMPL_VAR NAME=UDPPORT>"
+				<input id="restapiport" name="restapiport" type="text" data-validation="number" class="textfield" value="<TMPL_VAR NAME=RESTAPI_PORT>"
 				data-validation-allowing="range[1;65000]"
-				data-validation-error-msg="<TMPL_VAR NAME=SERIAL> <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PORT> <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PORT_VALIDATION>">
+				data-validation-error-msg="<TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PORT> <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PORT_VALIDATION>">
 				</td>
-			</tr>
+			</tr><tr>
+ 				<td>
+				<label id="labelrestapiuselogin"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_USELOGIN></label>
+				</td>               
+                <td>
+                    <fieldset>
+                        <select onChange="disable_restapi_uselogin();" id="restapi_uselogin" name="restapi_uselogin" data-role="flipswitch" data-theme="e" >
+                            <option	value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
+                            <option	value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+                        </select>
+                    </fieldset>
+                    <script>
+                    // Select option depending on saved config
+                    $( "#restapi_uselogin" ).val( "<TMPL_VAR NAME=RESTAPI_USELOGIN>" );
+                    </script>
+                </td>
+ 			</tr><tr>
+				<td>
+				<label id="labelrestapilogin"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_LOGIN></label>
+				</td>
+				<td>
+				<input id="restapilogin" name="restapilogin" type="text" class="textfield" value="<TMPL_VAR NAME=RESTAPI_LOGIN>">
+				</td>
+            </tr><tr>
+				<td>
+				<label id="labelrestapipassword"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PASSWORD></label>
+				</td>
+				<td>
+				<input id="restapipassword" name="restapipassword" type="text" class="textfield" value="<TMPL_VAR NAME=RESTAPI_PASSWORD>">
+				</td>
+            </tr>
 			</table>
 			</td>
 		</tr>
@@ -129,38 +202,19 @@
 	<td width="5%" valign="middle">
 	 &nbsp;
 	</td>
-	<td width="20%">
-	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP></font>
-	</td>
+	<td width="35%">
+	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP> <br> 
+     <pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD> -X POST \
+     http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/id/SYNAPSENNAME</pre>
+     <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_2>
+     <pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD> -H "Content-Type: application/json" \
+     -X POST -d '{"order":"my order"}' \
+     http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/order</pre>
+     <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_3>
+     <a href="https://github.com/kalliope-project/kalliope/blob/master/Docs/rest_api.md"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_4></a></font>
+     </td>
 </tr>
-<!--<tr>
-	<td width="20%">
-	<label id="labelsendhtml"><TMPL_VAR NAME=T::FORMTABLE.SEND_HTTP></label>
-	</td>
-	<td width="55%">
-	<table border=0 width="100%">
-	<tr>
-		<td>
-		<fieldset>
-		<select id="sendhtml" name="sendhtml" data-role="flipswitch" disabled=disabled>
-		<option value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
-		<option selected=selected value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
-		</select>
-		</fieldset>
-		</td>
-		<td>
-		<TMPL_VAR NAME=T::FORMTABLE.VIRTUALHTTPINPUT> <a href="/plugins/<TMPL_VAR NAME=PSUBFOLDER>/index.php" target="_blank">http://<TMPL_VAR NAME=HOST>/plugins/<TMPL_VAR NAME=PSUBFOLDER>/index.php</a>
-		</td>
-	</tr>
-	</table>
-	</td>
-	<td width="5%" valign="middle">
-	&nbsp;
-	</td>
-	<td width="20%">
-	<font size="-1"><TMPL_VAR NAME=T::FORMTABLE.SEND_HTTP_HELP></font>
-	</td>
-</tr>-->
+
 <tr>
 	<td colspan=4>
 	&nbsp;
@@ -204,10 +258,11 @@
 	});
 
 	// Disable some options on Load depending on selected value
-
+   disable_restapi();   
+   
 	function disable_kalliope() {
 	//	if ( $( "#read" ).val() == "0" ) {
-	//		$( "#cron" ).addClass('ui-disabled');
+	//		$( "#restapilogin" ).addClass('ui-disabled');
 	//		$( "#cron" ).selectmenu();
 	//		$( "#cron" ).selectmenu('refresh', true);
 	//	}
@@ -217,5 +272,38 @@
 	//		$( "#cron" ).selectmenu('refresh', true);
 	//	}
 	}
+    
+    function disable_restapi_uselogin() {
+	    if ( $( "#restapi_uselogin" ).val() == "0" || $( "#restapi" ).val() == "0" )    {
+			$( "#restapilogin" ).addClass('ui-disabled');
+          $( "#labelrestapilogin" ).addClass('ui-disabled'); 
+			$( "#restapipassword" ).addClass('ui-disabled');
+          $( "#labelrestapipassword" ).addClass('ui-disabled');  
+		}
+		if ( $( "#restapi_uselogin" ).val() == "1" && $( "#restapi" ).val() == "1" ) {
+			$( "#restapilogin" ).removeClass('ui-disabled');
+          $( "#labelrestapilogin" ).removeClass('ui-disabled'); 
+			$( "#restapipassword" ).removeClass('ui-disabled');
+          $( "#labelrestapipassword" ).removeClass('ui-disabled');  
+		}
+	}
+   
+   function disable_restapi() {
+	    if ( $( "#restapi" ).val() == "0" ) {
+			$( "#labelrestapiport" ).addClass('ui-disabled');
+			$( "#restapiport" ).addClass('ui-disabled');
+           //FIXME: this leads to a loading loop preventing loading of the page???
+           //$( "#restapi_uselogin" ).flipswitch( "option", "disabled", true );
+           $( "#labelrestapiuselogin" ).addClass('ui-disabled');            
+		}
+		if ( $( "#restapi" ).val() == "1" ) {
+			$( "#labelrestapiport" ).removeClass('ui-disabled');
+			$( "#restapiport" ).removeClass('ui-disabled');
+           //FIXME: this leads to a loading loop preventing loading of the page???            
+			//$( "#restapi_uselogin" ).flipswitch( "option", "disabled", false );
+           $( "#labelrestapiuselogin" ).removeClass('ui-disabled');            
+		}
+       disable_restapi_uselogin();  
+	}    
 
 </script>

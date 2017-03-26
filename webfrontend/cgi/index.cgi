@@ -41,6 +41,7 @@ use warnings;
 my  $cgi = new CGI;
 my  $cfg;
 my  $plugin_cfg;
+my  $kalliope_cfg;
 my  $lang;
 my  $installfolder;
 my  $languagefile;
@@ -48,12 +49,13 @@ my  $version;
 my  $home = File::HomeDir->my_home;
 my  $psubfolder;
 my  $pname;
+my  $plogfile;
 my  $languagefileplugin;
 my  %TPhrases;
 my  @heads;
 my  %head;
-my  @rows;
-my  %hash;
+#my  @rows;
+#my  %hash;
 my  $maintemplate;
 my  $template_title;
 my  $phrase;
@@ -61,11 +63,11 @@ my  $helplink;
 my  @help;
 my  $helptext;
 my  $saveformdata;
-my  $clearcache;
+#my  $clearcache;
 my  %plugin_config;
-my  $name;
-my  $device;
-my  $serial;
+#my  $name;
+#my  $device;
+#my  $serial;
 
 ##########################################################################
 # Read Settings
@@ -91,23 +93,35 @@ $installfolder	= $cfg->param("BASE.INSTALLFOLDER");
 $lang		= $cfg->param("BASE.LANG");
 
 # Read plugin config
+# FIXME: This is still not used - could be deleted
 $plugin_cfg 	= new Config::Simple("$installfolder/config/plugins/$psubfolder/webfrontend.cfg") or die $plugin_cfg->error();
 $pname          = $plugin_cfg->param("MAIN.SCRIPTNAME");
+$plogfile         = "kalliope.log";
 
 # Read Kalliope config
 #$kalliope_cfg   = new Config::YAML(config=>"$installfolder/config/plugins/$psubfolder/settings.yml") or die $kaliope_cfg->error();
-$kalliope_cfg = YAML::Tiny->read("$installfolder/config/plugins/$psubfolder/settings.yml") or die $kaliope_cfg->error();
-
+my $kalliope_cfg_file = "$installfolder/config/plugins/$psubfolder/settings.yml";
+$kalliope_cfg = YAML::Tiny->read($kalliope_cfg_file) or die $kaliope_cfg->error();
 
 # Create temp folder if not already exist
 if (!-d "/var/run/kalliope/$psubfolder") {
 	system("mkdir -p /var/run/kalliope/$psubfolder > /dev/null 2>&1");
 }
-# Check for temporary log folder
-#if (!-e "$installfolder/log/plugins/$psubfolder/shm") {
-#	system("ln -s /var/run/shm/$psubfolder $installfolder/log/plugins/$psubfolder/shm > /dev/null 2>&1");
-#}
 
+# Check if kalliope is running
+my $exit_status = -2;
+if ( -e "$installfolder/system/daemons/plugins/$psubfolder" ) {
+	$exit_status = system("$installfolder/system/daemons/plugins/$psubfolder status > /dev/null 2>&1"); 
+}
+if ( $exit_status  == -1 ) {
+    $kalliope_runstatus = 0;
+}
+elsif ( $exit_status  == 0 ) {
+    $kalliope_runstatus = 1;
+}
+elsif ( $exit_status  == 1 ) {
+    $kalliope_runstatus = 0;
+}
 
 # Set parameters coming in - get over post
 if ( $cgi->url_param('lang') ) {
@@ -214,121 +228,22 @@ sub form
 
 	# If the form was saved, update config file
 	if ( $saveformdata ) {
-		#$plugin_cfg->param( "MAIN.READ", $cgi->param('read') );
-		#$plugin_cfg->param( "MAIN.CRON", $cgi->param('cron') );
-		#$plugin_cfg->param( "MAIN.SENDUDP", $cgi->param('sendudp') );
-		#$plugin_cfg->param( "MAIN.UDPPORT", $cgi->param('udpport') );
-		#foreach (@heads) {
-		#	$serial = $_->{serial};
-		#	$plugin_cfg->param("$serial.NAME", $cgi->param("$serial\_name") );
-		#	$plugin_cfg->param("$serial.METER", $cgi->param("$serial\_meter") );
-		#	if ( $cgi->param("$serial\_meter") eq "manual" ) {
-		#		$plugin_cfg->param("$serial.PROTOCOL", $cgi->param("$serial\_protocol") );
-		#		$plugin_cfg->param("$serial.STARTBAUDRATE", $cgi->param("$serial\_startbaudrate") );
-		#		$plugin_cfg->param("$serial.BAUDRATE", $cgi->param("$serial\_baudrate") );
-		#		$plugin_cfg->param("$serial.TIMEOUT", $cgi->param("$serial\_timeout") );
-		#		$plugin_cfg->param("$serial.DELAY", $cgi->param("$serial\_delay") );
-		#		$plugin_cfg->param("$serial.HANDSHAKE", $cgi->param("$serial\_handshake") );
-		#		$plugin_cfg->param("$serial.DATABITS", $cgi->param("$serial\_databits") );
-		#		$plugin_cfg->param("$serial.STOPBITS", $cgi->param("$serial\_stopbits") );
-		#		$plugin_cfg->param("$serial.PARITY", $cgi->param("$serial\_parity") );
-		#	} else {
-		#		$plugin_cfg->param("$serial.PROTOCOL", "");
-		#		$plugin_cfg->param("$serial.STARTBAUDRATE", "");
-		#		$plugin_cfg->param("$serial.BAUDRATE", "");
-		#		$plugin_cfg->param("$serial.TIMEOUT", "");
-		#		$plugin_cfg->param("$serial.DELAY", "");
-		#		$plugin_cfg->param("$serial.HANDSHAKE", "");
-		#		$plugin_cfg->param("$serial.DATABITS", "");
-		#		$plugin_cfg->param("$serial.STOPBITS", "");
-		#		$plugin_cfg->param("$serial.PARITY", "");
-		#	}
-		#}
-		$plugin_cfg->save;
+        if ($cgi->param('restapi') == 0) {
+            $kalliope_cfg->[0]->{rest_api}->{active} = "False"
+        } else {
+            $kalliope_cfg->[0]->{rest_api}->{active} = "True"
+        }
+        $kalliope_cfg->[0]->{rest_api}->{port} = $cgi->param('restapiport');
+        if ($cgi->param('restapi_uselogin') == 0) {
+            $kalliope_cfg->[0]->{rest_api}->{password_protected} = "False"
+        } else {
+            $kalliope_cfg->[0]->{rest_api}->{password_protected} = "True"
+        }        
+        $kalliope_cfg->[0]->{rest_api}->{login} = $cgi->param('restapilogin');
+        $kalliope_cfg->[0]->{rest_api}->{password} = $cgi->param('restapipassword');
 
-		# Create Cronjob
-		#if ( $cgi->param('read') eq "1" ) 
-		#{
-		#	if ($cgi->param('cron') eq "1") 
-		#	{
-		#		system ("ln -s $installfolder/webfrontend/cgi/plugins/$psubfolder/bin/fetch.pl $installfolder/system/cron/cron.01min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.03min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.05min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.10min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.15min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.30min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.hourly/$pname");
-		#	}
-		#	if ($cgi->param('cron') eq "3") 
-		#	{
-		#		system ("ln -s $installfolder/webfrontend/cgi/plugins/$psubfolder/bin/fetch.pl $installfolder/system/cron/cron.03min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.01min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.05min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.10min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.15min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.30min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.hourly/$pname");
-		#	}
-		#	if ($cgi->param('cron') eq "5") 
-		#	{
-		#		system ("ln -s $installfolder/webfrontend/cgi/plugins/$psubfolder/bin/fetch.pl $installfolder/system/cron/cron.05min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.01min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.03min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.10min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.15min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.30min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.hourly/$pname");
-		#	}
-		#	if ($cgi->param('cron') eq "10") 
-		#	{
-		#		system ("ln -s $installfolder/webfrontend/cgi/plugins/$psubfolder/bin/fetch.pl $installfolder/system/cron/cron.10min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.1min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.3min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.5min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.15min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.30min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.hourly/$pname");
-		#	}
-		#	if ($cgi->param('cron') eq "15") 
-		#	{
-		#		system ("ln -s $installfolder/webfrontend/cgi/plugins/$psubfolder/bin/fetch.pl $installfolder/system/cron/cron.15min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.01min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.03min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.05min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.10min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.30min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.hourly/$pname");
-		#	}
-		#	if ($cgi->param('cron') eq "30") 
-		#	{
-		#		system ("ln -s $installfolder/webfrontend/cgi/plugins/$psubfolder/bin/fetch.pl $installfolder/system/cron/cron.30min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.01min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.03min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.05min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.10min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.15min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.hourly/$pname");
-		#	}
-		#	if ($cgi->param('cron') eq "60") 
-		#	{
-		#		system ("ln -s $installfolder/webfrontend/cgi/plugins/$psubfolder/bin/fetch.pl $installfolder/system/cron/cron.hourly/$pname");
-		#		unlink ("$installfolder/system/cron/cron.01min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.03min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.05min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.10min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.15min/$pname");
-		#		unlink ("$installfolder/system/cron/cron.30min/$pname");
-		#	}
-		#	  
-		#} else {
-		#	unlink ("$installfolder/system/cron/cron.01min/$pname");
-		#	unlink ("$installfolder/system/cron/cron.03min/$pname");
-		#	unlink ("$installfolder/system/cron/cron.05min/$pname");
-		#	unlink ("$installfolder/system/cron/cron.10min/$pname");
-		#	unlink ("$installfolder/system/cron/cron.15min/$pname");
-		#	unlink ("$installfolder/system/cron/cron.30min/$pname");
-		#	unlink ("$installfolder/system/cron/cron.hourly/$pname");
-		#}
+		$plugin_cfg->save;
+        $kalliope_cfg->write( $kalliope_cfg_file );
 
 	}
 	
@@ -337,15 +252,31 @@ sub form
 
 	# Print Template header
 	&lbheader;
-
-	# Read options and set them for template
-	$maintemplate->param( PSUBFOLDER	=> $psubfolder );
-	#$maintemplate->param( HOST 		=> $ENV{HTTP_HOST} );
-	#$maintemplate->param( LOGINNAME		=> $ENV{REMOTE_USER} );
+    
+   	# Read options and set them for template
+ 	$maintemplate->param( PSUBFOLDER	=> $psubfolder );  
 	$maintemplate->param( PLUGINVERSION	=> $version );
-	$maintemplate->param( RUNNING 		=> $kalliope_running );
-	#$maintemplate->param( SENDUDP 		=> $plugin_cfg->param("MAIN.SENDUDP") );
-	#$maintemplate->param( UDPPORT 		=> $plugin_cfg->param("MAIN.UDPPORT") );
+	$maintemplate->param( RUNNING 		=> $kalliope_runstatus );
+	$maintemplate->param( HOST 		=> $ENV{HTTP_HOST} );
+    $maintemplate->param( LOGFILE 		=> $plogfile );
+    
+    #RESTAPI  
+    if ( uc($kalliope_cfg->[0]->{rest_api}->{password_protected}) eq "TRUE" ) {
+        $maintemplate->param( RESTAPI_USELOGIN		=> 1);   
+    } else {
+        $maintemplate->param( RESTAPI_USELOGIN		=> 0); 
+    }
+    if ( uc($kalliope_cfg->[0]->{rest_api}->{active}) eq "TRUE" ) {
+        $maintemplate->param( RESTAPI	=> 1);   
+    } else {
+        $maintemplate->param( RESTAPI	=> 0); 
+    }    
+	$maintemplate->param( RESTAPI_LOGIN	=> $kalliope_cfg->[0]->{rest_api}->{login});
+    $maintemplate->param( RESTAPI_PASSWORD	=> $kalliope_cfg->[0]->{rest_api}->{password});
+    $maintemplate->param( RESTAPI_PORT	=> $kalliope_cfg->[0]->{rest_api}->{port});  
+
+    #SpeechControl
+    $maintemplate->param( LOXSCONTROL	=> 1);  
 
   	# Read the config for all found heads
 	#my $i = 0;
@@ -371,7 +302,7 @@ sub form
 	#		$i++;
 	#	} 
 	#}
-	$maintemplate->param( ROWS => \@rows );
+	#$maintemplate->param( ROWS => \@rows );
 
 	# Print Template
 	print $maintemplate->output;
@@ -390,7 +321,7 @@ sub form
 sub lbheader 
 {
 	 # Create Help page
-  $helplink = "http://www.loxwiki.eu/display/LOXBERRY/SML-eMon";
+  $helplink = "http://www.loxwiki.eu/display/LOXBERRY/kalliope";
   open(F,"$installfolder/templates/plugins/$psubfolder/multi/help.html") || die "Missing template plugins/$psubfolder/$lang/help.html";
     @help = <F>;
     foreach (@help)
