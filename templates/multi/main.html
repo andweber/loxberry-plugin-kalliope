@@ -5,7 +5,7 @@
 <table border=0 cellpadding=5>
 <tr>
 	<td>
-		<img src="/system/images/icons/<TMPL_VAR NAME=PSUBFOLDER>/icon_256.png">
+		<img src="/system/images/icons/<TMPL_VAR NAME=PSUBFOLDER>/banner_512.png">
 	</td>
     <td>
  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -37,10 +37,10 @@
 <table border=0 cellpadding=5>
 <tr>
 	<td>
-	<a  id="btncfgaudio" data-icon="gear" data-role="button" data-mini="true" href="./config.cgi" target="_blank"><TMPL_VAR NAME=T::BUTTON.CONFIG></a>
+	<a  id="btncfgaudio" data-icon="gear" data-role="button" data-mini="true" class="ui-disabled ui-btn-active"><TMPL_VAR NAME=T::BUTTON.CONFIG></a>
 	</td>
 	<td>
-	<a  id="btncfgaudio" data-icon="audio" data-role="button" data-mini="true" href="./cfgaudio.cgi" target="_blank"><TMPL_VAR NAME=T::BUTTON.CFGAUDIO></a>
+	<a  id="btncfgaudio" data-icon="audio" data-role="button" data-mini="true" href="./cfgaudio.cgi"><TMPL_VAR NAME=T::BUTTON.CFGAUDIO></a>
 	</td>
 	<td>
 	<a id="btnshowlog" data-icon="search" data-role="button" data-mini="true" href="../../system/tools/logfile.cgi?logfile=plugins/<TMPL_VAR NAME=PSUBFOLDER>/<TMPL_VAR NAME=LOGFILE>&header=html&format=template" target="_blank"><TMPL_VAR NAME=T::BUTTON.SHOWLOGFILE></a>
@@ -62,7 +62,7 @@
 <table border=0 width="100%" cellpadding="10">
 <tr>
 	<td colspan=4>
-	<h2><TMPL_VAR NAME=T::FORMTABLE.GENERALSETTINGS></h2>
+	<h3><TMPL_VAR NAME=T::FORMTABLE.FEATURES></h3>
 	</td>
 </tr>
 <tr>
@@ -129,7 +129,7 @@
 	</td>
 	<td width="35%">
 	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.TTS_HELP><br> 
-     <pre>http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/id/SYNAPSENNAME</pre>
+     <pre>http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>\<br> /synapses/start/id/SYNAPSENNAME</pre>
      <TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_2> <a href="https://github.com/andweber/kalliope/blob/master/Docs/brain.md"><TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_3></a></font>
 	</td>
 </tr>
@@ -205,21 +205,27 @@
 	<td width="35%">
 	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP> <br> 
      <pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD> -X POST \
-     http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/id/SYNAPSENNAME</pre>
+     http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>\<br>/synapses/start/id/SYNAPSENNAME</pre>
      <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_2>
-     <pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD> -H "Content-Type: application/json" \
+     <pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD>\<br>     -H "Content-Type: application/json" \
      -X POST -d '{"order":"my order"}' \
-     http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/order</pre>
+     http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>\<br>  /synapses/start/order</pre>
      <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_3>
      <a href="https://github.com/kalliope-project/kalliope/blob/master/Docs/rest_api.md"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_4></a></font>
      </td>
 </tr>
-
 <tr>
+	<td colspan=4>
+	<h3><TMPL_VAR NAME=T::FORMTABLE.GENERALSETTINGS></h3>
+	</td>
+</tr>
+
+
+<!--<tr>
 	<td colspan=4>
 	&nbsp;
 	</td>
-</tr>
+</tr>-->
 
 <tr>
 	<td>

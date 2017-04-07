@@ -1,0 +1,489 @@
+<div align="right"><font size="-1"><TMPL_VAR NAME=PLUGINVERSION></font></div>
+<center>
+
+<!-- This is the logo with weblink -->
+<table border=0 cellpadding=5>
+<tr>
+	<td>
+		<img src="/system/images/icons/<TMPL_VAR NAME=PSUBFOLDER>/banner_512.png">
+	</td>
+    <td>
+ 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+	<td>
+        <fieldset>
+                        <select onChange="disable_kalliope();" id="running" name="running" data-role="flipswitch" data-theme="e" disabled=disabled>
+                        <option value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
+                        <option value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+                        </select>
+        </fieldset>
+        <script>
+                        // Select option depending on saved config
+                        $( "#running").val( "<TMPL_VAR NAME=RUNNING>" );
+       </script>
+	</td>
+    <td>
+ 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+    <td><font size="-1">
+            <TMPL_VAR NAME=T::GENERIC.HP></br>
+            <a href="https://kalliope-project.github.io/">https://kalliope-project.github.io/</a>
+            </font>
+    </td>
+</tr>
+</table>
+
+<!-- Line of buttons -->
+<table border=0 cellpadding=5>
+<tr>
+	<td>
+	<a  id="btncfgaudio" data-icon="gear" data-role="button" data-mini="true"  href="./index.cgi"><TMPL_VAR NAME=T::BUTTON.CONFIG></a>
+	</td>
+	<td>
+	<a  id="btncfgaudio" data-icon="audio" data-role="button" data-mini="true" class="ui-disabled ui-btn-active"><TMPL_VAR NAME=T::BUTTON.CFGAUDIO></a>
+	</td>
+	<td>
+	<a id="btnshowlog" data-icon="search" data-role="button" data-mini="true" href="../../system/tools/logfile.cgi?logfile=plugins/<TMPL_VAR NAME=PSUBFOLDER>/<TMPL_VAR NAME=LOGFILE>&header=html&format=template" target="_blank"><TMPL_VAR NAME=T::BUTTON.SHOWLOGFILE></a>
+	</td>
+	<td>
+	<a  id="btneditbrain" data-icon="edit" data-role="button" data-mini="true" href="./editbrain.cgi" class="ui-disabled"><TMPL_VAR NAME=T::BUTTON.EDITBRAIN></a>
+	</td>
+	<td>
+	<a  id="btnusage" data-icon="edit" data-role="button" data-mini="true" href="./usage.cgi"><TMPL_VAR NAME=T::BUTTON.USAGE></a>
+	</td>    
+</tr>
+</table>
+</center>
+
+<!-- main form with action -->
+<form method="post" data-ajax="false" name="main_form" id="main_form" action="./cfgaudio.cgi">
+<input type="hidden" name="saveformdata" value="1">
+
+<table border=0 width="100%" cellpadding="10">
+<tr>
+	<td colspan=4>
+	<h2><TMPL_VAR NAME=T::FORMTABLEAUDIO.GENERALSETTINGS></h2>
+	</td>
+</tr>
+<tr>
+   	<td colspan=4>
+	<TMPL_VAR NAME=T::FORMTABLEAUDIO.HARDWARE_HELP></br>
+    <TMPL_VAR NAME=T::FORMTABLEAUDIO.HARDWARE_HELP2>
+	</td>
+</tr>
+<tr>
+	<td width="20%">
+		<label id="labelmicro"><TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO></label>
+	</td>
+	<td width="40%">
+		<table border=0	width="100%">
+		<tr>
+			<td width="50%">
+                <label id="labelmicrohardware"><TMPL_VAR NAME=MICRO_NAME></label>
+            </td><td>
+                <a id="btnmicrec" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1"><TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_TEST></font></a>
+                <a id="btnplaybackrec" data-role="button" data-inline="true" data-mini="true" data-icon="forward" href="#"><font size="-1"><TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_TEST4></font></a>
+                <div id='overlay' style="display: none"><img src='/system/scripts/jquery/themes/main/images/ajax-loader.gif' /></div>
+            </td>
+		</tr><tr><td colspan=2>                
+                <font size="-1"><div id="labelmicrorec">&nbsp;</div></font>                
+        </td>
+        </tr>
+		</table>
+	</td>
+	<td width="5%" valign="middle">
+	 &nbsp;
+	</td>
+	<td width="35%">
+	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_HELP></font>
+	</td>
+</tr>
+<tr>
+	<td width="20%">
+		<label id="labelaudio"><TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO></label>
+	</td>
+	<td width="40%">
+		<table border=0	width="100%">
+		<tr>
+			<td width="50%">
+                <label id="labelaudiohardware"><TMPL_VAR NAME=AUDIO_NAME></label>
+            </td><td>
+                <a id="btnsoundplay1" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1"><TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_TEST1></font></a>
+                <a id="btnsoundplay2" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1"><TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_TEST2></font></a>
+               <a id="btnsoundplay3" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1"><TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_TEST3></font></a>
+                </td>
+		</tr>
+
+        </tr><tr><td colspan=2>                
+                <font size="-1"><div id="labelplayback">&nbsp;</div></font><br>
+                <font size="-1"><div id="labelplayback2">&nbsp;</div></font>  
+        </td>
+		</table>
+	</td>
+	<td width="5%" valign="middle">
+	 &nbsp;
+	</td>
+	<td width="35%">
+	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_HELP></font>
+	</td>
+</tr>
+<tr>
+	<td colspan=4>
+	&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td>
+	&nbsp;
+	</td>
+	<td colspan=3>
+	<div id="form-error-message" class="form-error-message"></div>
+	</td>
+</tr>
+
+</table>
+
+<p>
+&nbsp;
+</p>
+
+<p>
+<center>
+	<a id="btncancel" data-role="button" data-inline="true" data-mini="true" data-icon="delete"
+	href="/admin/index.cgi"><TMPL_VAR NAME=T::BUTTON.CANCEL></a>
+	<button type="submit" form="main_form" id="btnsubmit" data-role="button" data-inline="true"
+	data-mini="true" data-icon="check"><TMPL_VAR NAME=T::BUTTON.SAVE></button>
+</center>
+</p>
+
+</form>
+
+
+<script>
+	// Error messages
+	var $messages = $('#form-error-message');
+	$.validate({
+		modules : 'security',
+		scrollToTopOnError : true,
+		errorMessagePosition : $messages,
+	});
+
+	// Disable some options on Load depending on selected value
+   $( "#btnplaybackrec" ).addClass('ui-disabled');    
+  
+  $(document).ready(function () {  
+  
+  // Show loading animation while ajax events
+  $(this).ajaxStart(function() {
+    $("#overlay").show();
+  });    
+    
+  $(this).ajaxStop(function() {
+    $("#overlay").hide();
+  });    
+
+  // record Audio with default audio device
+  $('#btnmicrec').click( function(e) {
+    $("#btnmicrec").addClass('ui-disabled');
+    $('#labelmicrorec').css('color', 'black');   
+    $('#labelmicrorec').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_RECORDING>');  
+    e.preventDefault();
+    $.ajax({
+      contentType: "application/x-www-form-urlencoded; charset=iso-8859-15",
+      type: "GET",
+      url: "/admin/plugins/<TMPL_VAR NAME=PSUBFOLDER>/testrecord.cgi",
+      data: "data",
+      success: function(data){
+        data.replace(/\r|\n/g, "");
+       //success msg
+        if (data == "done" ) {
+            $('#labelmicrorec').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_RECORDING_DONE>');    
+            $("#btnplaybackrec").removeClass('ui-disabled');
+            $('#labelmicrorec').css('color', 'green');     
+       } else {
+       //something went wrong - print an error msg
+           text =  '<TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_RECORDING_ERROR>:'+data+'<br>';
+           switch (true) {
+                case (data == "ERR:01:Timeout"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_RECORDING_ERROR_TIMEOUT>';
+                    break;
+                case (data == "ERR:02:unkown device"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_RECORDING_ERROR_UNKWNDEV>';
+                    break;
+                case (data == "ERR:02:device bussy"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_RECORDING_ERROR_DEVBSSY>';
+                    break;                    
+            default:
+                text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_RECORDING_ERROR_UNKWN>';
+                break;
+            }             
+            $('#labelmicrorec').html(text); 
+            $('#labelmicrorec').css('color', 'red');           
+       }
+        
+        }, //sucess
+        error: function(xhr, ajaxOptions, thrownError){
+             $('#labelmicrorec').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_RECORDING_ERROR_CGI> <br> AJAX ERROR:'+thrownError);
+             $('#labelmicrorec').css('color', 'red');
+        } //fail
+ 
+    }); //ajay
+    $("#btnmicrec").removeClass('ui-disabled');
+     
+    }); //click 
+
+  // playback record with default audio device
+  $('#btnplaybackrec').click( function(e) {
+    $("#btnplaybackrec").addClass('ui-disabled');
+    $('#labelmicrorec').css('color', 'black');    
+    $('#labelmicrorec').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK>');  
+    e.preventDefault();
+    $.ajax({
+      contentType: "application/x-www-form-urlencoded; charset=iso-8859-15",
+      type: "GET",
+      url: "/admin/plugins/<TMPL_VAR NAME=PSUBFOLDER>/playrecord.cgi",
+      data: "data",
+      success: function(data){
+        data.replace(/\r|\n/g, "");
+        //success msg
+        if (data == "done" ) {
+            $('#labelmicrorec').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_DONE>');
+            $('#labelmicrorec').css('color', 'green');    
+       
+       } else {
+           //something went wrong - print an error msg
+           text =  '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR>:'+data+'<br>';
+           switch (true) {
+                case (data == "ERR:01:Timeout"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_TIMEOUT>';
+                    break;
+                case (data == "ERR:02:unkown device"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_UNKWNDEV>';
+                    break;
+                case (data == "ERR:02:device bussy"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_DEVBSSY>';
+                    break;                    
+            default:
+                text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_UNKWN>';
+                break;
+            }             
+            $('#labelmicrorec').html(text); 
+            $('#labelmicrorec').css('color', 'red');
+       }
+        
+        }, //sucess
+        error: function(xhr, ajaxOptions, thrownError){
+             $('#labelmicrorec').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_PLAYBACK_ERROR_CGI> <br> AJAX ERROR:'+thrownError);
+             $('#labelmicrorec').css('color', 'red');
+        } //fail
+ 
+    }); //ajay
+    $("#btnplaybackrec").removeClass('ui-disabled');
+  }); //click 
+  
+  // play testfile with ALSA device (basic standard output device)
+  $('#btnsoundplay1').click( function(e) {
+    $("#btnsoundplay1").addClass('ui-disabled');
+    $('#labelplayback').css('color', 'black');
+    $('#labelplayback2').css('color', 'black');
+    $('#labelplayback').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK>');
+    $('#labelplayback2').html('');    
+    e.preventDefault();
+    $.ajax({
+      contentType: "application/x-www-form-urlencoded; charset=iso-8859-15",
+      type: "GET",
+      url: "/admin/plugins/<TMPL_VAR NAME=PSUBFOLDER>/playaudio.cgi?dev=ALSA",
+      data: "data",
+      success: function(data){
+        data.replace(/\r|\n/g, "");
+        //success msg
+        if (data == "done" ) {
+            $('#labelplayback').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_DONE>');
+            $('#labelplayback').css('color', 'green');    
+       
+       } else {
+           //something went wrong - print an error msg
+           text =  '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR>:'+data+'<br>';
+           switch (true) {
+                case (data == "ERR:01:Timeout"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_TIMEOUT>';
+                    break;
+                case (data == "ERR:02:unkown device"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_UNKWNDEV>';
+                    break;
+                case (data == "ERR:02:device bussy"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_DEVBSSY>';
+                    break;                    
+            default:
+                text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_UNKWN>';
+                break;
+            }             
+            $('#labelplayback').html(text); 
+            $('#labelplayback').css('color', 'red');
+       }
+        
+        }, //sucess
+        error: function(xhr, ajaxOptions, thrownError){
+             $('#labelplayback').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_PLAYBACK_ERROR_CGI> <br> AJAX ERROR:'+thrownError);
+             $('#labelplayback').css('color', 'red');
+        } //fail
+ 
+    }); //ajay
+
+    $("#btnsoundplay1").removeClass('ui-disabled');
+  }); //click   
+
+  // play testfile with default device (typicall puseaudio)
+  $('#btnsoundplay2').click( function(e) {
+    $("#btnsoundplay2").addClass('ui-disabled');
+    $('#labelplayback').css('color', 'black');
+    $('#labelplayback2').css('color', 'black');
+    $('#labelplayback').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK>');
+    $('#labelplayback2').html('');    
+    e.preventDefault();
+    $.ajax({
+      contentType: "application/x-www-form-urlencoded; charset=iso-8859-15",
+      type: "GET",
+      url: "/admin/plugins/<TMPL_VAR NAME=PSUBFOLDER>/playaudio.cgi",
+      data: "data",
+      success: function(data){
+        data.replace(/\r|\n/g, "");
+        //success msg
+        if (data == "done" ) {
+            $('#labelplayback').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_DONE>');
+            $('#labelplayback').css('color', 'green');    
+       
+       } else {
+           //something went wrong - print an error msg
+           text =  '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR>:'+data+'<br>';
+           switch (true) {
+                case (data == "ERR:01:Timeout"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_TIMEOUT>';
+                    break;
+                case (data == "ERR:02:unkown device"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_UNKWNDEV>';
+                    break;
+                case (data == "ERR:02:device bussy"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_DEVBSSY>';
+                    break;                    
+            default:
+                text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_UNKWN>';
+                break;
+            }             
+            $('#labelplayback').html(text); 
+            $('#labelplayback').css('color', 'red');
+       }
+        
+        }, //sucess
+        error: function(xhr, ajaxOptions, thrownError){
+             $('#labelplayback').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_PLAYBACK_ERROR_CGI> <br> AJAX ERROR:'+thrownError);
+             $('#labelplayback').css('color', 'red');
+        } //fail
+ 
+    }); //ajay
+    
+    $("#btnsoundplay2").removeClass('ui-disabled');
+  }); //click     
+  
+  // play testfile with default device(typically using pulseaudio)
+  $('#btnsoundplay3').click( function(e) {
+    $("#btnsoundplay3").addClass('ui-disabled');
+    $('#labelplayback').css('color', 'black');
+    $('#labelplayback2').css('color', 'black');
+    $('#labelplayback').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK>');
+    $('#labelplayback2').html('');    
+    e.preventDefault();
+    $.ajax({
+      contentType: "application/x-www-form-urlencoded; charset=iso-8859-15",
+      type: "GET",
+      url: "/admin/plugins/<TMPL_VAR NAME=PSUBFOLDER>/playaudio.cgi",
+      data: "data",
+      success: function(data){
+        data.replace(/\r|\n/g, "");
+        //success msg
+        if (data == "done" ) {
+            $('#labelplayback').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_DONE>');
+            $('#labelplayback').css('color', 'green');    
+       
+       } else {
+           //something went wrong - print an error msg
+           text =  '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR>:'+data+'<br>';
+           switch (true) {
+                case (data == "ERR:01:Timeout"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_TIMEOUT>';
+                    break;
+                case (data == "ERR:02:unkown device"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_UNKWNDEV>';
+                    break;
+                case (data == "ERR:02:device bussy"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_DEVBSSY>';
+                    break;                    
+            default:
+                text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_UNKWN>';
+                break;
+            }             
+            $('#labelplayback').html(text); 
+            $('#labelplayback').css('color', 'red');
+       }
+        
+        }, //sucess
+        error: function(xhr, ajaxOptions, thrownError){
+             $('#labelplayback').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_PLAYBACK_ERROR_CGI> <br> AJAX ERROR:'+thrownError);
+             $('#labelplayback').css('color', 'red');
+        } //fail
+ 
+    }); //ajay
+
+    // play second testfile with default device (typically using pulseaudio)    
+    $('#labelplayback2').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK>');
+    $.ajax({
+      contentType: "application/x-www-form-urlencoded; charset=iso-8859-15",
+      type: "GET",
+      url: "/admin/plugins/<TMPL_VAR NAME=PSUBFOLDER>/playaudio.cgi",
+      data: "data",
+      success: function(data){
+        data.replace(/\r|\n/g, "");
+        //success msg
+        if (data == "done" ) {
+            $('#labelplayback2').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_DONE>');
+            $('#labelplayback2').css('color', 'green');    
+       
+       } else {
+           //something went wrong - print an error msg
+           text =  '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR>:'+data+'<br>';
+           switch (true) {
+                case (data == "ERR:01:Timeout"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_TIMEOUT>';
+                    break;
+                case (data == "ERR:02:unkown device"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_UNKWNDEV>';
+                    break;
+                case (data == "ERR:02:device bussy"):
+                    text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_DEVBSSY>';
+                    break;                    
+            default:
+                text += '<TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_PLAYBACK_ERROR_UNKWN>';
+                break;
+            }             
+            $('#labelplayback2').html(text); 
+            $('#labelplayback2').css('color', 'red');
+       }
+        
+        }, //sucess
+        error: function(xhr, ajaxOptions, thrownError){
+             $('#labelplayback2').html('<TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_PLAYBACK_ERROR_CGI> <br> AJAX ERROR:'+thrownError);
+             $('#labelplayback2').css('color', 'red');
+        } //fail
+ 
+    }); //ajay    
+    $("#btnsoundplay3").removeClass('ui-disabled');
+  }); //click  
+  
+  }); //ready
+ 
+</script>
+
+
+
+

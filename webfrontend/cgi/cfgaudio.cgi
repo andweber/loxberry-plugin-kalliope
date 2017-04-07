@@ -154,7 +154,7 @@ elsif ( $cgi->param('clearcache') ) {
 
 # Main
 $maintemplate = HTML::Template->new(
-	filename => "$installfolder/templates/plugins/$psubfolder/multi/main.html",
+	filename => "$installfolder/templates/plugins/$psubfolder/multi/cfgaudio.html",
 	global_vars => 1,
 	loop_context_vars => 1,
 	die_on_bad_params => 0,
