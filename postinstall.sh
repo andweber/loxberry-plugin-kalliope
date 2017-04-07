@@ -218,6 +218,7 @@ fi
 
 #symlink settings that we can start kalliope from data path
 ln -s $ARGV5/config/plugins/$ARGV3/settings.yml $ARGV5/data/plugins/$ARGV3/settings.yml
+ln -s $ARGV5/config/plugins/$ARGV3/templates/ $ARGV5/data/plugins/$ARGV3/templates
 
 echo "<OK> Kalliope configured."
 
