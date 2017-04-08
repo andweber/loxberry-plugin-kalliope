@@ -7,7 +7,7 @@
 
 A [LoxBerry Plugin](http://plugins.loxberry.de/) providing a [Kalliope](https://github.com/kalliope-project/kalliope/) installation for the LoxBerry. A [LoxBerry](http://www.loxwiki.eu:80/x/o4CO) is an easy to install Raspberry Pi intented for home automation.
 
-A LoxBerry with this plugin can be used to voice control a Loxone Homeautomation. 
+A LoxBerry with this plugin can be used to voice control a Loxone Homeautomation. Be aware: Kalliope is an always-on speech assistant. Meaning the micro is used to catch a keyword (this step is local), commands spoken after the keyword are recorded and processed by Kalliope. In the default configuration the speech recognition is done by using cloud-services. 
 
 For Details visit [http://www.loxwiki.eu](http://www.loxwiki.eu:80/x/o4CO) or [Kalliope](https://github.com/kalliope-project/kalliope/).
 
@@ -16,9 +16,9 @@ This project is a non-commercial community project and not connected to the comp
 
 ## Installation
 
-/!\ You need to have a running [LoxBerry](http://www.loxwiki.eu:80/x/o4CO) installation with a microphone and an audio output connected. You can get the latest version from [https://download.loxberry.de/](https://download.loxberry.de/). Consult the [installation instructions](http://www.loxwiki.eu:80/x/r4CO) for more details. For issues with audio or microphone the [audio guide](Audio.md) may help.
+/!\ You need to have a running [LoxBerry](http://www.loxwiki.eu:80/x/o4CO) installation with a microphone and an audio output connected. You can get the latest version from [https://download.loxberry.de/](https://download.loxberry.de/). Consult the [installation instructions](http://www.loxwiki.eu:80/x/r4CO) for more details. 
 
-You can download the last stable version of this plugin from [http://plugins.loxberry.de/](http://plugins.loxberry.de/) or you download this repository as *.zip.
+You can download the last stable version of this plugin from [http://plugins.loxberry.de/](http://plugins.loxberry.de/) or the [https://github.com/andweber/loxberry-plugin-kalliope/releases](releases pages). For the development version download this repository as *.zip.
 
 LoxBerry contains a [bug](https://github.com/mschlenstedt/Loxberry/issues/165). As long as this is not fixed use the following manual fix:
 1. Log into loxberry with an ssh as root
@@ -27,13 +27,13 @@ LoxBerry contains a [bug](https://github.com/mschlenstedt/Loxberry/issues/165). 
 
 Navigate in the LoxBerry Webfrontend to Plugin-Installation, select the downloaded *.zip and install the plugin. 
 
-Navigate to the plugin configuration site and configure the plugin as descriped in the webfrontend.
+Navigate to the plugin configuration site and configure the plugin. Help is available at the [configure guide](CONFIG.md). For issues with audio or microphone the [audio guide](AUDIO.md) may help.
 
 Finally restart the LoxBerry.
 
 ## Usage
 
-For any further documentation about the usage of Kalliope, please refer to the [Kalliope project](https://github.com/kalliope-project/kalliope/).
+The Webfrontend provides some hints for the usage of Kalliope. For any further documentation about the usage of Kalliope, please refer to the [Kalliope project](https://github.com/kalliope-project/kalliope/).
 
 The Kalliope brain is stored in the plugin config folder and can be adjusted and improved as needed. 
 

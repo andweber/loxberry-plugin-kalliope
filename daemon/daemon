@@ -46,7 +46,18 @@ case "$1" in
     else
         echo "<INFO> Starting Kalliope..."
         cd REPLACEINSTALLFOLDER/data/plugins/REPLACEFOLDERNAME
-        if [ $EUID -eq 0 ]; then		
+        if [ $EUID -eq 0 ]; then
+
+            # FIX Loxberry Bug - missing audo group
+            $username = loxberry
+            if getent group audio | grep &>/dev/null "\b${username}\b"; then
+                echo "<INFO> Loxberry is member of group audio."
+            else
+                echo "<INFO> Adding Loxberry to group audio..."
+                adduser loxberry audio
+            fi 
+		
+            # Start Loxberry
             su loxberry -c ". pyvenv/bin/activate && kalliope start --debug --brain-file $brainfolder/brain.yml >$logfolder 2>$logfolder &"
         else
             . pyvenv/bin/activate 
