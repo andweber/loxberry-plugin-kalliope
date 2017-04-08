@@ -44,18 +44,21 @@ The Kalliope brain is stored in the plugin config folder and can be adjusted and
 - plugin installs Kalliope
 - kalliope is running after reboot (config found, starting up correctly)
 
-Version 0.2
+[Done] Version 0.2
 - basic settings in webfrontend
+- Audio, Mic test in webfrontend
 - LoxSControl is running (directly started from cmdl)
 - working at least for german and english
-- Plugin upgrade is possible
 
 Version 0.3
-- Proof of Voice Control Kalliope
-- Proof of Voice Control of Loxone
+- Improved Webfrontend, including Options and Usage
+- Proof Control Kalliope using Rest-API
+- Proof Control of Loxone with Kalliope
 
 Version 0.4
-- Audio, Mic test in webfrontend
+- Plugin upgrade is possible
+- Proof of Voice Control Kalliope
+- Proof of Voice Control of Loxone
 
 Version 0.5
 - Configuring Kalliope using the webfrontend
