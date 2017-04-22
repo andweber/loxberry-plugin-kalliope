@@ -40,7 +40,7 @@
 	<a  id="btncfgaudio" data-icon="gear" data-role="button" data-mini="true"  href="./index.cgi"><TMPL_VAR NAME=T::BUTTON.CONFIG></a>
 	</td>
 	<td>
-	<a  id="btncfgaudio" data-icon="audio" data-role="button" data-mini="true"><TMPL_VAR NAME=T::BUTTON.CFGAUDIO></a>
+	<a  id="btncfgaudio" data-icon="audio" data-role="button" data-mini="true" href="./cfgaudio.cgi"><TMPL_VAR NAME=T::BUTTON.CFGAUDIO></a>
 	</td>
 	<td>
 	<a id="btnshowlog" data-icon="search" data-role="button" data-mini="true" href="../../system/tools/logfile.cgi?logfile=plugins/<TMPL_VAR NAME=PSUBFOLDER>/<TMPL_VAR NAME=LOGFILE>&header=html&format=template" target="_blank"><TMPL_VAR NAME=T::BUTTON.SHOWLOGFILE></a>
@@ -68,7 +68,8 @@
 
 <tr>
    	<td colspan=4>
-	<TMPL_VAR NAME=T::FORMTABLEUSAGE.USAGE_HELP>
+	<TMPL_VAR NAME=T::FORMTABLEUSAGE.USAGE_HELP> <br>
+    <font size="-1"><TMPL_VAR NAME=T::FORMTABLEUSAGE.USAGE_HELP2></font>
 	</td>
 </tr>
 
@@ -119,18 +120,51 @@
 
 <tr>
 	<td colspan=4>
-	&nbsp;
+	<h2><TMPL_VAR NAME=T::FORMTABLE.RESTAPI></h2>
 	</td>
 </tr>
 
 <tr>
+	<td colspan=4>
+    <font><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP> <br> 
+    <pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD> -X POST http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/id/SYNAPSENNAME</pre>
+     <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_2>
+     <pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD>  -H "Content-Type: application/json" -X POST -d '{"order":"my order"}'  http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/order</pre>
+     <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_3>
+     <a href="https://github.com/kalliope-project/kalliope/blob/master/Docs/rest_api.md"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_4></a></font>
+	</td>
+</tr>
+
+<tr>
+	<td colspan=4>
+	<h2><TMPL_VAR NAME=T::FORMTABLE.TTS></h2>
+	</td>
+</tr>
+
+<tr>
+	<td colspan=4>
+    <font><TMPL_VAR NAME=T::FORMTABLE.TTS_HELP><br> 
+     <pre>http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/id/SYNAPSENNAME</pre>
+     <TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_2> <a href="https://github.com/andweber/kalliope/blob/master/Docs/brain.md"><TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_3></a></font>
+	</td>
+</tr>
+
+
+
+<!--<tr>
+	<td colspan=4>
+	&nbsp;
+	</td>
+</tr>-->
+
+<!--<tr>
 	<td>
 	&nbsp;
 	</td>
 	<td colspan=3>
 	<div id="form-error-message" class="form-error-message"></div>
 	</td>
-</tr>
+</tr>-->
 
 </table>
 
@@ -138,14 +172,14 @@
 &nbsp;
 </p>
 
-<p>
+<!--<p>
 <center>
 	<a id="btncancel" data-role="button" data-inline="true" data-mini="true" data-icon="delete"
 	href="/admin/index.cgi"><TMPL_VAR NAME=T::BUTTON.CANCEL></a>
 	<button type="submit" form="main_form" id="btnsubmit" data-role="button" data-inline="true"
 	data-mini="true" data-icon="check"><TMPL_VAR NAME=T::BUTTON.SAVE></button>
 </center>
-</p>
+</p>-->
 
 </form>
 

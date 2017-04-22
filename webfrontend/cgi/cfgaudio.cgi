@@ -66,6 +66,9 @@ my  $saveformdata;
 #my  $clearcache;
 my  %plugin_config;
 my $kalliope_runstatus;
+my $audiohardware;
+my $microhardware;
+my $pulseaudio;
 #my  $name;
 #my  $device;
 #my  $serial;
@@ -75,7 +78,7 @@ my $kalliope_runstatus;
 ##########################################################################
 
 # Version of this script
-$version = "0.1";
+$version = "0.2";
 
 # Figure out in which subfolder we are installed
 $psubfolder = abs_path($0);
@@ -124,6 +127,31 @@ elsif ( $exit_status  == 1 ) {
     $kalliope_runstatus = 0;
 }
 
+# get hardware
+    $audiohardware =`cat /proc/asound/pcm | grep -oP '(?<=: ).+(?=:.*: playback)' | sort -u`;  
+    # check out for errors and set exit status  
+    if ($?>> 8 != 0) {
+        $audiohardware = "-";    
+    }
+    $microhardware =`cat /proc/asound/pcm | grep -oP '(?<=: ).+(?=:.*: capture)' | sort -u`;  
+    # check out for errors and set exit status  
+    if ($?>> 8 != 0) {
+        $microhardware = "-";    
+    }
+    
+    $pulseaudio = `aplay -L | grep -A 1 default | grep -o PulseAudio`;
+    $pulseaudio =~ s/\s+$//;  
+    if ($?>> 8 == 0) {
+        if ($pulseaudio eq "PulseAudio" ){
+             #$pulseaudio = "x";                
+        } else {
+             $pulseaudio = "-";     
+        }
+    } else {
+             $pulseaudio = "-";     
+    }
+
+
 # Set parameters coming in - get over post
 if ( $cgi->url_param('lang') ) {
 	$lang = quotemeta( $cgi->url_param('lang') );
@@ -137,13 +165,6 @@ if ( $cgi->url_param('saveformdata') ) {
 elsif ( $cgi->param('saveformdata') ) {
 	$saveformdata = quotemeta( $cgi->param('saveformdata') );
 }
-if ( $cgi->url_param('clearcache') ) {
-	$clearcache = quotemeta( $cgi->url_param('clearcache') );
-}
-elsif ( $cgi->param('clearcache') ) {
-	$clearcache = quotemeta( $cgi->param('clearcache') );
-}
-
 
 ##########################################################################
 # Initialize html templates
@@ -262,22 +283,27 @@ sub form
     $maintemplate->param( LOGFILE 		=> $plogfile );
     
     #RESTAPI  
-    if ( uc($kalliope_cfg->[0]->{rest_api}->{password_protected}) eq "TRUE" ) {
-        $maintemplate->param( RESTAPI_USELOGIN		=> 1);   
-    } else {
-        $maintemplate->param( RESTAPI_USELOGIN		=> 0); 
-    }
-    if ( uc($kalliope_cfg->[0]->{rest_api}->{active}) eq "TRUE" ) {
-        $maintemplate->param( RESTAPI	=> 1);   
-    } else {
-        $maintemplate->param( RESTAPI	=> 0); 
-    }    
-	$maintemplate->param( RESTAPI_LOGIN	=> $kalliope_cfg->[0]->{rest_api}->{login});
-    $maintemplate->param( RESTAPI_PASSWORD	=> $kalliope_cfg->[0]->{rest_api}->{password});
-    $maintemplate->param( RESTAPI_PORT	=> $kalliope_cfg->[0]->{rest_api}->{port});  
+    #if ( uc($kalliope_cfg->[0]->{rest_api}->{password_protected}) eq "TRUE" ) {
+    #    $maintemplate->param( RESTAPI_USELOGIN		=> 1);   
+    #} else {
+    #    $maintemplate->param( RESTAPI_USELOGIN		=> 0); 
+    #}
+    #if ( uc($kalliope_cfg->[0]->{rest_api}->{active}) eq "TRUE" ) {
+    #    $maintemplate->param( RESTAPI	=> 1);   
+    #} else {
+    #    $maintemplate->param( RESTAPI	=> 0); 
+    #}    
+	#$maintemplate->param( RESTAPI_LOGIN	=> $kalliope_cfg->[0]->{rest_api}->{login});
+    #$maintemplate->param( RESTAPI_PASSWORD	=> $kalliope_cfg->[0]->{rest_api}->{password});
+    #$maintemplate->param( RESTAPI_PORT	=> $kalliope_cfg->[0]->{rest_api}->{port});  
 
     #SpeechControl
-    $maintemplate->param( LOXSCONTROL	=> 1);  
+    #$maintemplate->param( LOXSCONTROL	=> 1);  
+
+    # Audio Hardware from /proc/asound/pcm
+    $maintemplate->param( AUDIO_HARDWARE	=> $audiohardware);
+    $maintemplate->param( MICRO_HARDWARE	=> $microhardware);
+    $maintemplate->param( PULSEAUDIO	=> $pulseaudio);
 
   	# Read the config for all found heads
 	#my $i = 0;

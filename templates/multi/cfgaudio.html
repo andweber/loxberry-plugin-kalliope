@@ -79,7 +79,9 @@
 		<table border=0	width="100%">
 		<tr>
 			<td width="50%">
-                <label id="labelmicrohardware"><TMPL_VAR NAME=MICRO_NAME></label>
+                <font size="-1"><TMPL_VAR NAME=T::FORMTABLEAUDIO.HARDWARE_AVAILABLE> <br> 
+                <TMPL_VAR NAME=MICRO_HARDWARE><br>
+                <TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_SERVER> <TMPL_VAR NAME=PULSEAUDIO></font>                
             </td><td>
                 <a id="btnmicrec" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1"><TMPL_VAR NAME=T::FORMTABLEAUDIO.MICRO_TEST></font></a>
                 <a id="btnplaybackrec" data-role="button" data-inline="true" data-mini="true" data-icon="forward" href="#"><font size="-1"><TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_TEST4></font></a>
@@ -106,7 +108,9 @@
 		<table border=0	width="100%">
 		<tr>
 			<td width="50%">
-                <label id="labelaudiohardware"><TMPL_VAR NAME=AUDIO_NAME></label>
+                <font size="-1"><TMPL_VAR NAME=T::FORMTABLEAUDIO.HARDWARE_AVAILABLE> <br> 
+                <TMPL_VAR NAME=AUDIO_HARDWARE> <br>
+                <TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_SERVER> <TMPL_VAR NAME=PULSEAUDIO></font>
             </td><td>
                 <a id="btnsoundplay1" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1"><TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_TEST1></font></a>
                 <a id="btnsoundplay2" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1"><TMPL_VAR NAME=T::FORMTABLEAUDIO.AUDIO_TEST2></font></a>
@@ -148,14 +152,14 @@
 &nbsp;
 </p>
 
-<p>
+<!--<p>
 <center>
 	<a id="btncancel" data-role="button" data-inline="true" data-mini="true" data-icon="delete"
 	href="/admin/index.cgi"><TMPL_VAR NAME=T::BUTTON.CANCEL></a>
 	<button type="submit" form="main_form" id="btnsubmit" data-role="button" data-inline="true"
 	data-mini="true" data-icon="check"><TMPL_VAR NAME=T::BUTTON.SAVE></button>
 </center>
-</p>
+</p>-->
 
 </form>
 

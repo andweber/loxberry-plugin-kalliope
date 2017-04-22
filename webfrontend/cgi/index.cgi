@@ -75,7 +75,7 @@ my $kalliope_runstatus;
 ##########################################################################
 
 # Version of this script
-$version = "0.1";
+$version = "0.2";
 
 # Figure out in which subfolder we are installed
 $psubfolder = abs_path($0);
@@ -103,6 +103,25 @@ $plogfile         = "kalliope.log";
 #$kalliope_cfg   = new Config::YAML(config=>"$installfolder/config/plugins/$psubfolder/settings.yml") or die $kaliope_cfg->error();
 my $kalliope_cfg_file = "$installfolder/config/plugins/$psubfolder/settings.yml";
 $kalliope_cfg = YAML::Tiny->read($kalliope_cfg_file) or die $kaliope_cfg->error();
+
+# get text to speech engines
+my %stt_engines;
+my %tts_engines;
+    
+# get all defined speech to text engines
+foreach (@{$kalliope_cfg->[0]->{'speech_to_text'}}) {
+        #print %$_; 
+        #print "\n"; 
+        @key = keys(%$_);
+        $stt_engines{$key[0]} = %$_{keys(%$_)}; 
+}
+
+foreach (@{$kalliope_cfg->[0]->{'text_to_speech'}}) {
+        #print %$_; 
+        #print "\n"; 
+        @key = keys(%$_);
+        $tts_engines{$key[0]} = %$_{keys(%$_)}; 
+}
 
 # Create temp folder if not already exist
 if (!-d "/var/run/kalliope/$psubfolder") {
@@ -137,12 +156,12 @@ if ( $cgi->url_param('saveformdata') ) {
 elsif ( $cgi->param('saveformdata') ) {
 	$saveformdata = quotemeta( $cgi->param('saveformdata') );
 }
-if ( $cgi->url_param('clearcache') ) {
-	$clearcache = quotemeta( $cgi->url_param('clearcache') );
-}
-elsif ( $cgi->param('clearcache') ) {
-	$clearcache = quotemeta( $cgi->param('clearcache') );
-}
+#if ( $cgi->url_param('clearcache') ) {
+#	$clearcache = quotemeta( $cgi->url_param('clearcache') );
+#}
+#elsif ( $cgi->param('clearcache') ) {
+#	$clearcache = quotemeta( $cgi->param('clearcache') );
+#}
 
 
 ##########################################################################
@@ -229,11 +248,13 @@ sub form
 
 	# If the form was saved, update config file
 	if ( $saveformdata ) {
+        
+        # REST-API
         if ($cgi->param('restapi') == 0) {
             $kalliope_cfg->[0]->{rest_api}->{active} = "False"
         } else {
             $kalliope_cfg->[0]->{rest_api}->{active} = "True"
-        }
+        }        
         $kalliope_cfg->[0]->{rest_api}->{port} = $cgi->param('restapiport');
         if ($cgi->param('restapi_uselogin') == 0) {
             $kalliope_cfg->[0]->{rest_api}->{password_protected} = "False"
@@ -242,6 +263,38 @@ sub form
         }        
         $kalliope_cfg->[0]->{rest_api}->{login} = $cgi->param('restapilogin');
         $kalliope_cfg->[0]->{rest_api}->{password} = $cgi->param('restapipassword');
+        
+        # STT
+        $kalliope_cfg->[0]->{default_speech_to_text} = $cgi->param('defaultstt');
+        
+        # STT-Options; only save option changed for selected STT
+        if ($cgi->param('defaultstt') eq "google" ) {
+            $stt_engines{"google"}->{language} = $cgi->param('stt_google_lang');
+        } elsif ($cgi->param('defaultstt') eq "wit" ) {
+            $stt_engines{"wit"}->{key} = $cgi->param('stt_wit_key');
+        } elsif ($cgi->param('defaultstt') eq "bing" ) {
+            $stt_engines{"bing"}->{key} = $cgi->param('stt_bing_key');
+            $stt_engines{"bing"}->{language} = $cgi->param('stt_bing_lang');
+        } elsif ($cgi->param('defaultstt') eq "apiai" ) {
+            $stt_engines{"apiai"}->{key} = $cgi->param('stt_apiai_key');
+            $stt_engines{"apiai"}->{language} = $cgi->param('stt_apiai_lang');
+        } elsif ($cgi->param('defaultstt') eq "houndify" ) {
+            $stt_engines{"houndify"}->{key} = $cgi->param('stt_houndify_key');
+            $stt_engines{"houndify"}->{client_id} = $cgi->param('stt_houndify_clientid');
+        }
+
+        # write out complete stt_config
+        foreach (@{$stt_engines}) {
+                $kalliope_cfg->[0]->{'speech_to_text'} = {"" => %$_};
+        }
+        
+        # TTS
+        $kalliope_cfg->[0]->{default_text_to_speech} = $cgi->param('defaulttts');
+        
+        # TTS-Options; only save option changed for selected TTS
+        
+        
+        # TTS
 
 		$plugin_cfg->save;
         $kalliope_cfg->write( $kalliope_cfg_file );
@@ -261,7 +314,7 @@ sub form
 	$maintemplate->param( HOST 		=> $ENV{HTTP_HOST} );
     $maintemplate->param( LOGFILE 		=> $plogfile );
     
-    #RESTAPI  
+    # RESTAPI  
     if ( uc($kalliope_cfg->[0]->{rest_api}->{password_protected}) eq "TRUE" ) {
         $maintemplate->param( RESTAPI_USELOGIN		=> 1);   
     } else {
@@ -276,34 +329,62 @@ sub form
     $maintemplate->param( RESTAPI_PASSWORD	=> $kalliope_cfg->[0]->{rest_api}->{password});
     $maintemplate->param( RESTAPI_PORT	=> $kalliope_cfg->[0]->{rest_api}->{port});  
 
-    #SpeechControl
+    # SpeechControl
     $maintemplate->param( LOXSCONTROL	=> 1);  
+   
 
-  	# Read the config for all found heads
-	#my $i = 0;
-	#foreach (@heads) {
-	#	$serial = $_->{serial};
-	#	if ( $plugin_cfg->param("$serial.DEVICE") ) {
-	#		%{"hash".$i} = (
-	#		NAME 		=>	$plugin_cfg->param("$serial.NAME"),
-	#		SERIAL		=>	$plugin_cfg->param("$serial.SERIAL"),
-	#		DEVICE		=>	$plugin_cfg->param("$serial.DEVICE"),
-	#		METER		=>	$plugin_cfg->param("$serial.METER"),
-	#		PROTOCOL	=>	$plugin_cfg->param("$serial.PROTOCOL"),
-	#		STARTBAUDRATE	=>	$plugin_cfg->param("$serial.STARTBAUDRATE"),
-	#		BAUDRATE	=>	$plugin_cfg->param("$serial.BAUDRATE"),
-	#		TIMEOUT		=>	$plugin_cfg->param("$serial.TIMEOUT"),
-	#		DELAY		=>	$plugin_cfg->param("$serial.DELAY"),
-	#		HANDSHAKE	=>	$plugin_cfg->param("$serial.HANDSHAKE"),
-	#		DATABITS	=>	$plugin_cfg->param("$serial.DATABITS"),
-	#		STOPBITS	=>	$plugin_cfg->param("$serial.STOPBITS"),
-	#		PARITY		=>	$plugin_cfg->param("$serial.PARITY"),
-	#		);
-	#		push (@rows, \%{"hash".$i});
-	#		$i++;
-	#	} 
-	#}
-	#$maintemplate->param( ROWS => \@rows );
+
+    #print %stt_engines;
+    #print keys(%stt_engines);
+    
+    # STT    
+    if ( not exists $stt_engines{"google"} ) {
+        $maintemplate->param( GOOGLE_STT	=> "disabled");
+    }
+    if ( not exists  $stt_engines{"wit"} ) {
+        $maintemplate->param( WIT_STT	=> "disabled");
+    }
+    if ( not exists  $stt_engines{"bing"} ) {
+        $maintemplate->param( BING_STT	=> "disabled");
+    }
+    if (not exists  $stt_engines{"apiai"} ) {
+        $maintemplate->param( APIAI_STT	=> "disabled");
+    } 
+    if ( not exists  $stt_engines{"houndify"} ) {
+        $maintemplate->param( HOUNDIFY_STT	=> "disabled");
+    }    
+    if ( not exists  $stt_engines{"cmusphinx"} ) {
+        $maintemplate->param( CMUSPHINX_STT	=> "disabled");
+    }        
+    # set default STT
+    $maintemplate->param( STT_DEFAULT	=> $kalliope_cfg->[0]->{default_speech_to_text});
+    
+    # set config parameters
+	$maintemplate->param( STT_GOOGLE_LANG	=> $stt_engines{"google"}->{language});
+    $maintemplate->param( STT_WIT_KEY	=> $stt_engines{"wit"}->{key});
+    $maintemplate->param( STT_BING_LANG	=> $stt_engines{"bing"}->{language});     
+    $maintemplate->param( STT_BING_KEY	=> $stt_engines{"bing"}->{key});
+    $maintemplate->param( STT_APIAI_LANG	=> $stt_engines{"apiai"}->{language});     
+    $maintemplate->param( STT_APIAI_KEY	=> $stt_engines{"apiai"}->{key});
+    $maintemplate->param( STT_HOUNDIFY_CLIENTID	=> $stt_engines{"houndify"}->{client_id});     
+    $maintemplate->param( STT_HOUNDIFY_KEY	=> $stt_engines{"houndify"}->{key});
+
+    # TTS    
+    if ( not exists $tts_engines{"googletts"} ) {
+        $maintemplate->param( GOOGLE_TTS	=> "disabled");
+    }
+    if ( not exists  $tts_engines{"pico2wave"} ) {
+        $maintemplate->param( PICO2WAVE_TTS	=> "disabled");
+    }
+    if ( not exists  $tts_engines{"acapela"} ) {
+        $maintemplate->param( ACAPELA_TTS	=> "disabled");
+    }
+    if (not exists  $tts_engines{"voicerss"} ) {
+        $maintemplate->param( VOICERSS_TTS	=> "disabled");
+    } 
+      
+    # set default TTS
+    $maintemplate->param( TTS_DEFAULT	=> $kalliope_cfg->[0]->{default_text_to_speech});
 
 	# Print Template
 	print $maintemplate->output;
@@ -333,6 +414,7 @@ sub lbheader
       $helptext = $helptext . $_;
     }
   close(F);
+    
   open(F,"$installfolder/templates/system/$lang/header.html") || die "Missing template system/$lang/header.html";
     while (<F>) 
     {

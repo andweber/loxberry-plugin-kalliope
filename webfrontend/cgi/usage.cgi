@@ -75,7 +75,7 @@ my $kalliope_runstatus;
 ##########################################################################
 
 # Version of this script
-$version = "0.1";
+$version = "0.2";
 
 # Figure out in which subfolder we are installed
 $psubfolder = abs_path($0);

@@ -51,7 +51,9 @@ The Kalliope brain is stored in the plugin config folder and can be adjusted and
 - working at least for german and english
 
 Version 0.3
-- Improved Webfrontend, including Options and Usage
+- [Done] Improved Webfrontend, including Options and Usage
+- use global variables in synapses (0.4.3 feature)
+- check audio/mic hardware config
 - Proof Control Kalliope using Rest-API
 - Proof Control of Loxone with Kalliope
 
@@ -61,7 +63,7 @@ Version 0.4
 - Proof of Voice Control of Loxone
 
 Version 0.5
-- Configuring Kalliope using the webfrontend
+- Advanced configuring of Kalliope using the webfrontend (Support multiple Miniserver, Trigger Selection, etc.)
 
 Future feature collection
 - Edit brain using webfrontend
