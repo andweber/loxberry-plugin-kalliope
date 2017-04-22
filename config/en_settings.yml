@@ -33,11 +33,11 @@ speech_to_text:
   - google:
       language: "en-EN"
   - wit:
-      key: "B5JI3YUSLYOYWNIDBINBVM34XUODME2K"
+      key: "place your key here"
   - bing: # API not working : credential fails ..
-      key: "9e48ddaf75904838bedc11aea6b36fb0"
+      key: "place your key here"
   - apiai:
-      key: "e0cbff154af44944a6b9f82c0668b527"
+      key: "place your key here"
       language: "en"
   - houndify:
       key: "7zj90T7qAV74OYXk4X4vI2Xhk7wPsJu4aEZ0G5Ll-BMmV1JGtFpCxtSH9SmTY4G3bpEJ7a5y_GTQid-CAKI6vw=="
@@ -59,9 +59,6 @@ cache_path: "/tmp/kalliope_tts_cache"
 text_to_speech:
   - pico2wave:
       language: "en-US"
-      cache: True
-  - voxygen:
-      voice: "Jenny"
       cache: True
   - acapela:
       language: "sonid15"
