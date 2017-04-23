@@ -54,8 +54,6 @@ my  $languagefileplugin;
 my  %TPhrases;
 my  @heads;
 my  %head;
-#my  @rows;
-#my  %hash;
 my  $maintemplate;
 my  $template_title;
 my  $phrase;
@@ -63,22 +61,18 @@ my  $helplink;
 my  @help;
 my  $helptext;
 my  $saveformdata;
-#my  $clearcache;
 my  %plugin_config;
 my $kalliope_runstatus;
 my $audiohardware;
 my $microhardware;
 my $pulseaudio;
-#my  $name;
-#my  $device;
-#my  $serial;
 
 ##########################################################################
 # Read Settings
 ##########################################################################
 
 # Version of this script
-$version = "0.2";
+$version = "0.3";
 
 # Figure out in which subfolder we are installed
 $psubfolder = abs_path($0);
@@ -242,12 +236,7 @@ exit;
 
 sub form 
 {
-
-	# Clear Cache
-	#if ( $clearcache ) {
-	#	system("rm /var/run/shm/$psubfolder/* > /dev/null 2>&1");
-	#}
-
+    
 	# If the form was saved, update config file
 	if ( $saveformdata ) {
         if ($cgi->param('restapi') == 0) {
@@ -281,55 +270,11 @@ sub form
 	$maintemplate->param( RUNNING 		=> $kalliope_runstatus );
 	$maintemplate->param( HOST 		=> $ENV{HTTP_HOST} );
     $maintemplate->param( LOGFILE 		=> $plogfile );
-    
-    #RESTAPI  
-    #if ( uc($kalliope_cfg->[0]->{rest_api}->{password_protected}) eq "TRUE" ) {
-    #    $maintemplate->param( RESTAPI_USELOGIN		=> 1);   
-    #} else {
-    #    $maintemplate->param( RESTAPI_USELOGIN		=> 0); 
-    #}
-    #if ( uc($kalliope_cfg->[0]->{rest_api}->{active}) eq "TRUE" ) {
-    #    $maintemplate->param( RESTAPI	=> 1);   
-    #} else {
-    #    $maintemplate->param( RESTAPI	=> 0); 
-    #}    
-	#$maintemplate->param( RESTAPI_LOGIN	=> $kalliope_cfg->[0]->{rest_api}->{login});
-    #$maintemplate->param( RESTAPI_PASSWORD	=> $kalliope_cfg->[0]->{rest_api}->{password});
-    #$maintemplate->param( RESTAPI_PORT	=> $kalliope_cfg->[0]->{rest_api}->{port});  
-
-    #SpeechControl
-    #$maintemplate->param( LOXSCONTROL	=> 1);  
 
     # Audio Hardware from /proc/asound/pcm
     $maintemplate->param( AUDIO_HARDWARE	=> $audiohardware);
     $maintemplate->param( MICRO_HARDWARE	=> $microhardware);
     $maintemplate->param( PULSEAUDIO	=> $pulseaudio);
-
-  	# Read the config for all found heads
-	#my $i = 0;
-	#foreach (@heads) {
-	#	$serial = $_->{serial};
-	#	if ( $plugin_cfg->param("$serial.DEVICE") ) {
-	#		%{"hash".$i} = (
-	#		NAME 		=>	$plugin_cfg->param("$serial.NAME"),
-	#		SERIAL		=>	$plugin_cfg->param("$serial.SERIAL"),
-	#		DEVICE		=>	$plugin_cfg->param("$serial.DEVICE"),
-	#		METER		=>	$plugin_cfg->param("$serial.METER"),
-	#		PROTOCOL	=>	$plugin_cfg->param("$serial.PROTOCOL"),
-	#		STARTBAUDRATE	=>	$plugin_cfg->param("$serial.STARTBAUDRATE"),
-	#		BAUDRATE	=>	$plugin_cfg->param("$serial.BAUDRATE"),
-	#		TIMEOUT		=>	$plugin_cfg->param("$serial.TIMEOUT"),
-	#		DELAY		=>	$plugin_cfg->param("$serial.DELAY"),
-	#		HANDSHAKE	=>	$plugin_cfg->param("$serial.HANDSHAKE"),
-	#		DATABITS	=>	$plugin_cfg->param("$serial.DATABITS"),
-	#		STOPBITS	=>	$plugin_cfg->param("$serial.STOPBITS"),
-	#		PARITY		=>	$plugin_cfg->param("$serial.PARITY"),
-	#		);
-	#		push (@rows, \%{"hash".$i});
-	#		$i++;
-	#	} 
-	#}
-	#$maintemplate->param( ROWS => \@rows );
 
 	# Print Template
 	print $maintemplate->output;

@@ -100,4 +100,8 @@ STATUS_1="Sende Befehl..."
 STATUS_2="Sende Befehl... Fertig."
 STATUS_3="Sende Befehl... FEHLER"
 STATUS_ERROR_CGI="ERROR: "
+LOXSCONTROL="Loxone"
+LOXSCONTROL_LIGHTON_BTN="Licht an"
+LOXSCONTROL_LIGHTOFF_BTN="Licht aus"
+LOXSCONTROL_HELP="Wenn die Verbindung zum Miniserver klappt, wird das Licht an bzw. aus geschaltet."
 

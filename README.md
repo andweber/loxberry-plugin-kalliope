@@ -50,14 +50,16 @@ The Kalliope brain is stored in the plugin config folder and can be adjusted and
 - LoxSControl is running (directly started from cmdl)
 - working at least for german and english
 
-Version 0.3
-- [Done] Improved Webfrontend, including Options and Usage
-- use global variables in synapses (0.4.3 feature)
+[Done] Version 0.3
+- Improved Webfrontend, including Options and Usage
 - check audio/mic hardware config
 - Proof Control Kalliope using Rest-API
 - Proof Control of Loxone with Kalliope
 
 Version 0.4
+- Improved Webfrontend
+- use global variables in synapses (0.4.3 feature)
+- Update kalliope
 - Plugin upgrade is possible
 - Proof of Voice Control Kalliope
 - Proof of Voice Control of Loxone

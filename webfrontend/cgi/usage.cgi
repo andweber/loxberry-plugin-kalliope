@@ -54,8 +54,6 @@ my  $languagefileplugin;
 my  %TPhrases;
 my  @heads;
 my  %head;
-#my  @rows;
-#my  %hash;
 my  $maintemplate;
 my  $template_title;
 my  $phrase;
@@ -63,19 +61,15 @@ my  $helplink;
 my  @help;
 my  $helptext;
 my  $saveformdata;
-#my  $clearcache;
 my  %plugin_config;
-my $kalliope_runstatus;
-#my  $name;
-#my  $device;
-#my  $serial;
+my  $kalliope_runstatus;
 
 ##########################################################################
 # Read Settings
 ##########################################################################
 
 # Version of this script
-$version = "0.2";
+$version = "0.3";
 
 # Figure out in which subfolder we are installed
 $psubfolder = abs_path($0);
@@ -110,18 +104,18 @@ if (!-d "/var/run/kalliope/$psubfolder") {
 }
 
 # Check if kalliope is running
-my $exit_status = -2;
+#my $exit_status = -2;
 if ( -e "$installfolder/system/daemons/plugins/$psubfolder" ) {
-	$exit_status = system("$installfolder/system/daemons/plugins/$psubfolder status > /dev/null 2>&1"); 
+	system("$installfolder/system/daemons/plugins/$psubfolder status > /dev/null 2>&1") == 0 or die "system call failed: $?"; 
 }
-if ( $exit_status  == -1 ) {
+if ( $?  == -1 ) {
     $kalliope_runstatus = 0;
 }
-elsif ( $exit_status  == 0 ) {
+elsif ( $?  & 127 ) {
+    $kalliope_runstatus = 0;
+}
+else {
     $kalliope_runstatus = 1;
-}
-elsif ( $exit_status  == 1 ) {
-    $kalliope_runstatus = 0;
 }
 
 # Set parameters coming in - get over post
@@ -136,12 +130,6 @@ if ( $cgi->url_param('saveformdata') ) {
 }
 elsif ( $cgi->param('saveformdata') ) {
 	$saveformdata = quotemeta( $cgi->param('saveformdata') );
-}
-if ( $cgi->url_param('clearcache') ) {
-	$clearcache = quotemeta( $cgi->url_param('clearcache') );
-}
-elsif ( $cgi->param('clearcache') ) {
-	$clearcache = quotemeta( $cgi->param('clearcache') );
 }
 
 
@@ -222,35 +210,6 @@ exit;
 sub form 
 {
 
-	# Clear Cache
-	#if ( $clearcache ) {
-	#	system("rm /var/run/shm/$psubfolder/* > /dev/null 2>&1");
-	#}
-
-	# If the form was saved, update config file
-	if ( $saveformdata ) {
-        if ($cgi->param('restapi') == 0) {
-            $kalliope_cfg->[0]->{rest_api}->{active} = "False"
-        } else {
-            $kalliope_cfg->[0]->{rest_api}->{active} = "True"
-        }
-        $kalliope_cfg->[0]->{rest_api}->{port} = $cgi->param('restapiport');
-        if ($cgi->param('restapi_uselogin') == 0) {
-            $kalliope_cfg->[0]->{rest_api}->{password_protected} = "False"
-        } else {
-            $kalliope_cfg->[0]->{rest_api}->{password_protected} = "True"
-        }        
-        $kalliope_cfg->[0]->{rest_api}->{login} = $cgi->param('restapilogin');
-        $kalliope_cfg->[0]->{rest_api}->{password} = $cgi->param('restapipassword');
-
-		$plugin_cfg->save;
-        $kalliope_cfg->write( $kalliope_cfg_file );
-
-	}
-	
-	# The page title read from language file + our name
-	#$template_title = $phrase->param("TXT0000") . ": " . $pname;
-
 	# Print Template header
 	&lbheader;
     
@@ -278,32 +237,6 @@ sub form
 
     #SpeechControl
     $maintemplate->param( LOXSCONTROL	=> 1);  
-
-  	# Read the config for all found heads
-	#my $i = 0;
-	#foreach (@heads) {
-	#	$serial = $_->{serial};
-	#	if ( $plugin_cfg->param("$serial.DEVICE") ) {
-	#		%{"hash".$i} = (
-	#		NAME 		=>	$plugin_cfg->param("$serial.NAME"),
-	#		SERIAL		=>	$plugin_cfg->param("$serial.SERIAL"),
-	#		DEVICE		=>	$plugin_cfg->param("$serial.DEVICE"),
-	#		METER		=>	$plugin_cfg->param("$serial.METER"),
-	#		PROTOCOL	=>	$plugin_cfg->param("$serial.PROTOCOL"),
-	#		STARTBAUDRATE	=>	$plugin_cfg->param("$serial.STARTBAUDRATE"),
-	#		BAUDRATE	=>	$plugin_cfg->param("$serial.BAUDRATE"),
-	#		TIMEOUT		=>	$plugin_cfg->param("$serial.TIMEOUT"),
-	#		DELAY		=>	$plugin_cfg->param("$serial.DELAY"),
-	#		HANDSHAKE	=>	$plugin_cfg->param("$serial.HANDSHAKE"),
-	#		DATABITS	=>	$plugin_cfg->param("$serial.DATABITS"),
-	#		STOPBITS	=>	$plugin_cfg->param("$serial.STOPBITS"),
-	#		PARITY		=>	$plugin_cfg->param("$serial.PARITY"),
-	#		);
-	#		push (@rows, \%{"hash".$i});
-	#		$i++;
-	#	} 
-	#}
-	#$maintemplate->param( ROWS => \@rows );
 
 	# Print Template
 	print $maintemplate->output;

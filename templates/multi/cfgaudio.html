@@ -12,14 +12,14 @@
     </td>
 	<td>
         <fieldset>
-                        <select onChange="disable_kalliope();" id="running" name="running" data-role="flipswitch" data-theme="e" disabled=disabled>
+                        <select onChange="disable_kalliope();" id="cfg_running" name="cfg_running" data-role="flipswitch" data-theme="e" disabled=disabled>
                         <option value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
                         <option value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
                         </select>
         </fieldset>
         <script>
                         // Select option depending on saved config
-                        $( "#running").val( "<TMPL_VAR NAME=RUNNING>" );
+                        $( "#cfg_running").val( "<TMPL_VAR NAME=RUNNING>" );
        </script>
 	</td>
     <td>

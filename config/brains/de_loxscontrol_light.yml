@@ -85,7 +85,7 @@
 - name: "turn-on-named"
   signals:
     - order: "schalte das {{control_name}} an"
-    - order: "{{control_name}} an"    
+    - order: "schalte {{control_name}} an"    
   neurons:
     - loxscontrol:
         lx_ip: "REPLACEMINISERVER1IP"
@@ -99,7 +99,7 @@
 - name: "turn-off-named"
   signals:
     - order: "schalte das {{control_name}} aus"
-    - order: "{{control_name}} aus"      
+    - order: "schalte {{control_name}} aus"      
   neurons:
     - loxscontrol:
         lx_ip: "REPLACEMINISERVER1IP"

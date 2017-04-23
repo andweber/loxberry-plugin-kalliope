@@ -54,8 +54,6 @@ my  $languagefileplugin;
 my  %TPhrases;
 my  @heads;
 my  %head;
-#my  @rows;
-#my  %hash;
 my  $maintemplate;
 my  $template_title;
 my  $phrase;
@@ -63,19 +61,16 @@ my  $helplink;
 my  @help;
 my  $helptext;
 my  $saveformdata;
-#my  $clearcache;
 my  %plugin_config;
 my $kalliope_runstatus;
-#my  $name;
-#my  $device;
-#my  $serial;
+
 
 ##########################################################################
 # Read Settings
 ##########################################################################
 
 # Version of this script
-$version = "0.2";
+$version = "0.3";
 
 # Figure out in which subfolder we are installed
 $psubfolder = abs_path($0);
@@ -156,13 +151,6 @@ if ( $cgi->url_param('saveformdata') ) {
 elsif ( $cgi->param('saveformdata') ) {
 	$saveformdata = quotemeta( $cgi->param('saveformdata') );
 }
-#if ( $cgi->url_param('clearcache') ) {
-#	$clearcache = quotemeta( $cgi->url_param('clearcache') );
-#}
-#elsif ( $cgi->param('clearcache') ) {
-#	$clearcache = quotemeta( $cgi->param('clearcache') );
-#}
-
 
 ##########################################################################
 # Initialize html templates
@@ -331,12 +319,7 @@ sub form
 
     # SpeechControl
     $maintemplate->param( LOXSCONTROL	=> 1);  
-   
-
-
-    #print %stt_engines;
-    #print keys(%stt_engines);
-    
+       
     # STT    
     if ( not exists $stt_engines{"google"} ) {
         $maintemplate->param( GOOGLE_STT	=> "disabled");
