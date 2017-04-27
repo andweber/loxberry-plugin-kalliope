@@ -61,8 +61,8 @@ text_to_speech:
       language: "de-DE"
       cache: True
   - acapela:
-      language: "sonid15"
-      voice: "Manon"
+      language: "sonid16"
+      voice: "Claudia Smile"
       cache: True
   - googletts:
       language: "de"
