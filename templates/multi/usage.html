@@ -162,8 +162,12 @@
 <tr>
 	<td colspan=4>
     <font><TMPL_VAR NAME=T::FORMTABLE.TTS_HELP><br> 
-     <pre>http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/id/SYNAPSENNAME</pre>
-     <TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_2> <a href="https://github.com/andweber/kalliope/blob/master/Docs/brain.md"><TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_3></a></font>
+     <pre>http://<TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD>@<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT></pre>
+     <TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_2><br>
+     <pre>/synapses/start/id/SYNAPSENNAME</pre> 
+    <TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_4> <br>
+    <pre>/synapses/start/id/loxberry-install-finished</pre>
+     <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_3> <a href="https://github.com/andweber/kalliope/blob/master/Docs/brain.md"><TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_3></a></font>
 	</td>
 </tr>
 
