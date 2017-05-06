@@ -5,6 +5,8 @@
         - brains/en_systemdate.yml
         - brains/en_neurotransmitter.yml
         - brains/en_uri.yml
+        - brains/en_repeat.yml
+        - brains/en_loxberry_install.yml
 
   - name: "default-synapse"
     signals:

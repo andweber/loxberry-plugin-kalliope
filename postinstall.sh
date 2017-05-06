@@ -2,7 +2,7 @@
 ######################### LoxBerry Plugin KalliopeLoxSControl ##############
 # Installscript
 # Autor:        Andreas Weber, andweber@gmail.com
-# Version:      0.2 - 04.03.2017
+# Version:      0.3 - 06.05.2017
 #
 ############################################################################
 # Disclaimer
@@ -254,6 +254,10 @@ pip install wikipedia>=1.4.0
 echo "<INFO> Installing Neuron: kalliope_neuron_rss_reader..."
 git clone https://github.com/kalliope-project/kalliope_neuron_rss_reader.git ./rss_reader
 pip install feedparser>=5.2.1
+
+#Repeat
+echo "<INFO> Installing Neuron: kalliope_list_available_orders..."
+git clone https://github.com/bacardi55/kalliope-repeat.git ./repeat
 
 #All Orders
 echo "<INFO> Installing Neuron: kalliope_list_available_orders..."

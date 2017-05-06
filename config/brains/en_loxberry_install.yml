@@ -1,0 +1,8 @@
+---
+  - name: "loxberry-install-finished"
+    signals:
+      - order: "loxberry-install-finished"
+    neurons:
+      - say:
+          message:
+            - "Hello. My name is Kalliope! Please configure the plugin and restart the LoxBerry."
