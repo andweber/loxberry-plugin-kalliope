@@ -3,8 +3,7 @@
       - order: "api-repeat-cmd {{ query }}"
     neurons:
       - repeat:
-          args:
-            - query
+          query: "{{ query }}" 
           say_template:
             - "{{ query }}"
 
@@ -13,7 +12,6 @@
       - order: "say hi to {{ name }}"
     neurons:
       - repeat:
-          args:
-            - name
+          name: "{{ name }}"
           say_template:
             - "Hi {{ name }}, and welcome"

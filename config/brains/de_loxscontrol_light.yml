@@ -57,8 +57,7 @@
         lx_ip: "REPLACEMINISERVER1IP"
         lx_user: "REPLACEMINISERVER1USER"
         lx_password: "REPLACEMINISERVER1PASS"
-        args: 
-            - control_room
+        control_room: "{{control_room}}"
         newstate: "on"
         control_type: lights        
         file_template:  "templates/de_loxscontrol_template.j2"
@@ -76,8 +75,7 @@
         lx_ip: "REPLACEMINISERVER1IP"
         lx_user: "REPLACEMINISERVER1USER"
         lx_password: "REPLACEMINISERVER1PASS"
-        args: 
-            - control_room
+        control_room: "{{control_room}}"
         newstate: "off"
         control_type: lights
         file_template:  "templates/de_loxscontrol_template.j2"         
@@ -91,8 +89,7 @@
         lx_ip: "REPLACEMINISERVER1IP"
         lx_user: "REPLACEMINISERVER1USER"
         lx_password: "REPLACEMINISERVER1PASS"
-        args: 
-            - control_name 
+        control_name: "{{control_name}}" 
         newstate: "on"    
         file_template:  "templates/de_loxscontrol_template.j2"
 
@@ -105,7 +102,6 @@
         lx_ip: "REPLACEMINISERVER1IP"
         lx_user: "REPLACEMINISERVER1USER"
         lx_password: "REPLACEMINISERVER1PASS"
-        args: 
-            - control_name 
+        control_name: "{{control_name}}" 
         newstate: "off"         
         file_template:  "templates/de_loxscontrol_template.j2"
