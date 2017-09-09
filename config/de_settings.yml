@@ -73,6 +73,29 @@ text_to_speech:
 
 
 # ---------------------------
+# players
+# ---------------------------
+# This is the sound player that will be used by default
+default_player: "pyalsaaudio"
+
+# players configuration
+# Available engine are:
+# - mplayer
+# - pyalsaaudio       # no mp3
+# - pyaudioplayer     # no mp3
+# - sounddeviceplayer # no mp3
+players:
+  - mplayer: {}
+  - pyalsaaudio:
+     device: "plughw:CARD=ALSA,DEV=0"
+     convert_to_wav: False
+  - pyaudioplayer:
+     convert_to_wav: True
+  - sounddeviceplayer:
+     convert_to_wav: True
+
+
+# ---------------------------
 # Wake up answers
 # ---------------------------
 # When Kalliope detect the hotword/trigger, he will select randomly a phrase in the following list
@@ -137,3 +160,21 @@ resource_directory:
   neuron: "REPLACEINSTALLFOLDER/data/plugins/REPLACEFOLDERNAME/neurons"
   stt: "REPLACEINSTALLFOLDER/data/plugins/REPLACEFOLDERNAME/stt"
   tts: "REPLACEINSTALLFOLDER/data/plugins/REPLACEFOLDERNAME/tts"
+
+# ---------------------------
+# Global files variables
+# /!\ If a variable is defined in different files, the last file defines the value.
+# ---------------------------
+#var_files:
+#  - global_variables/variables.yml
+#  - variables2.yml
+
+# ---------------------------
+# Raspberry Pi GPIO settings
+# ---------------------------
+#rpi:
+#  pin_mute_button: 24
+#  pin_led_started: 23
+#  pin_led_muted: 17
+#  pin_led_talking: 27
+#  pin_led_listening: 22

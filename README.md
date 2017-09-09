@@ -59,7 +59,7 @@ The Kalliope brain is stored in the plugin config folder and can be adjusted and
 Version 0.4
 - Improved Webfrontend
 - use global variables in synapses (0.4.3 feature)
-- Update kalliope
+- [Done] Update kalliope
 - Plugin upgrade is possible
 - Proof of Voice Control Kalliope
 - Proof of Voice Control of Loxone

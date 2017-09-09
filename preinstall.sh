@@ -49,7 +49,8 @@ echo "<INFO> Installation folder is: $ARGV3"
 echo "<INFO> Installation folder is: $ARGV4"
 ############################################################################
 # Definitions
-kalliope_installversion=v0.4.3
+kalliope_installversion=v0.4.5
+############################################################################
 
 # Download Pip
 echo "<INFO> Getting latest pip from https://bootstrap.pypa.io"

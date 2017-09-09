@@ -50,7 +50,7 @@ echo "<INFO> Plugin version is: $ARGV4"
 echo "<INFO> Base folder is: $ARGV5"
 ############################################################################
 # Definitions
-kalliope_installversion=0.4.3
+kalliope_installversion=0.4.5
 ############################################################################
 # SECTION A
 # Definition of Helper Functions and check input
