@@ -124,18 +124,30 @@ if (!-d "/var/run/kalliope/$psubfolder") {
 }
 
 # Check if kalliope is running
-my $exit_status = -2;
-if ( -e "$installfolder/system/daemons/plugins/$psubfolder" ) {
-	$exit_status = system("$installfolder/system/daemons/plugins/$psubfolder status > /dev/null 2>&1"); 
+#my $exit_status = -2;
+#if ( -e "$installfolder/system/daemons/plugins" ) {
+#	$exit_status = system("$installfolder/system/daemons/plugins status > /dev/null 2>&1"); 
+#}
+#if ( $exit_status  == -1 ) {
+#    $kalliope_runstatus = 0;
+#}
+#elsif ( $exit_status  == 0 ) {
+#    $kalliope_runstatus = 1;
+#}
+#elsif ( $exit_status  == 1 ) {
+#    $kalliope_runstatus = 0;
+#}
+if ( -e "$installfolder/system/daemons/plugins/$pname" ) {
+	system("$installfolder/system/daemons/plugins/$pname status > /dev/null 2>&1") == 0 or die "system call failed: $?"; 
 }
-if ( $exit_status  == -1 ) {
+if ( $?  == -1 ) {
     $kalliope_runstatus = 0;
 }
-elsif ( $exit_status  == 0 ) {
+elsif ( $?  & 127 ) {
+    $kalliope_runstatus = 0;
+}
+else {
     $kalliope_runstatus = 1;
-}
-elsif ( $exit_status  == 1 ) {
-    $kalliope_runstatus = 0;
 }
 
 # Set parameters coming in - get over post

@@ -8,7 +8,7 @@
     - order: "Licht"       
   neurons:
     - say:
-            message: In welchem Raum soll ich das Licht einschalten?
+            message: "In welchem Raum soll ich das Licht einschalten?"
     - neurotransmitter:
           from_answer_link:
             - synapse: "turn-off-room"
@@ -29,7 +29,7 @@
     - order: "Licht aus"    
   neurons:
     - say:
-            message: In welchem Raum soll ich das Licht ausschalten?
+            message: "In welchem Raum soll ich das Licht ausschalten?"
     - neurotransmitter:
           from_answer_link:
             - synapse: "turn-off-room"

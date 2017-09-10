@@ -7,6 +7,6 @@
         language: "de"
         sentences: 1
         query: "{{ query }}"
-        file_template: "templates/de_wikipedia_returned_value.j2"
+        file_template: "templates/de_wikipedia_search.j2"
 
 
