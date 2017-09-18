@@ -50,7 +50,8 @@ echo "<INFO> Plugin version is: $ARGV4"
 echo "<INFO> Base folder is: $ARGV5"
 ############################################################################
 # Definitions
-kalliope_installversion=0.4.5
+#kalliope_installversion=0.4.5
+kalliope_installversion=dev
 ############################################################################
 # SECTION A
 # Definition of Helper Functions and check input
@@ -260,8 +261,9 @@ echo "<INFO> Installing Neuron: kalliope_list_available_orders..."
 git clone https://github.com/bacardi55/kalliope-repeat.git ./repeat
 
 #All Orders
-echo "<INFO> Installing Neuron: kalliope_list_available_orders..."
-git clone https://github.com/bacardi55/kalliope-list-available-orders.git ./list_available_orders
+#17.09.17: not compatible to dev - open issue: https://github.com/bacardi55/kalliope-list-available-orders/issues/2
+#echo "<INFO> Installing Neuron: kalliope_list_available_orders..."
+#git clone https://github.com/bacardi55/kalliope-list-available-orders.git ./list_available_orders
 
 ############################################################################
 # SECTION D.2
