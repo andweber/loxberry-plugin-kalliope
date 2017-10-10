@@ -124,11 +124,12 @@ random_wake_up_sounds:
 # - always: every time Kalliope is ready to be awaken
 # - never: never play a sound or sentences when kalliope is ready
 # - once: at the first start of Kalliope
-play_on_ready_notification: "never"
+play_on_ready_notification: "always"
 
 # The on ready notification can be a sentence. Place here a sentence or a list of sentence. If you set a list, one sentence will be picked up randomly
 on_ready_answers:
-  - "warte auf Anfrage"
+  - "ich bin bereit"
+  - "ich warte auf eine Anfrage"
 
 # You can play a sound instead of a sentence.
 # Remove the `on_ready_answers` parameters by commenting it out and use this one instead.
@@ -165,9 +166,8 @@ resource_directory:
 # Global files variables
 # /!\ If a variable is defined in different files, the last file defines the value.
 # ---------------------------
-#var_files:
-#  - global_variables/variables.yml
-#  - variables2.yml
+var_files:
+  - REPLACEINSTALLFOLDER/config/plugins/REPLACEFOLDERNAME/vr_loxscontrol.yml
 
 # ---------------------------
 # Raspberry Pi GPIO settings

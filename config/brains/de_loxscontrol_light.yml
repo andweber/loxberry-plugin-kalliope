@@ -1,17 +1,78 @@
 ---
+- name: "turn-on-room"
+  signals:
+    - order: "schalte das licht im {{control_room}} an"
+    - order: "schalte das licht in der {{control_room}} an"    
+    - order: "Licht im {{control_room}} an"
+    - order: "Licht in der {{control_room}} an"    
+    - order: "Licht an im {{control_room}}"
+    - order: "Licht an in der {{control_room}}"     
+  neurons:
+    - loxscontrol:
+        lx_ip: "{{lx_ip}}"
+        lx_user: "{{lx_user}}"
+        lx_password: "{{lx_password}}"
+        control_room: "{{control_room}}"
+        newstate: "on"
+        control_type: lights        
+        file_template:  "templates/de_loxscontrol_template.j2"
+
+- name: "turn-off-room"
+  signals:
+    - order: "schalte das licht im {{control_room}} aus"
+    - order: "schalte das licht in der {{control_room}} aus"    
+    - order: "licht im {{control_room}} aus"
+    - order: "licht in der {{control_room}} aus"    
+    - order: "licht aus im {{control_room}}"
+    - order: "licht aus in der {{control_room}}"     
+  neurons:
+    - loxscontrol:
+        lx_ip: "{{lx_ip}}"
+        lx_user: "{{lx_user}}"
+        lx_password: "{{lx_password}}"
+        control_room: "{{control_room}}"
+        newstate: "off"
+        control_type: lights
+        file_template:  "templates/de_loxscontrol_template.j2"         
+          
+- name: "turn-on-named"
+  signals:
+    - order: "schalte das {{control_name}} an"
+    - order: "schalte {{control_name}} an"    
+  neurons:
+    - loxscontrol:
+        lx_ip: "{{lx_ip}}"
+        lx_user: "{{lx_user}}"
+        lx_password: "{{lx_password}}"
+        control_name: "{{control_name}}" 
+        newstate: "on"    
+        file_template:  "templates/de_loxscontrol_template.j2"
+
+- name: "turn-off-named"
+  signals:
+    - order: "schalte das {{control_name}} aus"
+    - order: "schalte {{control_name}} aus"      
+  neurons:
+    - loxscontrol:
+        lx_ip: "{{lx_ip}}"
+        lx_user: "{{lx_user}}"
+        lx_password: "{{lx_password}}"
+        control_name: "{{control_name}}" 
+        newstate: "off"         
+        file_template:  "templates/de_loxscontrol_template.j2"
+
 - name: "turn-on-light"
   signals:
     - order: "schalte das Licht ein"
     - order: "schalte das Licht an"    
     - order: "Licht ein"
-    - order: "Licht an"    
-    - order: "Licht"       
+    - order: "Licht an"
   neurons:
     - say:
             message: "In welchem Raum soll ich das Licht einschalten?"
     - neurotransmitter:
           from_answer_link:
-            - synapse: "turn-off-room"
+            - synapse: "turn-on-room"
               answers:
                 - "im Raum {{control_room}}"
                 - "im {{control_room}}"
@@ -44,64 +105,4 @@
                 - "hat sich erledigt"
           default: "default-synapse"
 
-- name: "turn-on-room"
-  signals:
-    - order: "schalte das licht im {{control_room}} an"
-    - order: "schalte das licht in der {{control_room}} an"    
-    - order: "Licht im {{control_room}} an"
-    - order: "Licht in der {{control_room}} an"    
-    - order: "Licht an im {{control_room}}"
-    - order: "Licht an in der {{control_room}}"     
-  neurons:
-    - loxscontrol:
-        lx_ip: "REPLACEMINISERVER1IP"
-        lx_user: "REPLACEMINISERVER1USER"
-        lx_password: "REPLACEMINISERVER1PASS"
-        control_room: "{{control_room}}"
-        newstate: "on"
-        control_type: lights        
-        file_template:  "templates/de_loxscontrol_template.j2"
 
-- name: "turn-off-room"
-  signals:
-    - order: "schalte das licht im {{control_room}} aus"
-    - order: "schalte das licht in der {{control_room}} aus"    
-    - order: "licht im {{control_room}} aus"
-    - order: "licht in der {{control_room}} aus"    
-    - order: "licht aus im {{control_room}}"
-    - order: "licht aus in der {{control_room}}"     
-  neurons:
-    - loxscontrol:
-        lx_ip: "REPLACEMINISERVER1IP"
-        lx_user: "REPLACEMINISERVER1USER"
-        lx_password: "REPLACEMINISERVER1PASS"
-        control_room: "{{control_room}}"
-        newstate: "off"
-        control_type: lights
-        file_template:  "templates/de_loxscontrol_template.j2"         
-          
-- name: "turn-on-named"
-  signals:
-    - order: "schalte das {{control_name}} an"
-    - order: "schalte {{control_name}} an"    
-  neurons:
-    - loxscontrol:
-        lx_ip: "REPLACEMINISERVER1IP"
-        lx_user: "REPLACEMINISERVER1USER"
-        lx_password: "REPLACEMINISERVER1PASS"
-        control_name: "{{control_name}}" 
-        newstate: "on"    
-        file_template:  "templates/de_loxscontrol_template.j2"
-
-- name: "turn-off-named"
-  signals:
-    - order: "schalte das {{control_name}} aus"
-    - order: "schalte {{control_name}} aus"      
-  neurons:
-    - loxscontrol:
-        lx_ip: "REPLACEMINISERVER1IP"
-        lx_user: "REPLACEMINISERVER1USER"
-        lx_password: "REPLACEMINISERVER1PASS"
-        control_name: "{{control_name}}" 
-        newstate: "off"         
-        file_template:  "templates/de_loxscontrol_template.j2"
