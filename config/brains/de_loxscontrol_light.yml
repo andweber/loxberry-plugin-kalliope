@@ -14,7 +14,8 @@
         lx_password: "{{lx_password}}"
         control_room: "{{control_room}}"
         newstate: "on"
-        control_type: lights        
+        control_type: lights
+        action: "change"        
         file_template:  "templates/de_loxscontrol_template.j2"
 
 - name: "turn-off-room"
@@ -33,6 +34,7 @@
         control_room: "{{control_room}}"
         newstate: "off"
         control_type: lights
+        action: "change"
         file_template:  "templates/de_loxscontrol_template.j2"         
           
 - name: "turn-on-named"
@@ -45,7 +47,8 @@
         lx_user: "{{lx_user}}"
         lx_password: "{{lx_password}}"
         control_name: "{{control_name}}" 
-        newstate: "on"    
+        newstate: "on"  
+        action: "change"  
         file_template:  "templates/de_loxscontrol_template.j2"
 
 - name: "turn-off-named"
@@ -58,7 +61,8 @@
         lx_user: "{{lx_user}}"
         lx_password: "{{lx_password}}"
         control_name: "{{control_name}}" 
-        newstate: "off"         
+        newstate: "off"
+        action: "change"         
         file_template:  "templates/de_loxscontrol_template.j2"
 
 - name: "turn-on-light"

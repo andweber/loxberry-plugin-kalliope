@@ -6,11 +6,11 @@
   neurons:
     - loxscontrol:
         lx_ip: "{{lx_ip}}"
-        lx_name: "{{lx_user}}"
+        lx_user: "{{lx_user}}"
         lx_password: "{{lx_password}}"      
         control_type: "room"
         action: "list"   
-        file_template:  "templates/loxscontrol_template.j2"
+        file_template:  "templates/de_loxscontrol_template.j2"
 
 - name: "list-lights"
   signals:
@@ -19,10 +19,10 @@
   neurons:
     - loxscontrol:
         lx_ip: "{{lx_ip}}"
-        lx_name: "{{lx_user}}"
+        lx_user: "{{lx_user}}"
         lx_password: "{{lx_password}}"      
         control_type: "lights"
         action: "list"   
-        file_template:  "templates/loxscontrol_template.j2"
+        file_template:  "templates/de_loxscontrol_template.j2"
 
 

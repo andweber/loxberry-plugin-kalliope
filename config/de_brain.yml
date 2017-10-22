@@ -9,6 +9,7 @@
         - brains/de_repeat.yml
         - brains/de_wikipedia.yml
         - brains/de_loxscontrol_light.yml
+        - brains/de_loxscontrol_list.yml
         - brains/de_loxberry_install.yml
 
   - name: "default-synapse"
