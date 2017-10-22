@@ -1,0 +1,28 @@
+---
+- name: "list-room"
+  signals:
+    - order: "nenne alle Räume"
+    - order: "welche Räume gibt es"
+  neurons:
+    - loxscontrol:
+        lx_ip: "{{lx_ip}}"
+        lx_name: "{{lx_user}}"
+        lx_password: "{{lx_password}}"      
+        control_type: "room"
+        action: "list"   
+        file_template:  "templates/loxscontrol_template.j2"
+
+- name: "list-lights"
+  signals:
+    - order: "nenne alle Lichtschalter"
+    - order: "welche Lichtschalter gibt es"
+  neurons:
+    - loxscontrol:
+        lx_ip: "{{lx_ip}}"
+        lx_name: "{{lx_user}}"
+        lx_password: "{{lx_password}}"      
+        control_type: "lights"
+        action: "list"   
+        file_template:  "templates/loxscontrol_template.j2"
+
+

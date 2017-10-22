@@ -104,6 +104,7 @@ else
     cd $ARGV5/data/plugins/$ARGV3/
     python get-pip.py
     rm get-pip.py
+    pip install --upgrade setuptools
 fi
 
 # Install kalliope
@@ -278,10 +279,10 @@ echo "<INFO> Configuring Kalliope LoxSControl Neuron..."
 
 #FIXME this is preliminary - it should use global variables or config parameters
 #which can be changed easily from webfrontend or at least support all languages
-/bin/sed -i --follow-symlinks "s:REPLACEMINISERVER1USER:$MINISERVER1ADMIN:g" $ARGV5/config/plugins/$ARGV3/brains/de_loxscontrol_light.yml 
-/bin/sed -i --follow-symlinks "s:REPLACEMINISERVER1PASS:$MINISERVER1PASS:g" $ARGV5/config/plugins/$ARGV3/brains/de_loxscontrol_light.yml 
-/bin/sed -i --follow-symlinks "s:REPLACEMINISERVER1IP:$MINISERVER1IPADDRESS:g" $ARGV5/config/plugins/$ARGV3/brains/de_loxscontrol_light.yml 
-/bin/sed -i --follow-symlinks "s:REPLACEMINISERVER1PORT:$MINISERVER1PORT:g" $ARGV5/config/plugins/$ARGV3/brains/de_loxscontrol_light.yml
+/bin/sed -i --follow-symlinks "s:REPLACEMINISERVER1USER:$MINISERVER1ADMIN:g" $ARGV5/config/plugins/$ARGV3/vr_loxscontrol.yml 
+/bin/sed -i --follow-symlinks "s:REPLACEMINISERVER1PASS:$MINISERVER1PASS:g" $ARGV5/config/plugins/$ARGV3/vr_loxscontrol.yml
+/bin/sed -i --follow-symlinks "s:REPLACEMINISERVER1IP:$MINISERVER1IPADDRESS:g" $ARGV5/config/plugins/$ARGV3/vr_loxscontrol.yml
+/bin/sed -i --follow-symlinks "s:REPLACEMINISERVER1PORT:$MINISERVER1PORT:g" $ARGV5/config/plugins/$ARGV3/vr_loxscontrol.yml
 
 
 ############################################################################

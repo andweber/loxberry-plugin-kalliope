@@ -65,7 +65,7 @@ else
 fi
 
 # Download Kalliope
-echo "<INFO> Getting latest kalliope from https://github.com/kalliope-project/kalliope/archive/master.zip"
+echo "<INFO> Getting latest kalliope from https://github.com/kalliope-project/kalliope/archive/$kalliope_installversion.zip"
 /usr/bin/wget --progress=dot:mega -t 10 -O /tmp/uploads/$ARGV1/data/kalliope.zip https://github.com/kalliope-project/kalliope/archive/$kalliope_installversion.zip
 
 if [ ! -f /tmp/uploads/$ARGV1/data/kalliope.zip ]; then

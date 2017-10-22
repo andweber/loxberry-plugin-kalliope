@@ -3,10 +3,10 @@
   signals:
     - order: "schalte das licht im {{control_room}} an"
     - order: "schalte das licht in der {{control_room}} an"    
-    - order: "Licht im {{control_room}} an"
-    - order: "Licht in der {{control_room}} an"    
-    - order: "Licht an im {{control_room}}"
-    - order: "Licht an in der {{control_room}}"     
+#    - order: "Licht im {{control_room}} an"
+#    - order: "Licht in der {{control_room}} an"    
+#    - order: "Licht an im {{control_room}}"
+#    - order: "Licht an in der {{control_room}}"     
   neurons:
     - loxscontrol:
         lx_ip: "{{lx_ip}}"
@@ -21,10 +21,10 @@
   signals:
     - order: "schalte das licht im {{control_room}} aus"
     - order: "schalte das licht in der {{control_room}} aus"    
-    - order: "licht im {{control_room}} aus"
-    - order: "licht in der {{control_room}} aus"    
-    - order: "licht aus im {{control_room}}"
-    - order: "licht aus in der {{control_room}}"     
+#    - order: "licht im {{control_room}} aus"
+#    - order: "licht in der {{control_room}} aus"    
+#    - order: "licht aus im {{control_room}}"
+#    - order: "licht aus in der {{control_room}}"     
   neurons:
     - loxscontrol:
         lx_ip: "{{lx_ip}}"
