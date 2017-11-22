@@ -1,8 +1,8 @@
 ---
 - name: "turn-on-room"
   signals:
-    - order: "schalte das licht im {{control_room}} an"
-    - order: "schalte das licht in der {{control_room}} an"    
+    - order: "licht im {{control_room}} einschalten"
+    - order: "licht in der {{control_room}} einschalten"    
 #    - order: "Licht im {{control_room}} an"
 #    - order: "Licht in der {{control_room}} an"    
 #    - order: "Licht an im {{control_room}}"
@@ -20,8 +20,8 @@
 
 - name: "turn-off-room"
   signals:
-    - order: "schalte das licht im {{control_room}} aus"
-    - order: "schalte das licht in der {{control_room}} aus"    
+    - order: "licht im {{control_room}} ausschalten"
+    - order: "licht in der {{control_room}} ausschalten"    
 #    - order: "licht im {{control_room}} aus"
 #    - order: "licht in der {{control_room}} aus"    
 #    - order: "licht aus im {{control_room}}"
@@ -39,8 +39,8 @@
           
 - name: "turn-on-named"
   signals:
-    - order: "schalte das {{control_name}} an"
-    - order: "schalte {{control_name}} an"    
+#    - order: "schalte das {{control_name}} an"
+    - order: "schalte {{control_name}} ein"    
   neurons:
     - loxscontrol:
         lx_ip: "{{lx_ip}}"
@@ -53,7 +53,7 @@
 
 - name: "turn-off-named"
   signals:
-    - order: "schalte das {{control_name}} aus"
+#    - order: "schalte das {{control_name}} aus"
     - order: "schalte {{control_name}} aus"      
   neurons:
     - loxscontrol:
@@ -67,9 +67,9 @@
 
 - name: "turn-on-light"
   signals:
-    - order: "schalte das Licht ein"
-    - order: "schalte das Licht an"    
-    - order: "Licht ein"
+#    - order: "schalte das Licht ein"
+#    - order: "schalte das Licht an"    
+#    - order: "Licht ein"
     - order: "Licht an"
   neurons:
     - say:
@@ -90,8 +90,8 @@
 
 - name: "turn-off-light"
   signals:
-    - order: "schalte das Licht aus"
-    - order: "Licht aus"    
+#    - order: "schalte das Licht aus"
+    - order: "Licht im Raum aus"    
   neurons:
     - say:
             message: "In welchem Raum soll ich das Licht ausschalten?"

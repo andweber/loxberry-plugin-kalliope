@@ -20,6 +20,9 @@
 
 {% elif  status_code == "IncompleteRequest"%}
     Dein Auftrag war unvollständig.  
+        
+{% elif  status_code == "List"%}
+    Ich kenne:  {{summary}}.   
 
 {% else %}
     Oh ein Fehler ist aufgetreten. Ich kenne das Ergebnis {{status_code}} nicht.
