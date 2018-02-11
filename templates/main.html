@@ -1,0 +1,651 @@
+<div align="right"><font size="-1"><TMPL_VAR NAME=PLUGINVERSION></font></div>
+<center>
+
+<!-- This is the logo with weblink -->
+<table border=0 cellpadding=5>
+<tr>
+	<td>
+		<img src="/system/images/icons/<TMPL_VAR NAME=PSUBFOLDER>/banner_512.png">
+	</td>
+    <td>
+ 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+	<td>
+        <fieldset>
+                        <select onChange="disable_kalliope();" id="main_running" name="main_running" data-role="flipswitch" data-theme="e" disabled=disabled>
+                        <option value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
+                        <option value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+                        </select>
+        </fieldset>
+        <script>
+                        // Select option depending on saved config
+                        $( "#main_running").val( "<TMPL_VAR NAME=RUNNING>" );
+       </script>
+	</td>
+    <td>
+ 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+    <td><font size="-1">
+            <TMPL_VAR NAME=T::GENERIC.HP></br>
+            <a href="https://kalliope-project.github.io/">https://kalliope-project.github.io/</a>
+            </font>
+    </td>
+</tr>
+</table>
+
+<!-- Line of buttons -->
+<table border=0 cellpadding=5>
+<tr>
+	<td>
+	<a  id="btncfgaudio" data-icon="gear" data-role="button" data-mini="true" class="ui-disabled ui-btn-active"><TMPL_VAR NAME=T::BUTTON.CONFIG></a>
+	</td>
+	<td>
+	<a  id="btncfgaudio" data-icon="audio" data-role="button" data-mini="true" href="./cfgaudio.cgi"><TMPL_VAR NAME=T::BUTTON.CFGAUDIO></a>
+	</td>
+	<td>
+	<a id="btnshowlog" data-icon="search" data-role="button" data-mini="true" href="../../system/tools/logfile.cgi?logfile=plugins/<TMPL_VAR NAME=PSUBFOLDER>/<TMPL_VAR NAME=LOGFILE>&header=html&format=template" target="_blank"><TMPL_VAR NAME=T::BUTTON.SHOWLOGFILE></a>
+	</td>
+	<td>
+	<a  id="btneditbrain" data-icon="edit" data-role="button" data-mini="true" href="./editbrain.cgi" class="ui-disabled"><TMPL_VAR NAME=T::BUTTON.EDITBRAIN></a>
+	</td>
+	<td>
+	<a  id="btnusage" data-icon="edit" data-role="button" data-mini="true" href="./usage.cgi"><TMPL_VAR NAME=T::BUTTON.USAGE></a>
+	</td>    
+</tr>
+</table>
+</center>
+
+<!-- main form with action -->
+<form method="post" data-ajax="false" name="main_form" id="main_form" action="./index.cgi">
+<input type="hidden" name="saveformdata" value="1">
+
+<table border=0 width="100%" cellpadding="10">
+<tr>
+	<td colspan=4>
+	<h3><TMPL_VAR NAME=T::FORMTABLE.FEATURES></h3>
+	</td>
+</tr>
+<tr>
+	<td width="20%">
+		<label id="labelrestapi"><TMPL_VAR NAME=T::FORMTABLE.MSSPEECHCONTROL></label>
+	</td>
+	<td width="40%">
+		<table border=0	width="100%">
+		<tr>
+			<td width="20%">
+			<fieldset>
+			<select id="speechcontrol" name="speechcontrol" data-role="flipswitch" data-theme="e"  disabled=disabled>
+			<option value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
+			<option selected=selected value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+			</select>
+			</fieldset>
+			<script>
+			// Select option depending on saved config
+			$( "#speechcontrol").val( "<TMPL_VAR NAME=LOXSCONTROL>" );
+			</script>
+			</td>
+            <td>
+            <select id="miniserver" name="miniserver" data-mini="true" data-native-menu="true" disabled=disabled>
+                <option value="1"><TMPL_VAR NAME=MINISERVER1></option>                
+            </select>
+            <script>
+            // Select option depending on saved config
+            $( "#miniserver").val( "<TMPL_VAR NAME=MINISERVER_SELECTED>" );
+            </script>
+			</td>
+		</tr>
+		</table>
+	</td>
+	<td width="5%" valign="middle">
+	 &nbsp;
+	</td>
+	<td width="35%">
+	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.MSSPEECHCONTROL_HELP></font>
+	</td>
+</tr>
+<!--<tr>
+	<td width="20%">
+		<label id="labelrestapi"><TMPL_VAR NAME=T::FORMTABLE.TTS></label>
+	</td>
+	<td width="40%">
+		<table border=0	width="100%">
+		<tr>
+			<td width="20%">
+			<fieldset>
+			<select id="tts_active" name="tts_active" data-role="flipswitch" data-theme="e" disabled=disabled>
+			<option	value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
+			<option	selected=selected value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+			</select>
+			</fieldset>
+			</td>
+			<td>
+            &nbsp;
+			</td>
+		</tr>
+		</table>
+	</td>
+	<td width="5%" valign="middle">
+	 &nbsp;
+	</td>
+	<td width="35%">
+	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.TTS_HELP><br> 
+     <pre>http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>\<br> /synapses/start/id/SYNAPSENNAME</pre>
+     <TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_2> <a href="https://github.com/andweber/kalliope/blob/master/Docs/brain.md"><TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_3></a></font>
+	</td>
+</tr>-->
+<tr>
+	<td width="20%">
+		<label id="labelrestapi"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI></label>
+	</td>
+	<td width="40%">
+		<table border=0	width="100%">
+		<tr>
+			<td width="20%">
+			<fieldset>
+			<select onChange="disable_restapi();" id="restapi" name="restapi" data-role="flipswitch" data-theme="e" >
+			<option	value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
+			<option	value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+			</select>
+			</fieldset>
+			<script>
+			// Select option depending on saved config
+			$( "#restapi" ).val( "<TMPL_VAR NAME=RESTAPI>" );
+			</script>
+			</td>
+			<td>
+			<table border=0 width="100%">
+			<tr>
+				<td>
+				<label id="labelrestapiport"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PORT></label>
+				</td>
+				<td>
+				<input id="restapiport" name="restapiport" type="text" data-validation="number" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=RESTAPI_PORT>"
+				data-validation-allowing="range[1;65000]"
+				data-validation-error-msg="<TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PORT> <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PORT_VALIDATION>">
+				</td>
+			</tr><tr>
+ 				<td>
+				<label id="labelrestapiuselogin"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_USELOGIN></label>
+				</td>               
+                <td>
+                    <fieldset>
+                        <select onChange="disable_restapi_uselogin();" id="restapi_uselogin" name="restapi_uselogin" data-role="flipswitch" data-theme="e" data-mini="true" data-native-menu="true">
+                            <option	value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
+                            <option	value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+                        </select>
+                    </fieldset>
+                    <script>
+                    // Select option depending on saved config
+                    $( "#restapi_uselogin" ).val( "<TMPL_VAR NAME=RESTAPI_USELOGIN>" );
+                    </script>
+                </td>
+ 			</tr><tr>
+				<td>
+				<label id="labelrestapilogin"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_LOGIN></label>
+				</td>
+				<td>
+				<input id="restapilogin" name="restapilogin" type="text" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=RESTAPI_LOGIN>">
+				</td>
+            </tr><tr>
+				<td>
+				<label id="labelrestapipassword"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PASSWORD></label>
+				</td>
+				<td>
+				<input id="restapipassword" name="restapipassword" type="text" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=RESTAPI_PASSWORD>">
+				</td>
+            </tr>
+			</table>
+			</td>
+		</tr>
+		</table>
+	</td>
+	<td width="5%" valign="middle">
+	 &nbsp;
+	</td>
+	<td width="35%">
+	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP> <br> 
+     <pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD> -X POST \
+     http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>\<br>/synapses/start/id/SYNAPSENNAME</pre>
+     <!--<TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_2>
+     <pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD>\<br>     -H "Content-Type: application/json" \
+     -X POST -d '{"order":"my order"}' \
+     http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>\<br>  /synapses/start/order</pre>
+     <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_3>-->
+     <a href="https://github.com/kalliope-project/kalliope/blob/master/Docs/rest_api.md"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_4></a></font>
+     </td>
+</tr>
+
+<!--- Settings --->
+
+<tr>
+	<td colspan=4>
+	<h3><TMPL_VAR NAME=T::FORMTABLE.GENERALSETTINGS></h3>
+	</td>
+</tr>
+<tr> <!-- STT Option -->
+	<td width="20%">
+		<label id="labelstt"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION></label>
+	</td>
+	<td width="40%">
+		<!--<table border=0 width="100%"> 
+		<tr>
+			<td>-->
+			<fieldset>
+			<select onchange="enable_stt_option();" id="defaultstt" name="defaultstt" data-mini="true" data-native-menu="true" >
+                    <option selected value="google" <TMPL_VAR NAME=GOOGLE_STT>>Google (Cloud)</option>
+                    <option  value="wit" <TMPL_VAR NAME=WITT_STT>>wit.ai  (Cloud)</option>
+                    <option  value="bing" <TMPL_VAR NAME=BING_STT>>bing (Cloud)</option>
+                    <option  value="apiai" <TMPL_VAR NAME=APIAI_STT>>api.ai (Cloud)</option> 
+                    <option  value="houndify" <TMPL_VAR NAME=HOUNDIFY_STT>>Houndify (Cloud)</option>
+                    <option  value="cmusphinx" <TMPL_VAR NAME=CMUSPHINX_STT>>CMUSphinx (local)</option>                
+			</select>
+			</fieldset>
+			<script>
+                    // Select option depending on saved config
+                    $( "#defaultstt").val( "<TMPL_VAR NAME=STT_DEFAULT>" );
+                    enable_stt_option();
+			</script>
+            <!--</td>
+        </tr>
+        </table>-->
+        
+            		
+        <!-- Google Options -->
+        <div  id="stt_google_options" style="display: none;">
+         <table border=0	width="100%"> 
+        <tr   id="stt_google_options">
+			<td width="40%">
+                    <label id="labelstt_google_lang"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_LANG></label>
+            </td>
+            <td>
+                <fieldset>
+                <select id="stt_google_lang" name="stt_google_lang" data-mini="true" data-native-menu="true" >
+                    <option  value="de-DE">de-DE</option>
+                    <option  value="en-US">en-US</option>
+                    <option  value="en-GB">en-GB</option>
+                    <option  value="nl-NL">nl-NL</option>
+                    <option  value="fr-FR">fr-FR</option>
+                    <option  value="it-IT">it-IT</option>
+                    <option  value="ja-JP">ja-JP</option>
+                    <option  value="ko-KR">ko-KR</option>
+                    <option  value="pl-PL">pl-PL</option>                    
+                    <option  value="pt-BR">pt-BR</option> 
+                    <option  value="ru-RU">ru-RU</option>
+                    <option  value="sv-SE">sv-SE</option>                    
+                    <option  value="es-ES">es-ES</option>
+                    <option  value="zh-CN">zh-CN</option>
+                    <option  value="zh-HK">zh-HK</option>                    
+                    <option  value="zh-TW">zh-TW</option>
+                </select>
+                </fieldset>
+                <script>
+                // Select option depending on saved config
+                $( "#stt_google_lang").val( "<TMPL_VAR NAME=STT_GOOGLE_LANG>" );                
+                </script>                
+            </td>
+        </tr>
+        <tr>
+			<td colspan=2>
+                    <label id="labelstt_google_help"><font size="-1"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_GOOGLE_HELP></font></label>
+            </td>                        
+        </tr>        
+        </table></div>
+        
+        <!-- WIT Options -->
+        <div  style="display: none;"  id="stt_wit_options">
+         <table border=0	width="100%">
+        <tr>
+			<td width="40%">
+                    <label id="labelstt_wit_key"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_KEY></label>
+            </td>
+            <td>
+                <input id="stt_wit_key" name="stt_wit_key" type="text" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=STT_WIT_KEY>">
+            </td>            
+        </tr> 
+        <tr>
+			<td colspan=2>
+                    <label id="labelstt_wit_help"><font size="-1"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_WIT_HELP></font></label>
+            </td>                        
+        </tr>
+		</table></div>
+        
+        <!-- BING Options -->
+        <div  style="display: none;"  id="stt_bing_options">
+         <table border=0	width="100%">
+        <tr>
+			<td width="40%">
+                    <label id="labelstt_bing_lang"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_LANG></label>
+            </td>
+            <td>
+                <fieldset>
+                <select id="stt_bing_lang" name="stt_bing_lang" data-mini="true" data-native-menu="true" >
+                    <option  value="de-DE">de-DE</option>
+                    <option  value="en-US">en-US</option>
+                    <option  value="en-GB">en-GB</option>
+                    <option  value="nl-NL">nl-NL</option>
+                    <option  value="fr-FR">fr-FR</option>
+                    <option  value="it-IT">it-IT</option>
+                    <option  value="ja-JP">ja-JP</option>
+                    <option  value="ko-KR">ko-KR</option>
+                    <option  value="pl-PL">pl-PL</option>                    
+                    <option  value="pt-BR">pt-BR</option> 
+                    <option  value="ru-RU">ru-RU</option>
+                    <option  value="sv-SE">sv-SE</option>                    
+                    <option  value="es-ES">es-ES</option>
+                    <option  value="zh-CN">zh-CN</option>
+                    <option  value="zh-HK">zh-HK</option>                    
+                    <option  value="zh-TW">zh-TW</option>                    
+                </select>
+                </fieldset>
+                <script>
+                // Select option depending on saved config
+                $( "#stt_bing_lang").val( "<TMPL_VAR NAME=STT_BING_LANG>" );                
+                </script>                
+            </td>
+        </tr>
+        <tr>
+			<td width="40%">
+                    <label id="labelstt_bing_key"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_KEY></label>
+            </td>
+            <td>
+                <input id="stt_bing_key" name="stt_bing_key" type="text" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=STT_BING_KEY>">
+            </td>            
+        </tr> 
+        <tr>
+			<td colspan=2>
+                    <label id="labelstt_bing_help"><font size="-1"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_BING_HELP></font></label>
+            </td>                        
+        </tr>
+		</table></div>        
+
+        <!-- APIAI Options -->
+        <div  style="display: none;"  id="stt_apiai_options">
+         <table border=0	width="100%">
+        <tr>
+			<td width="40%">
+                    <label id="labelstt_apiai_lang"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_LANG></label>
+            </td>
+            <td>
+                <fieldset>
+                <select id="stt_apiai_lang" name="stt_apiai_lang" data-mini="true" data-native-menu="true" >
+                    <option  value="de">de</option>
+                    <option  value="en">en</option>
+                    <option  value="nl">nl</option>
+                    <option  value="fr">fr</option>
+                    <option  value="it">it</option>
+                    <option  value="ja">ja</option>
+                    <option  value="ko">ko</option>
+                    <option  value="pt">pt</option> 
+                    <option  value="ru">ru</option>
+                    <option  value="es">es</option>                   
+                </select>
+                </fieldset>
+                <script>
+                // Select option depending on saved config
+                $( "#stt_apiai_lang").val( "<TMPL_VAR NAME=STT_APIAI_LANG>" );                
+                </script>                
+            </td>
+        </tr>
+        <tr>
+			<td width="40%">
+                    <label id="labelstt_apiai_key"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_KEY></label>
+            </td>
+            <td>
+                <input id="stt_apiai_key" name="stt_apiai_key" type="text" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=STT_APIAI_KEY>">
+            </td>            
+        </tr> 
+        <tr>
+			<td colspan=2>
+                    <label id="labelstt_apiai_help"><font size="-1"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_APIAI_HELP></font></label>
+            </td>                        
+        </tr>
+		</table></div>     
+     
+        <!-- Houndify Options -->
+        <div  style="display: none;"  id="stt_houndify_options">
+         <table border=0	width="100%">
+        <tr>
+			<td width="40%">
+                    <label id="labelstt_houndify_lang"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_LANG></label>
+            </td>
+            <td>
+                <fieldset>
+                <select id="stt_houndify_lang" name="stt_wit_lang" data-mini="true" data-native-menu="true"  disabled>                    
+                    <option  value="en" selected>en</option>
+                </select>
+                </fieldset>                                
+            </td>
+        </tr>
+        <tr>
+			<td width="40%">
+                    <label id="labelstt_houndify_key"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_KEY></label>
+            </td>
+            <td>
+                <input id="stt_houndify_key" name="stt_houndifykey" type="text" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=STT_HOUNDIFY_KEY>">
+            </td>            
+        </tr> 
+        <tr>
+			<td width="40%">
+                    <label id="labelstt_houndify_clientid"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_CLIENTID></label>
+            </td>
+            <td>
+                <input id="stt_houndify_clientid" name="stt_houndify_clientid" type="text" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=STT_HOUNDIFY_CLIENTID>">
+            </td>            
+        </tr>         
+        <tr>
+			<td colspan=2>
+                    <label id="labelstt_houndify_help"><font size="-1"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_HOUNDIFY_HELP></font></label>
+            </td>                        
+        </tr>
+		</table></div>     
+        
+        <!-- END Options -->
+        
+	</td>
+	<td width="5%" valign="middle">
+	 &nbsp;
+	</td>
+	<td width="35%">
+	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_HELP></font>
+	</td>
+</tr>
+
+<tr>  
+	<td width="20%">
+		<label id="labeltts"><TMPL_VAR NAME=T::FORMTABLE.TTS_OPTION></label>
+	</td>
+	<td width="40%">
+			<fieldset>
+			<select onchange="enable_tts_option();" id="defaulttts" name="defaulttts" data-mini="true" data-native-menu="true" >
+                    <option  value="googletts" <TMPL_VAR NAME=GOOGLE_TTS>>Google (Cloud)</option>
+                    <option  value="pico2wave" <TMPL_VAR NAME=PICO2WAVE_TTS>>Pico2Wave  (local)</option>
+                    <option  value="acapela" <TMPL_VAR NAME=ACAPELA_TTS>>ACapela (Cloud)</option>
+                    <option  value="voicerss" <TMPL_VAR NAME=VOICERSS_TTS>>VoiceRSS (Cloud)</option>                                  
+			</select>
+			</fieldset>
+			<script>
+                    // Select option depending on saved config
+                    $( "#defaulttts").val( "<TMPL_VAR NAME=TTS_DEFAULT>" );
+                    enable_tts_option();
+			</script>     
+        
+            		
+        <!-- Google Options -->
+        <div  id="tts_google_options" style="display: none;">
+         <table border=0	width="100%"> 
+        <tr   id="tts_google_options">
+			<td width="40%">
+                    <label id="labeltts_google_lang"><TMPL_VAR NAME=T::FORMTABLE.TTS_OPTION_LANG></label>
+            </td>
+            <td>
+                <fieldset>
+                <select id="tts_google_lang" name="tts_google_lang" data-mini="true" data-native-menu="true" >
+                    <option  value="de-DE">de-DE</option>
+                    <option  value="en-US">en-US</option>
+                    <option  value="en-GB">en-GB</option>
+                    <option  value="nl-NL">nl-NL</option>
+                    <option  value="fr-FR">fr-FR</option>
+                    <option  value="it-IT">it-IT</option>
+                    <option  value="ja-JP">ja-JP</option>
+                    <option  value="ko-KR">ko-KR</option>
+                    <option  value="pl-PL">pl-PL</option>                    
+                    <option  value="pt-BR">pt-BR</option> 
+                    <option  value="ru-RU">ru-RU</option>
+                    <option  value="sv-SE">sv-SE</option>                    
+                    <option  value="es-ES">es-ES</option>
+                    <option  value="zh-CN">zh-CN</option>
+                    <option  value="zh-HK">zh-HK</option>                    
+                    <option  value="zh-TW">zh-TW</option>
+                </select>
+                </fieldset>
+                <script>
+                // Select option depending on saved config
+                $( "#tts_google_lang").val( "<TMPL_VAR NAME=TTS_GOOGLE_LANG>" );                
+                </script>                
+            </td>
+        </tr>
+        <tr>
+			<td colspan=2>
+                    <label id="labeltts_google_help"><font size="-1"><TMPL_VAR NAME=T::FORMTABLE.TTS_OPTION_GOOGLE_HELP></font></label>
+            </td>                        
+        </tr>        
+        </table></div>
+
+       <!-- END Options -->
+      
+	</td>
+	<td width="5%" valign="middle">
+	 &nbsp;
+	</td>
+	<td width="35%">
+	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.TTS_OPTION_HELP></font>
+	</td>
+</tr>     
+        
+<!--<tr>
+	<td colspan=4>
+	&nbsp;
+	</td>
+</tr>-->
+
+<tr>
+	<td>
+	&nbsp;
+	</td>
+	<td colspan=3>
+	<div id="form-error-message" class="form-error-message"></div>
+	</td>
+</tr>
+
+</table>
+
+<p>
+&nbsp;
+</p>
+
+<p>
+<center>
+	<a id="btncancel" data-role="button" data-inline="true" data-mini="true" data-icon="delete"
+	href="/admin/index.cgi"><TMPL_VAR NAME=T::BUTTON.CANCEL></a>
+	<button type="submit" form="main_form" id="btnsubmit" data-role="button" data-inline="true"
+	data-mini="true" data-icon="check"><TMPL_VAR NAME=T::BUTTON.SAVE></button>
+</center>
+</p>
+
+</form>
+
+
+<script>
+	// Error messages
+	var $messages = $('#form-error-message');
+	$.validate({
+		modules : 'security',
+		scrollToTopOnError : true,
+		errorMessagePosition : $messages,
+	});
+
+	// Disable some options on Load depending on selected value
+   disable_restapi();   
+   
+	function enable_stt_option() {
+    //alert($( "#defaultstt" ).val());
+    data = $( "#defaultstt" ).val();
+    
+    // reset all
+    document.getElementById("stt_google_options").style.display="none";
+    document.getElementById("stt_google_options").style.visibility = "hidden";
+    document.getElementById("stt_wit_options").style.display="none";
+    document.getElementById("stt_wit_options").style.visibility = "hidden";
+    document.getElementById("stt_bing_options").style.display="none";
+    document.getElementById("stt_bing_options").style.visibility = "hidden";
+    document.getElementById("stt_apiai_options").style.display="none";
+    document.getElementById("stt_apiai_options").style.visibility = "hidden";
+    document.getElementById("stt_houndify_options").style.display="none";
+    document.getElementById("stt_houndify_options").style.visibility = "hidden";     
+ 
+    // show what is selected
+	if ( data === "google" ) {
+          document.getElementById("stt_google_options").style.display="";
+          document.getElementById("stt_google_options").style.visibility = "visible";  
+    }
+    if ( data === "bing" ) {
+          document.getElementById("stt_bing_options").style.display="";
+          document.getElementById("stt_bing_options").style.visibility = "visible"; 
+            
+    }
+	if ( data === "wit" ) {
+          document.getElementById("stt_wit_options").style.display="";
+          document.getElementById("stt_wit_options").style.visibility = "visible"; 
+    }
+	if ( data === "apiai" ) {
+          document.getElementById("stt_apiai_options").style.display="";
+          document.getElementById("stt_apiai_options").style.visibility = "visible"; 
+    }
+	if ( data === "houndify" ) {
+          document.getElementById("stt_houndify_options").style.display="";
+          document.getElementById("stt_houndify_options").style.visibility = "visible"; 
+    }    
+    
+	}
+    
+   
+	function enable_tts_option() {
+
+
+    }
+    
+    
+    function disable_restapi_uselogin() {
+	    if ( $( "#restapi_uselogin" ).val() == "0" || $( "#restapi" ).val() == "0" )    {
+			$( "#restapilogin" ).addClass('ui-disabled');
+          $( "#labelrestapilogin" ).addClass('ui-disabled'); 
+			$( "#restapipassword" ).addClass('ui-disabled');
+          $( "#labelrestapipassword" ).addClass('ui-disabled');  
+		}
+		if ( $( "#restapi_uselogin" ).val() == "1" && $( "#restapi" ).val() == "1" ) {
+			$( "#restapilogin" ).removeClass('ui-disabled');
+          $( "#labelrestapilogin" ).removeClass('ui-disabled'); 
+			$( "#restapipassword" ).removeClass('ui-disabled');
+          $( "#labelrestapipassword" ).removeClass('ui-disabled');  
+		}
+	}
+   
+   function disable_restapi() {
+	    if ( $( "#restapi" ).val() == "0" ) {
+			$( "#labelrestapiport" ).addClass('ui-disabled');
+			$( "#restapiport" ).addClass('ui-disabled');
+           //FIXME: this leads to a loading loop preventing loading of the page???
+           //$( "#restapi_uselogin" ).flipswitch( "option", "disabled", true );
+           $( "#labelrestapiuselogin" ).addClass('ui-disabled');            
+		}
+		if ( $( "#restapi" ).val() == "1" ) {
+			$( "#labelrestapiport" ).removeClass('ui-disabled');
+			$( "#restapiport" ).removeClass('ui-disabled');
+           //FIXME: this leads to a loading loop preventing loading of the page???            
+			//$( "#restapi_uselogin" ).flipswitch( "option", "disabled", false );
+           $( "#labelrestapiuselogin" ).removeClass('ui-disabled');            
+		}
+       disable_restapi_uselogin();  
+	}    
+
+</script>

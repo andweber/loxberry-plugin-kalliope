@@ -1,0 +1,304 @@
+<div align="right"><font size="-1"><TMPL_VAR NAME=PLUGINVERSION></font></div>
+<center>
+
+<!-- This is the logo with weblink -->
+<table border=0 cellpadding=5>
+<tr>
+	<td>
+		<img src="/system/images/icons/<TMPL_VAR NAME=PSUBFOLDER>/banner_512.png">
+	</td>
+    <td>
+ 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+	<td>
+        <fieldset>
+                        <select onChange="disable_kalliope();" id="usage_running" name="usage_running" data-role="flipswitch" data-theme="e" disabled=disabled>
+                        <option value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
+                        <option value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+                        </select>
+        </fieldset>
+        <script>
+                        // Select option depending on saved config
+                        $( "#usage_running").val( "<TMPL_VAR NAME=RUNNING>" );
+       </script>
+	</td>
+    <td>
+ 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </td>
+    <td><font size="-1">
+            <TMPL_VAR NAME=T::GENERIC.HP></br>
+            <a href="https://kalliope-project.github.io/">https://kalliope-project.github.io/</a>
+            </font>
+    </td>
+</tr>
+</table>
+
+<!-- Line of buttons -->
+<table border=0 cellpadding=5>
+<tr>
+	<td>
+	<a  id="btncfgaudio" data-icon="gear" data-role="button" data-mini="true"  href="./index.cgi"><TMPL_VAR NAME=T::BUTTON.CONFIG></a>
+	</td>
+	<td>
+	<a  id="btncfgaudio" data-icon="audio" data-role="button" data-mini="true" href="./cfgaudio.cgi"><TMPL_VAR NAME=T::BUTTON.CFGAUDIO></a>
+	</td>
+	<td>
+	<a id="btnshowlog" data-icon="search" data-role="button" data-mini="true" href="../../system/tools/logfile.cgi?logfile=plugins/<TMPL_VAR NAME=PSUBFOLDER>/<TMPL_VAR NAME=LOGFILE>&header=html&format=template" target="_blank"><TMPL_VAR NAME=T::BUTTON.SHOWLOGFILE></a>
+	</td>
+	<td>
+	<a  id="btneditbrain" data-icon="edit" data-role="button" data-mini="true" href="./editbrain.cgi" class="ui-disabled"><TMPL_VAR NAME=T::BUTTON.EDITBRAIN></a>
+	</td>
+	<td>
+	<a  id="btnusage" data-icon="edit" data-role="button" data-mini="true" href="./usage.cgi" class="ui-disabled ui-btn-active"><TMPL_VAR NAME=T::BUTTON.USAGE></a>
+	</td>    
+</tr>
+</table>
+</center>
+
+<!-- main form with action -->
+<form method="post" data-ajax="false" name="main_form" id="main_form" action="./usage.cgi">
+<input type="hidden" name="saveformdata" value="1">
+
+<table border=0 width="100%" cellpadding="10">
+<tr>
+	<td colspan=4>
+	<h2><TMPL_VAR NAME=T::FORMTABLEUSAGE.GENERALUSAGE></h2>
+	</td>
+</tr>
+
+<tr>
+   	<td colspan=4>
+	<TMPL_VAR NAME=T::FORMTABLEUSAGE.USAGE_HELP> <br>
+    <font size="-1"><TMPL_VAR NAME=T::FORMTABLEUSAGE.USAGE_HELP2></font>
+	</td>
+</tr>
+
+<tr>
+	<td width="20%">
+		<label id="labelusagebasic"><TMPL_VAR NAME=T::FORMTABLEUSAGE.TEST></label>
+	</td>
+	<td width="40%">
+		<a id="btnusage_test" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1"><TMPL_VAR NAME=T::FORMTABLEUSAGE.TEST_BTN></font></a>
+        
+	</td>
+	<td width="5%" valign="middle">
+	 &nbsp;
+	</td>
+	<td width="35%">
+	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLEUSAGE.TEST_HELP></font>
+	</td>
+</tr>
+
+<tr>
+	<td width="20%">
+		<label id="labelusagebasic"><TMPL_VAR NAME=T::FORMTABLEUSAGE.BASIC></label>
+	</td>
+	<td width="40%">
+                <a id="btnusage_hallo" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1">><TMPL_VAR NAME=T::FORMTABLEUSAGE.BASIC_HALLO_BTN><</font></a>
+
+                <a id="btnusage_datetime" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1">><TMPL_VAR NAME=T::FORMTABLEUSAGE.BASIC_DATETIME_BTN><</font></a>
+ 
+              <a id="btnusage_orders" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1">><TMPL_VAR NAME=T::FORMTABLEUSAGE.BASIC_ORDERS_BTN><</font></a>
+  
+	</td>
+	<td width="5%" valign="middle">
+	 &nbsp;
+	</td>
+	<td width="35%">
+	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLEUSAGE.BASIC_HELP></font>
+	</td>
+</tr>
+
+<tr>
+	<td width="20%">
+		<label id="labelusageloxscontrol"><TMPL_VAR NAME=T::FORMTABLEUSAGE.LOXSCONTROL></label>
+	</td>
+	<td width="40%">
+                <a id="btnusage_lighton" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1">><TMPL_VAR NAME=T::FORMTABLEUSAGE.LOXSCONTROL_LIGHTON_BTN><</font></a>
+
+                <a id="btnusage_lightoff" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1">><TMPL_VAR NAME=T::FORMTABLEUSAGE.LOXSCONTROL_LIGHTOFF_BTN><</font></a>
+                
+	</td>
+	<td width="5%" valign="middle">
+	 &nbsp;
+	</td>
+	<td width="35%">
+	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLEUSAGE.LOXSCONTROL_HELP></font>
+	</td>
+</tr>
+
+<tr>
+	<td>
+	&nbsp;
+	</td>
+	<td colspan=3>
+            <font size="-1"><div id="labelusage_status">	&nbsp;</div></font>
+	</td>
+</tr>
+
+<tr>
+	<td colspan=4>
+	<h2><TMPL_VAR NAME=T::FORMTABLEUSAGE.USECONSOLE></h2>
+	</td>
+</tr>
+
+<tr>
+	<td colspan=4>
+    <font><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP> <br> 
+    <pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD> -X POST http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/id/SYNAPSENNAME</pre>
+     <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_2>
+     <pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD>  -H "Content-Type: application/json" -X POST -d '{"order":"my order"}'  http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/order</pre>
+     <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_3>
+     <a href="https://github.com/kalliope-project/kalliope/blob/master/Docs/rest_api.md"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_4></a></font>
+	 <br></td>
+</tr>
+
+<tr>
+	<td colspan=4>
+	<h2><TMPL_VAR NAME=T::FORMTABLEUSAGE.USEMINISERVER></h2>
+	</td>
+</tr>
+
+<tr>
+	<td colspan=4>
+    <font><TMPL_VAR NAME=T::FORMTABLEUSAGE.USEMINISERVER_HELP><br> 
+     <pre>http://<TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD>@<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT></pre>
+     <TMPL_VAR NAME=T::FORMTABLEUSAGE.USEMINISERVER_HELP_2><br>
+     <pre><TMPL_VAR NAME=T::FORMTABLEUSAGE.USEMINISERVER_HELP_3>: /synapses/start/order</pre>
+     <pre><TMPL_VAR NAME=T::FORMTABLEUSAGE.USEMINISERVER_HELP_4>: Content-Type: application/json</pre>
+     <pre><TMPL_VAR NAME=T::FORMTABLEUSAGE.USEMINISERVER_HELP_5>: {"order":"my order"}</pre>
+     <pre><TMPL_VAR NAME=T::FORMTABLEUSAGE.USEMINISERVER_HELP_6>: POST</pre>
+    <TMPL_VAR NAME=T::FORMTABLEUSAGE.USEMINISERVER_HELP_7>  <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_3> <a href="https://github.com/andweber/kalliope/blob/master/Docs/brain.md"><TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_3></a></font> <br>
+	<TMPL_VAR NAME=T::FORMTABLEUSAGE.USEMINISERVER_HELP_8> <br>
+    </td>
+</tr>
+
+
+
+<!--<tr>
+	<td colspan=4>
+	&nbsp;
+	</td>
+</tr>-->
+
+<!--<tr>
+	<td>
+	&nbsp;
+	</td>
+	<td colspan=3>
+	<div id="form-error-message" class="form-error-message"></div>
+	</td>
+</tr>-->
+
+</table>
+
+<p>
+&nbsp;
+</p>
+
+<!--<p>
+<center>
+	<a id="btncancel" data-role="button" data-inline="true" data-mini="true" data-icon="delete"
+	href="/admin/index.cgi"><TMPL_VAR NAME=T::BUTTON.CANCEL></a>
+	<button type="submit" form="main_form" id="btnsubmit" data-role="button" data-inline="true"
+	data-mini="true" data-icon="check"><TMPL_VAR NAME=T::BUTTON.SAVE></button>
+</center>
+</p>-->
+
+</form>
+
+
+<script>
+	// Error messages
+	var $messages = $('#form-error-message');
+	$.validate({
+		modules : 'security',
+		scrollToTopOnError : true,
+		errorMessagePosition : $messages,
+	});
+    
+   function order (txtorder) {
+      $('#labelusage_status').css('color', 'black');   
+      $('#labelusage_status').html('<TMPL_VAR NAME=T::FORMTABLEUSAGE.STATUS_1>');  
+      //e.preventDefault();
+      $.ajax({
+      contentType: "application/x-www-form-urlencoded; charset=iso-8859-15",
+      type: "GET",
+      url: "/admin/plugins/<TMPL_VAR NAME=PSUBFOLDER>/order.cgi?order="+encodeURIComponent(txtorder),
+      data: "data",
+      success: function(data){
+        data.replace(/\r|\n/g, "");
+       //success msg
+        if (data == "done" ) {
+            $('#labelusage_status').html('<TMPL_VAR NAME=T::FORMTABLEUSAGE.STATUS_2>');    
+            $('#labelusage_status').css('color', 'green');     
+       } else {
+       //something went wrong - print an error msg
+           text =  '<TMPL_VAR NAME=T::FORMTABLEUSAGE.STATUS_3>. '+data+'<br>';
+            $('#labelusage_status').html(text); 
+            $('#labelusage_status').css('color', 'red');           
+       }
+        
+        }, //sucess
+        error: function(xhr, ajaxOptions, thrownError){
+             $('#labelusage_status').html('<TMPL_VAR NAME=T::FORMTABLEUSAGE.STATUS_ERROR_CGI> <br> AJAX ERROR:'+thrownError);
+             $('#labelusage_status').css('color', 'red');
+        } //fail
+ 
+    }); //ajax 
+  }
+  
+  $(document).ready(function () {  
+  
+  // Show loading animation while ajax events
+  $(this).ajaxStart(function() {
+    $("#overlay").show();
+  });    
+    
+  $(this).ajaxStop(function() {
+    $("#overlay").hide();
+  });    
+
+  // order=loxberry-install-finished
+  $('#btnusage_test').click( function(e) {
+    e.preventDefault();
+    order("loxberry-install-finished"); 
+    }); //click 
+
+  // order=hallo
+  $('#btnusage_hallo').click( function(e) {
+    e.preventDefault();
+    order("<TMPL_VAR NAME=T::FORMTABLEUSAGE.BASIC_HALLO_BTN>"); 
+    }); //click 
+
+  // order=time
+  $('#btnusage_datetime').click( function(e) {
+    e.preventDefault();
+    order("<TMPL_VAR NAME=T::FORMTABLEUSAGE.BASIC_DATETIME_BTN>"); 
+    }); //click     
+
+      // order=<TMPL_VAR NAME=T::FORMTABLEUSAGE.BASIC_ORDERS_BTN>
+  $('#btnusage_orders').click( function(e) {
+    e.preventDefault();
+    order("<TMPL_VAR NAME=T::FORMTABLEUSAGE.BASIC_ORDERS_BTN>"); 
+    }); //click 
+
+  // order=light on
+  $('#btnusage_lighton').click( function(e) {
+    e.preventDefault();
+    order("<TMPL_VAR NAME=T::FORMTABLEUSAGE.LOXSCONTROL_LIGHTON_BTN>"); 
+    }); //click   
+
+  // order=light off
+  $('#btnusage_lightoff').click( function(e) {
+    e.preventDefault();
+    order("<TMPL_VAR NAME=T::FORMTABLEUSAGE.LOXSCONTROL_LIGHTOFF_BTN>"); 
+    }); //click      
+  
+  }); //ready
+ 
+</script>
+
+
+
+

@@ -2,7 +2,7 @@
 ######################### LoxBerry Plugin KalliopeLoxSControl ##############
 # Installscript
 # Autor:        Andreas Weber, andweber@gmail.com
-# Version:      0.1 - 01.03.2017
+# Version:      0.2 - 11.02.2018
 #
 ############################################################################
 # Disclaimer
@@ -21,11 +21,13 @@
 # different! Better to do this in your own Pluginscript if possible.
 #
 # Exit code must be 0 if executed successfull.
+# Exit code 1 gives a warning but continues installation.
+# Exit code 2 cancels installation.
 #
 # Will be executed as user "loxberry".
 #
-# We add 5 arguments when executing the script:
-# command <TEMPFOLDER> <NAME> <FOLDER> <VERSION> <BASEFOLDER>
+# We add 4 arguments when executing the script:
+# command <TEMPFOLDER> <NAME> <FOLDER> <VERSION> 
 #
 # For logging, print to STDOUT. You can use the following tags for showing
 # different colorized information during plugin installation:
@@ -37,53 +39,75 @@
 # <FAIL> This is a fail!"
 ############################################################################
 # To use important variables from command line use the following code:
-ARGV0=$0 # Zero argument is shell command
-ARGV1=$1 # First argument is temp folder during install
-ARGV2=$2 # Second argument is Plugin-Name for scipts etc.
-ARGV3=$3 # Third argument is Plugin installation folder
-ARGV4=$4 # Forth argument is Plugin version
-echo "<INFO> Command is: $ARGV0"
-echo "<INFO> Temporary folder is: $ARGV1"
-echo "<INFO> (Short) Name is: $ARGV2"
-echo "<INFO> Installation folder is: $ARGV3"
-echo "<INFO> Installation folder is: $ARGV4"
+COMMAND=$0 # Zero argument is shell command
+PTEMPDIR=$1 # First argument is temp folder during install
+PSHNAME=$2 # Second argument is Plugin-Name for scipts etc.
+PDIR=$3 # Third argument is Plugin installation folder
+PVERSION=$4 # Forth argument is Plugin version
+# Combine them with /etc/environment
+PCGI=$LBPCGI/$PDIR
+PHTML=$LBPHTML/$PDIR
+PTEMPL=$LBPTEMPL/$PDIR
+PDATA=$LBPDATA/$PDIR
+PLOG=$LBPLOG/$PDIR # Note! This is stored on a Ramdisk now!
+PCONFIG=$LBPCONFIG/$PDIR
+PSBIN=$LBPSBIN/$PDIR
+PBIN=$LBPBIN/$PDIR
 ############################################################################
 # Definitions
-#kalliope_installversion=v0.4.5
+#kalliope_installversion=v0.5.0
 kalliope_installversion=dev
 ############################################################################
+# Switch on Loggin
+source $LBHOMEDIR/libs/bashlib/loxberry_log.sh
+PACKAGE=$PSHNAME
+NAME=kalliope
+NOFILE=1
+ 
+LOGSTART "kalliope preinstall started."
+LOGDEB "Command is: $COMMAND"
+LOGDEB "Temporary folder is: $PTEMPDIR"
+LOGDEB "(Short) Name is: $PSHNAME"
+LOGDEB "Installation folder is: $PDIR"
+LOGDEB "Plugin version is: $PVERSION"
+LOGDEB "Plugin CGI folder is: $PCGI"
+LOGDEB "Plugin HTML folder is: $PHTML"
+LOGDEB "Plugin Template folder is: $PTEMPL"
+LOGDEB "Plugin Data folder is: $PDATA"
+LOGDEB "Plugin Log folder (on RAMDISK!) is: $PLOG"
+LOGDEB "Plugin CONFIG folder is: $PCONFIG"
 
 # Download Pip
-echo "<INFO> Getting latest pip from https://bootstrap.pypa.io"
-/usr/bin/wget --progress=dot:mega -t 10 -O /tmp/uploads/$ARGV1/data/get-pip.py https://bootstrap.pypa.io/get-pip.py
+LOGINF "Getting latest pip from https://bootstrap.pypa.io"
+/usr/bin/wget --progress=dot:mega -t 10 -O /tmp/uploads/$PTEMPDIR/data/get-pip.py https://bootstrap.pypa.io/get-pip.py
 
-if [ ! -f /tmp/uploads/$ARGV1/data/get-pip.py ]; then
-    echo "<FAIL> Something went wrong while trying to download pip."
-    exit 1
+if [ ! -f /tmp/uploads/$PTEMPDIR/data/get-pip.py ]; then
+    LOGCRIT "Something went wrong while trying to download pip."
+    exit 2
 else
-    echo "<OK> Latest pip downloaded successfully."
+    LOGOK "Latest pip downloaded successfully."
 fi
 
 # Download Kalliope
-echo "<INFO> Getting latest kalliope from https://github.com/kalliope-project/kalliope/archive/$kalliope_installversion.zip"
-/usr/bin/wget --progress=dot:mega -t 10 -O /tmp/uploads/$ARGV1/data/kalliope.zip https://github.com/kalliope-project/kalliope/archive/$kalliope_installversion.zip
+LOGINF "Getting latest kalliope from https://github.com/kalliope-project/kalliope/archive/$kalliope_installversion.zip"
+/usr/bin/wget --progress=dot:mega -t 10 -O /tmp/uploads/$PTEMPDIR/data/kalliope.zip https://github.com/kalliope-project/kalliope/archive/$kalliope_installversion.zip
 
-if [ ! -f /tmp/uploads/$ARGV1/data/kalliope.zip ]; then
-    echo "<FAIL> Something went wrong while trying to download kalliope."
-    exit 1
+if [ ! -f /tmp/uploads/$PTEMPDIR/data/kalliope.zip ]; then
+    LOGCRIT "Something went wrong while trying to download kalliope."
+    exit 2
 else
-    echo "<OK> Latest kalliope downloaded successfully."
+    LOGOK "Latest kalliope downloaded successfully."
 
     # Unpack Kalliope
-    echo "<INFO> Unpacking..."
-    cd /tmp/uploads/$ARGV1/data/
+    LOGINF "Unpacking..."
+    cd /tmp/uploads/$PTEMPDIR/data/
     unzip kalliope.zip
     if [ $? -ne 0 ]; then
-        echo "<FAIL> Unpacking kalliope failed."
-        exit 1
+        LOGCRIT "Unpacking kalliope failed."
+        exit 2
     else
         rm kalliope.zip
-        echo "<OK> Kalliope unpacked. Ready for install."            
+        LOGOK "Kalliope unpacked. Ready for install."            
     fi
 
 fi

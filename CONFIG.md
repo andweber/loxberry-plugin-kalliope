@@ -24,7 +24,9 @@ This shows the log of kalliope. If you have any problems open an [issues](../../
 
 ## EditBrain
 
+`
 >>not yet implemented<< 
+`
 
 To edit the brain, use ssh or samba to retain the files stored in the config folder:
 `

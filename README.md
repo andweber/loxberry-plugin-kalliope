@@ -13,21 +13,20 @@ For Details visit [http://www.loxwiki.eu](http://www.loxwiki.eu:80/x/o4CO) or [K
 
 
 This project is a non-commercial community project and not connected to the company [Loxone](www.loxone.com).
+Source Code of LoxBerry can be found on [GitHub](https://github.com/mschlenstedt/Loxberry).
 
 ## Installation
 
-/!\ You need to have a running [LoxBerry](http://www.loxwiki.eu:80/x/o4CO) installation with a microphone and an audio output connected. You can get the latest version from [https://download.loxberry.de/](https://download.loxberry.de/). Consult the [installation instructions](http://www.loxwiki.eu:80/x/r4CO) for more details. 
+/!\ You need to have a running [LoxBerry](http://www.loxwiki.eu:80/x/o4CO) installation with a microphone and an audio output connected. You can get the latest version from [https://download.loxberry.de/](https://download.loxberry.de/). Consult the [installation instructions](http://www.loxwiki.eu:80/x/r4CO) for more details.
+For issues with audio or microphone the [audio guide](AUDIO.md) may help.
 
-You can download the last stable version of this plugin from [http://plugins.loxberry.de/](http://plugins.loxberry.de/) or the [https://github.com/andweber/loxberry-plugin-kalliope/releases](releases pages). For the development version download this repository as *.zip.
+In case you want to use a [Google AIY-Voicekit](https://aiyprojects.withgoogle.com/voice/) as hardware - you find some tipps in the [AIY Voicekit tutorial](AIY_VOICEKIT.md).
 
-LoxBerry contains a [bug](https://github.com/mschlenstedt/Loxberry/issues/165). As long as this is not fixed use the following manual fix:
-1. Log into loxberry with an ssh as root
-2. type ```adduser loxberry audio```
-3. logout
+You can download the last stable version of this plugin from [http://plugins.loxberry.de/](http://plugins.loxberry.de/) or the [releases pages](https://github.com/andweber/loxberry-plugin-kalliope/releases). For the development version download this repository as `*.zip`.
 
-Navigate in the LoxBerry Webfrontend to Plugin-Installation, select the downloaded *.zip and install the plugin. 
+Navigate in the LoxBerry Webfrontend to Plugin-Installation, select the downloaded `*.zip` and install the plugin.
 
-Navigate to the plugin configuration site and configure the plugin. Help is available at the [configure guide](CONFIG.md). For issues with audio or microphone the [audio guide](AUDIO.md) may help.
+Navigate to the plugin configuration site and configure the plugin. Help is available at the [configure guide](CONFIG.md). 
 
 Finally restart the LoxBerry.
 
@@ -39,22 +38,6 @@ The Kalliope brain is stored in the plugin config folder and can be adjusted and
 
 
 ## RoadMap
-
-[Done] Version 0.1
-- plugin installs Kalliope
-- kalliope is running after reboot (config found, starting up correctly)
-
-[Done] Version 0.2
-- basic settings in webfrontend
-- Audio, Mic test in webfrontend
-- LoxSControl is running (directly started from cmdl)
-- working at least for german and english
-
-[Done] Version 0.3
-- Improved Webfrontend, including Options and Usage
-- check audio/mic hardware config
-- Proof Control Kalliope using Rest-API
-- Proof Control of Loxone with Kalliope
 
 Version 0.4
 - Improved Webfrontend
