@@ -23,4 +23,5 @@ pulseaudio-utils
 libyaml-tiny-perl
 #libconfig-yaml-perl
 libstring-escape-perl
-
+libav-tools
+libpython2.7-dev

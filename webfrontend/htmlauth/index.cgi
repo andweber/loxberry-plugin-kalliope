@@ -89,7 +89,7 @@ my $kalliope_runstatus;
 ##########################################################################
 
 # Version of this script
-$version = "0.3";
+my $version = LoxBerry::System::pluginversion();
 
 # Figure out in which subfolder we are installed
 #$psubfolder = abs_path($0);
@@ -100,7 +100,7 @@ $version = "0.3";
 #	type	=>	'text/html',
 #	charset	=>	'utf-8',
 #); 
-print "Content-type: text/html\n\n";
+#print "Content-type: text/html\n\n";
 
 # Read general config
 #$cfg	 	= new Config::Simple("$home/config/system/general.cfg") or die $cfg->error();
@@ -160,16 +160,16 @@ if (!-d "/var/run/kalliope/$psubfolder") {
 #    $kalliope_runstatus = 0;
 #}
 if ( -e "$lbhomedir/system/daemons/plugins/$pname" ) {
-	system("$lbhomedir/system/daemons/plugins/$pname status > /dev/null 2>&1") == 0 or die "system call failed: $?"; 
+	system("$lbhomedir/system/daemons/plugins/$pname status > /dev/null 2>&1"); 
 }
-if ( $?  == -1 ) {
-    $kalliope_runstatus = 0;
+if ( $?  == 0 ) {
+    $kalliope_runstatus = 1;
 }
 elsif ( $?  & 127 ) {
     $kalliope_runstatus = 0;
 }
 else {
-    $kalliope_runstatus = 1;
+    $kalliope_runstatus = 0;
 }
 
 # Set parameters coming in - get over post
@@ -192,6 +192,7 @@ elsif ( $cgi->param('saveformdata') ) {
 
 # Header # At the moment not in HTML::Template format
 #$headertemplate = HTML::Template->new(filename => "$installfolder/templates/system/$lang/header.html");
+LoxBerry::Web::lbheader("Kalliope v$version", "http://www.loxwiki.eu/display/LOXBERRY/Kalliope", "help.html");
 
 # Main
 $maintemplate = HTML::Template->new(
@@ -202,7 +203,7 @@ $maintemplate = HTML::Template->new(
 	associate => $cgi,
 );
 
-%L = LoxBerry::System::readlanguage($maintemplate, "language.ini");
+my %Phrases = LoxBerry::System::readlanguage($maintemplate, "language.ini");
 
 # Footer # At the moment not in HTML::Template format
 #$footertemplate = HTML::Template->new(filename => "$installfolder/templates/system/$lang/footer.html");
@@ -329,14 +330,14 @@ sub form
 	#$template_title = $phrase->param("TXT0000") . ": " . $pname;
 
 	# Print Template header
-	&lbheader;
+	#&lbheader;
     
-   	# Read options and set them for template
- 	$maintemplate->param( PSUBFOLDER	=> $psubfolder );  
-	$maintemplate->param( PLUGINVERSION	=> $version );
-	$maintemplate->param( RUNNING 		=> $kalliope_runstatus );
-	$maintemplate->param( HOST 		=> $ENV{HTTP_HOST} );
-    $maintemplate->param( LOGFILE 		=> $plogfile );
+    # Read options and set them for template
+    $maintemplate->param( PSUBFOLDER	=> $lbpplugindir );  
+    $maintemplate->param( PLUGINVERSION	=> $version );
+    $maintemplate->param( RUNNING 	=> $kalliope_runstatus );
+    $maintemplate->param( HOST 		=> $ENV{HTTP_HOST} );
+    $maintemplate->param( LOGFILE 	=> $plogfile );
     
     # RESTAPI  
     if ( uc($kalliope_cfg->[0]->{rest_api}->{password_protected}) eq "TRUE" ) {
@@ -405,13 +406,15 @@ sub form
     # set default TTS
     $maintemplate->param( TTS_DEFAULT	=> $kalliope_cfg->[0]->{default_text_to_speech});
 
-	# Print Template
-	print $maintemplate->output;
+    # Print Template
+    print $maintemplate->output;
 
-	# Parse page footer		
-	&lbfooter;
+    # Parse page footer		
+    #&lbfooter;
+    # Schlussendlich lassen wir noch den Footer ausgeben.
+    LoxBerry::Web::lbfooter();
 
-	exit;
+    exit;
 
 }
 
@@ -419,44 +422,43 @@ sub form
 # Page-Header-Sub
 #####################################################
 
-sub lbheader 
-{
-	 # Create Help page
-  $helplink = "http://www.loxwiki.eu/display/LOXBERRY/kalliope";
-  open(F,"$lbptemplatedir/help.html") || die "Missing template $lbptemplatedir/help.html";
-    @help = <F>;
-    foreach (@help)
-    {
-      $_ =~ s/<!--\$psubfolder-->/$psubfolder/g;
-      s/[\n\r]/ /g;
-      $_ =~ s/<!--\$(.*?)-->/${$1}/g;
-      $helptext = $helptext . $_;
-    }
-  close(F);
-    
-  open(F,"$lbptemplatedir/header.html") || die "Missing template $lbptemplatedir/header.html";
-    while (<F>) 
-    {
-      $_ =~ s/<!--\$(.*?)-->/${$1}/g;
-      print $_;
-    }
-  close(F);
-}
+#sub lbheader 
+#{
+#	 # Create Help page
+#  $helplink = "http://www.loxwiki.eu/display/LOXBERRY/kalliope";
+#  open(F,"$lbptemplatedir/help.html") || die "Missing template $lbptemplatedir/help.html";
+#    @help = <F>;
+#    foreach (@help)
+#    {
+#      $_ =~ s/<!--\$psubfolder-->/$psubfolder/g;
+#      s/[\n\r]/ /g;
+#      $_ =~ s/<!--\$(.*?)-->/${$1}/g;
+#      $helptext = $helptext . $_;
+#    }
+#  close(F);
+#    
+#  open(F,"$lbtemplatedir/head.html") || die "Missing template $lbptemplatedir/head.html";
+#    while (<F>) 
+#    {
+#      $_ =~ s/<!--\$(.*?)-->/${$1}/g;
+#    }
+#close(F);
+#}
 
 #####################################################
 # Footer
 #####################################################
 
-sub lbfooter 
-{
-  open(F,"$lbptemplatedir/footer.html") || die "Missing template $lbptemplatedir/footer.html";
-    while (<F>) 
-    {
-      $_ =~ s/<!--\$(.*?)-->/${$1}/g;
-      print $_;
-    }
-  close(F);
-}
+#sub lbfooter 
+#{
+#  open(F,"$lbtemplatedir/foot.html") || die "Missing template $lbptemplatedir/foot.html";
+#    while (<F>) 
+#    {
+#      $_ =~ s/<!--\$(.*?)-->/${$1}/g;
+#      print $_;
+#    }
+#  close(F);
+#}
 
 
 

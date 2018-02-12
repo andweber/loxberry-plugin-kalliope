@@ -2,7 +2,7 @@
 ######################### LoxBerry Plugin KalliopeLoxSControl ##############
 # Startup Daemon
 # Autor:        Andreas Weber, andweber@gmail.com
-# Version:      0.2 - 07.03.2017
+# Version:      0.3 - 12.02.2018
 #
 ############################################################################
 # Disclaimer
@@ -27,8 +27,11 @@
 ############################################################################
 
 pluginname=$(basename $0 .sh)
-brainfolder=REPLACEINSTALLFOLDER/config/plugins/REPLACEFOLDERNAME
-logfolder=REPLACEINSTALLFOLDER/log/plugins/REPLACEFOLDERNAME/kalliope.log
+#brainfolder=REPLACEINSTALLFOLDER/config/plugins/REPLACEFOLDERNAME
+brainfolder=$LBPCONFIG/$pluginname
+#logfolder=REPLACEINSTALLFOLDER/log/plugins/REPLACEFOLDERNAME/kalliope.log
+. $LBHOMEDIR/libs/bashlib/loxberry_log.sh
+logfolder=$LBPLOG/$pluginname/kalliope.log
 
 if [ -x /usr/bin/logger ]; then
     /usr/bin/logger "loxberry-plugin-$pluginname - DAEMON Script from Kalliope Plugin"
@@ -45,7 +48,8 @@ case "$1" in
         echo "<INFO> Kalliope is already running. PID: $PID"
     else
         echo "<INFO> Starting Kalliope..."
-        cd REPLACEINSTALLFOLDER/data/plugins/REPLACEFOLDERNAME
+        #cd REPLACEINSTALLFOLDER/data/plugins/REPLACEFOLDERNAME
+        cd $LBPDATA/$pluginname
         if [ $EUID -eq 0 ]; then
 
             # FIX Loxberry Bug - missing audo group

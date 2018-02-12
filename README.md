@@ -24,7 +24,7 @@ In case you want to use a [Google AIY-Voicekit](https://aiyprojects.withgoogle.c
 
 You can download the last stable version of this plugin from [http://plugins.loxberry.de/](http://plugins.loxberry.de/) or the [releases pages](https://github.com/andweber/loxberry-plugin-kalliope/releases). For the development version download this repository as `*.zip`.
 
-Navigate in the LoxBerry Webfrontend to Plugin-Installation, select the downloaded `*.zip` and install the plugin.
+Navigate in the LoxBerry Webfrontend to Plugin-Installation, select the downloaded `*.zip` and install the plugin. The first install will take some time, because of the dependencies needed to build.
 
 Navigate to the plugin configuration site and configure the plugin. Help is available at the [configure guide](CONFIG.md). 
 

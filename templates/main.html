@@ -13,8 +13,8 @@
 	<td>
         <fieldset>
                         <select onChange="disable_kalliope();" id="main_running" name="main_running" data-role="flipswitch" data-theme="e" disabled=disabled>
-                        <option value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
-                        <option value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+                        <option value="0"><TMPL_VAR GENERIC.OFF></option>
+                        <option value="1"><TMPL_VAR GENERIC.ON></option>
                         </select>
         </fieldset>
         <script>
@@ -26,7 +26,7 @@
  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </td>
     <td><font size="-1">
-            <TMPL_VAR NAME=T::GENERIC.HP></br>
+            <TMPL_VAR GENERIC.HP></br>
             <a href="https://kalliope-project.github.io/">https://kalliope-project.github.io/</a>
             </font>
     </td>
@@ -37,19 +37,19 @@
 <table border=0 cellpadding=5>
 <tr>
 	<td>
-	<a  id="btncfgaudio" data-icon="gear" data-role="button" data-mini="true" class="ui-disabled ui-btn-active"><TMPL_VAR NAME=T::BUTTON.CONFIG></a>
+	<a  id="btncfgaudio" data-icon="gear" data-role="button" data-mini="true" class="ui-disabled ui-btn-active"><TMPL_VAR BUTTON.CONFIG></a>
 	</td>
 	<td>
-	<a  id="btncfgaudio" data-icon="audio" data-role="button" data-mini="true" href="./cfgaudio.cgi"><TMPL_VAR NAME=T::BUTTON.CFGAUDIO></a>
+	<a  id="btncfgaudio" data-icon="audio" data-role="button" data-mini="true" href="./cfgaudio.cgi"><TMPL_VAR BUTTON.CFGAUDIO></a>
 	</td>
 	<td>
-	<a id="btnshowlog" data-icon="search" data-role="button" data-mini="true" href="../../system/tools/logfile.cgi?logfile=plugins/<TMPL_VAR NAME=PSUBFOLDER>/<TMPL_VAR NAME=LOGFILE>&header=html&format=template" target="_blank"><TMPL_VAR NAME=T::BUTTON.SHOWLOGFILE></a>
+	<a id="btnshowlog" data-icon="search" data-role="button" data-mini="true" href="../../system/tools/logfile.cgi?logfile=plugins/<TMPL_VAR NAME=PSUBFOLDER>/<TMPL_VAR NAME=LOGFILE>&header=html&format=template" target="_blank"><TMPL_VAR BUTTON.SHOWLOGFILE></a>
 	</td>
 	<td>
-	<a  id="btneditbrain" data-icon="edit" data-role="button" data-mini="true" href="./editbrain.cgi" class="ui-disabled"><TMPL_VAR NAME=T::BUTTON.EDITBRAIN></a>
+	<a  id="btneditbrain" data-icon="edit" data-role="button" data-mini="true" href="./editbrain.cgi" class="ui-disabled"><TMPL_VAR BUTTON.EDITBRAIN></a>
 	</td>
 	<td>
-	<a  id="btnusage" data-icon="edit" data-role="button" data-mini="true" href="./usage.cgi"><TMPL_VAR NAME=T::BUTTON.USAGE></a>
+	<a  id="btnusage" data-icon="edit" data-role="button" data-mini="true" href="./usage.cgi"><TMPL_VAR BUTTON.USAGE></a>
 	</td>    
 </tr>
 </table>
@@ -62,12 +62,12 @@
 <table border=0 width="100%" cellpadding="10">
 <tr>
 	<td colspan=4>
-	<h3><TMPL_VAR NAME=T::FORMTABLE.FEATURES></h3>
+	<h3><TMPL_VAR FORMTABLE.FEATURES></h3>
 	</td>
 </tr>
 <tr>
 	<td width="20%">
-		<label id="labelrestapi"><TMPL_VAR NAME=T::FORMTABLE.MSSPEECHCONTROL></label>
+		<label id="labelrestapi"><TMPL_VAR FORMTABLE.MSSPEECHCONTROL></label>
 	</td>
 	<td width="40%">
 		<table border=0	width="100%">
@@ -75,8 +75,8 @@
 			<td width="20%">
 			<fieldset>
 			<select id="speechcontrol" name="speechcontrol" data-role="flipswitch" data-theme="e"  disabled=disabled>
-			<option value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
-			<option selected=selected value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+			<option value="0"><TMPL_VAR GENERIC.OFF></option>
+			<option selected=selected value="1"><TMPL_VAR GENERIC.ON></option>
 			</select>
 			</fieldset>
 			<script>
@@ -100,12 +100,12 @@
 	 &nbsp;
 	</td>
 	<td width="35%">
-	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.MSSPEECHCONTROL_HELP></font>
+	 <font size="-1"><TMPL_VAR FORMTABLE.MSSPEECHCONTROL_HELP></font>
 	</td>
 </tr>
 <!--<tr>
 	<td width="20%">
-		<label id="labelrestapi"><TMPL_VAR NAME=T::FORMTABLE.TTS></label>
+		<label id="labelrestapi"><TMPL_VAR FORMTABLE.TTS></label>
 	</td>
 	<td width="40%">
 		<table border=0	width="100%">
@@ -113,8 +113,8 @@
 			<td width="20%">
 			<fieldset>
 			<select id="tts_active" name="tts_active" data-role="flipswitch" data-theme="e" disabled=disabled>
-			<option	value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
-			<option	selected=selected value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+			<option	value="0"><TMPL_VAR GENERIC.OFF></option>
+			<option	selected=selected value="1"><TMPL_VAR GENERIC.ON></option>
 			</select>
 			</fieldset>
 			</td>
@@ -128,14 +128,14 @@
 	 &nbsp;
 	</td>
 	<td width="35%">
-	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.TTS_HELP><br> 
+	 <font size="-1"><TMPL_VAR FORMTABLE.TTS_HELP><br> 
      <pre>http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>\<br> /synapses/start/id/SYNAPSENNAME</pre>
-     <TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_2> <a href="https://github.com/andweber/kalliope/blob/master/Docs/brain.md"><TMPL_VAR NAME=T::FORMTABLE.TTS_HELP_3></a></font>
+     <TMPL_VAR FORMTABLE.TTS_HELP_2> <a href="https://github.com/andweber/kalliope/blob/master/Docs/brain.md"><TMPL_VAR FORMTABLE.TTS_HELP_3></a></font>
 	</td>
 </tr>-->
 <tr>
 	<td width="20%">
-		<label id="labelrestapi"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI></label>
+		<label id="labelrestapi"><TMPL_VAR FORMTABLE.RESTAPI></label>
 	</td>
 	<td width="40%">
 		<table border=0	width="100%">
@@ -143,8 +143,8 @@
 			<td width="20%">
 			<fieldset>
 			<select onChange="disable_restapi();" id="restapi" name="restapi" data-role="flipswitch" data-theme="e" >
-			<option	value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
-			<option	value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+			<option	value="0"><TMPL_VAR GENERIC.OFF></option>
+			<option	value="1"><TMPL_VAR GENERIC.ON></option>
 			</select>
 			</fieldset>
 			<script>
@@ -156,22 +156,22 @@
 			<table border=0 width="100%">
 			<tr>
 				<td>
-				<label id="labelrestapiport"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PORT></label>
+				<label id="labelrestapiport"><TMPL_VAR FORMTABLE.RESTAPI_PORT></label>
 				</td>
 				<td>
 				<input id="restapiport" name="restapiport" type="text" data-validation="number" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=RESTAPI_PORT>"
 				data-validation-allowing="range[1;65000]"
-				data-validation-error-msg="<TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PORT> <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PORT_VALIDATION>">
+				data-validation-error-msg="<TMPL_VAR FORMTABLE.RESTAPI_PORT> <TMPL_VAR FORMTABLE.RESTAPI_PORT_VALIDATION>">
 				</td>
 			</tr><tr>
  				<td>
-				<label id="labelrestapiuselogin"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_USELOGIN></label>
+				<label id="labelrestapiuselogin"><TMPL_VAR FORMTABLE.RESTAPI_USELOGIN></label>
 				</td>               
                 <td>
                     <fieldset>
                         <select onChange="disable_restapi_uselogin();" id="restapi_uselogin" name="restapi_uselogin" data-role="flipswitch" data-theme="e" data-mini="true" data-native-menu="true">
-                            <option	value="0"><TMPL_VAR NAME=T::GENERIC.OFF></option>
-                            <option	value="1"><TMPL_VAR NAME=T::GENERIC.ON></option>
+                            <option	value="0"><TMPL_VAR GENERIC.OFF></option>
+                            <option	value="1"><TMPL_VAR GENERIC.ON></option>
                         </select>
                     </fieldset>
                     <script>
@@ -181,14 +181,14 @@
                 </td>
  			</tr><tr>
 				<td>
-				<label id="labelrestapilogin"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_LOGIN></label>
+				<label id="labelrestapilogin"><TMPL_VAR FORMTABLE.RESTAPI_LOGIN></label>
 				</td>
 				<td>
 				<input id="restapilogin" name="restapilogin" type="text" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=RESTAPI_LOGIN>">
 				</td>
             </tr><tr>
 				<td>
-				<label id="labelrestapipassword"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_PASSWORD></label>
+				<label id="labelrestapipassword"><TMPL_VAR FORMTABLE.RESTAPI_PASSWORD></label>
 				</td>
 				<td>
 				<input id="restapipassword" name="restapipassword" type="text" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=RESTAPI_PASSWORD>">
@@ -203,15 +203,15 @@
 	 &nbsp;
 	</td>
 	<td width="35%">
-	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP> <br> 
+	 <font size="-1"><TMPL_VAR FORMTABLE.RESTAPI_HELP> <br> 
      <pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD> -X POST \
      http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>\<br>/synapses/start/id/SYNAPSENNAME</pre>
-     <!--<TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_2>
+     <!--<TMPL_VAR FORMTABLE.RESTAPI_HELP_2>
      <pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD>\<br>     -H "Content-Type: application/json" \
      -X POST -d '{"order":"my order"}' \
      http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>\<br>  /synapses/start/order</pre>
-     <TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_3>-->
-     <a href="https://github.com/kalliope-project/kalliope/blob/master/Docs/rest_api.md"><TMPL_VAR NAME=T::FORMTABLE.RESTAPI_HELP_4></a></font>
+     <TMPL_VAR FORMTABLE.RESTAPI_HELP_3>-->
+     <a href="https://github.com/kalliope-project/kalliope/blob/master/Docs/rest_api.md"><TMPL_VAR FORMTABLE.RESTAPI_HELP_4></a></font>
      </td>
 </tr>
 
@@ -219,12 +219,12 @@
 
 <tr>
 	<td colspan=4>
-	<h3><TMPL_VAR NAME=T::FORMTABLE.GENERALSETTINGS></h3>
+	<h3><TMPL_VAR FORMTABLE.GENERALSETTINGS></h3>
 	</td>
 </tr>
 <tr> <!-- STT Option -->
 	<td width="20%">
-		<label id="labelstt"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION></label>
+		<label id="labelstt"><TMPL_VAR FORMTABLE.STT_OPTION></label>
 	</td>
 	<td width="40%">
 		<!--<table border=0 width="100%"> 
@@ -255,7 +255,7 @@
          <table border=0	width="100%"> 
         <tr   id="stt_google_options">
 			<td width="40%">
-                    <label id="labelstt_google_lang"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_LANG></label>
+                    <label id="labelstt_google_lang"><TMPL_VAR FORMTABLE.STT_OPTION_LANG></label>
             </td>
             <td>
                 <fieldset>
@@ -286,7 +286,7 @@
         </tr>
         <tr>
 			<td colspan=2>
-                    <label id="labelstt_google_help"><font size="-1"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_GOOGLE_HELP></font></label>
+                    <label id="labelstt_google_help"><font size="-1"><TMPL_VAR FORMTABLE.STT_OPTION_GOOGLE_HELP></font></label>
             </td>                        
         </tr>        
         </table></div>
@@ -296,7 +296,7 @@
          <table border=0	width="100%">
         <tr>
 			<td width="40%">
-                    <label id="labelstt_wit_key"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_KEY></label>
+                    <label id="labelstt_wit_key"><TMPL_VAR FORMTABLE.STT_OPTION_KEY></label>
             </td>
             <td>
                 <input id="stt_wit_key" name="stt_wit_key" type="text" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=STT_WIT_KEY>">
@@ -304,7 +304,7 @@
         </tr> 
         <tr>
 			<td colspan=2>
-                    <label id="labelstt_wit_help"><font size="-1"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_WIT_HELP></font></label>
+                    <label id="labelstt_wit_help"><font size="-1"><TMPL_VAR FORMTABLE.STT_OPTION_WIT_HELP></font></label>
             </td>                        
         </tr>
 		</table></div>
@@ -314,7 +314,7 @@
          <table border=0	width="100%">
         <tr>
 			<td width="40%">
-                    <label id="labelstt_bing_lang"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_LANG></label>
+                    <label id="labelstt_bing_lang"><TMPL_VAR FORMTABLE.STT_OPTION_LANG></label>
             </td>
             <td>
                 <fieldset>
@@ -345,7 +345,7 @@
         </tr>
         <tr>
 			<td width="40%">
-                    <label id="labelstt_bing_key"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_KEY></label>
+                    <label id="labelstt_bing_key"><TMPL_VAR FORMTABLE.STT_OPTION_KEY></label>
             </td>
             <td>
                 <input id="stt_bing_key" name="stt_bing_key" type="text" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=STT_BING_KEY>">
@@ -353,7 +353,7 @@
         </tr> 
         <tr>
 			<td colspan=2>
-                    <label id="labelstt_bing_help"><font size="-1"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_BING_HELP></font></label>
+                    <label id="labelstt_bing_help"><font size="-1"><TMPL_VAR FORMTABLE.STT_OPTION_BING_HELP></font></label>
             </td>                        
         </tr>
 		</table></div>        
@@ -363,7 +363,7 @@
          <table border=0	width="100%">
         <tr>
 			<td width="40%">
-                    <label id="labelstt_apiai_lang"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_LANG></label>
+                    <label id="labelstt_apiai_lang"><TMPL_VAR FORMTABLE.STT_OPTION_LANG></label>
             </td>
             <td>
                 <fieldset>
@@ -388,7 +388,7 @@
         </tr>
         <tr>
 			<td width="40%">
-                    <label id="labelstt_apiai_key"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_KEY></label>
+                    <label id="labelstt_apiai_key"><TMPL_VAR FORMTABLE.STT_OPTION_KEY></label>
             </td>
             <td>
                 <input id="stt_apiai_key" name="stt_apiai_key" type="text" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=STT_APIAI_KEY>">
@@ -396,7 +396,7 @@
         </tr> 
         <tr>
 			<td colspan=2>
-                    <label id="labelstt_apiai_help"><font size="-1"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_APIAI_HELP></font></label>
+                    <label id="labelstt_apiai_help"><font size="-1"><TMPL_VAR FORMTABLE.STT_OPTION_APIAI_HELP></font></label>
             </td>                        
         </tr>
 		</table></div>     
@@ -406,7 +406,7 @@
          <table border=0	width="100%">
         <tr>
 			<td width="40%">
-                    <label id="labelstt_houndify_lang"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_LANG></label>
+                    <label id="labelstt_houndify_lang"><TMPL_VAR FORMTABLE.STT_OPTION_LANG></label>
             </td>
             <td>
                 <fieldset>
@@ -418,7 +418,7 @@
         </tr>
         <tr>
 			<td width="40%">
-                    <label id="labelstt_houndify_key"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_KEY></label>
+                    <label id="labelstt_houndify_key"><TMPL_VAR FORMTABLE.STT_OPTION_KEY></label>
             </td>
             <td>
                 <input id="stt_houndify_key" name="stt_houndifykey" type="text" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=STT_HOUNDIFY_KEY>">
@@ -426,7 +426,7 @@
         </tr> 
         <tr>
 			<td width="40%">
-                    <label id="labelstt_houndify_clientid"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_CLIENTID></label>
+                    <label id="labelstt_houndify_clientid"><TMPL_VAR FORMTABLE.STT_OPTION_CLIENTID></label>
             </td>
             <td>
                 <input id="stt_houndify_clientid" name="stt_houndify_clientid" type="text" class="textfield" data-mini="true" data-native-menu="true" value="<TMPL_VAR NAME=STT_HOUNDIFY_CLIENTID>">
@@ -434,7 +434,7 @@
         </tr>         
         <tr>
 			<td colspan=2>
-                    <label id="labelstt_houndify_help"><font size="-1"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_HOUNDIFY_HELP></font></label>
+                    <label id="labelstt_houndify_help"><font size="-1"><TMPL_VAR FORMTABLE.STT_OPTION_HOUNDIFY_HELP></font></label>
             </td>                        
         </tr>
 		</table></div>     
@@ -446,13 +446,13 @@
 	 &nbsp;
 	</td>
 	<td width="35%">
-	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.STT_OPTION_HELP></font>
+	 <font size="-1"><TMPL_VAR FORMTABLE.STT_OPTION_HELP></font>
 	</td>
 </tr>
 
 <tr>  
 	<td width="20%">
-		<label id="labeltts"><TMPL_VAR NAME=T::FORMTABLE.TTS_OPTION></label>
+		<label id="labeltts"><TMPL_VAR FORMTABLE.TTS_OPTION></label>
 	</td>
 	<td width="40%">
 			<fieldset>
@@ -475,7 +475,7 @@
          <table border=0	width="100%"> 
         <tr   id="tts_google_options">
 			<td width="40%">
-                    <label id="labeltts_google_lang"><TMPL_VAR NAME=T::FORMTABLE.TTS_OPTION_LANG></label>
+                    <label id="labeltts_google_lang"><TMPL_VAR FORMTABLE.TTS_OPTION_LANG></label>
             </td>
             <td>
                 <fieldset>
@@ -506,7 +506,7 @@
         </tr>
         <tr>
 			<td colspan=2>
-                    <label id="labeltts_google_help"><font size="-1"><TMPL_VAR NAME=T::FORMTABLE.TTS_OPTION_GOOGLE_HELP></font></label>
+                    <label id="labeltts_google_help"><font size="-1"><TMPL_VAR FORMTABLE.TTS_OPTION_GOOGLE_HELP></font></label>
             </td>                        
         </tr>        
         </table></div>
@@ -518,7 +518,7 @@
 	 &nbsp;
 	</td>
 	<td width="35%">
-	 <font size="-1"><TMPL_VAR NAME=T::FORMTABLE.TTS_OPTION_HELP></font>
+	 <font size="-1"><TMPL_VAR FORMTABLE.TTS_OPTION_HELP></font>
 	</td>
 </tr>     
         
@@ -546,9 +546,9 @@
 <p>
 <center>
 	<a id="btncancel" data-role="button" data-inline="true" data-mini="true" data-icon="delete"
-	href="/admin/index.cgi"><TMPL_VAR NAME=T::BUTTON.CANCEL></a>
+	href="/admin/index.cgi"><TMPL_VAR BUTTON.CANCEL></a>
 	<button type="submit" form="main_form" id="btnsubmit" data-role="button" data-inline="true"
-	data-mini="true" data-icon="check"><TMPL_VAR NAME=T::BUTTON.SAVE></button>
+	data-mini="true" data-icon="check"><TMPL_VAR BUTTON.SAVE></button>
 </center>
 </p>
 
