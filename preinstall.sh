@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ######################### LoxBerry Plugin KalliopeLoxSControl ##############
 # Installscript
 # Autor:        Andreas Weber, andweber@gmail.com
@@ -59,7 +59,7 @@ PBIN=$LBPBIN/$PDIR
 kalliope_installversion=dev
 ############################################################################
 # Switch on Loggin
-source $LBHOMEDIR/libs/bashlib/loxberry_log.sh
+. $LBHOMEDIR/libs/bashlib/loxberry_log.sh
 PACKAGE=$PSHNAME
 NAME=kalliope
 NOFILE=1

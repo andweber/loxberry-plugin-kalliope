@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Bash script which is executed by bash *BEFORE* installation is started
+# Shell script which is executed by bash *BEFORE* installation is started
 # (*BEFORE* preinstall and *BEFORE* preupdate). Use with caution and remember,
 # that all systems may be different!
 #

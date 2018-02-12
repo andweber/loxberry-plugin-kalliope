@@ -21,16 +21,19 @@
 # Modules
 ##########################################################################
 
+use LoxBerry::Web;
+use LoxBerry::Log;
+#use LoxBerry::System;
 use CGI::Carp qw(fatalsToBrowser);
 use CGI qw/:standard/;
-use Config::Simple;
+#use Config::Simple;
 #use Config::YAML;
 use YAML::Tiny;
 use File::HomeDir;
 #use HTML::Entities;
 use String::Escape qw( unquotemeta );
 use Cwd 'abs_path';
-use HTML::Template;
+#use HTML::Template;
 use warnings;
 #use strict;
 #no strict "refs"; # we need it for template system and for contructs like ${"skalar".$i} in loops
@@ -42,12 +45,13 @@ my  $cgi = new CGI;
 my  $cfg;
 my  $plugin_cfg;
 my  $kalliope_cfg;
-my  $lang;
-my  $installfolder;
-my  $languagefile;
+#my  $lang;
+my  $log = LoxBerry::Log->new ( name => 'kalliope' );
+#my  $installfolder;
+#my  $languagefile;
 my  $version;
 my  $home = File::HomeDir->my_home;
-my  $psubfolder;
+#my  $psubfolder;
 my  $pname;
 my  $plogfile;
 my  $languagefileplugin;
@@ -64,7 +68,22 @@ my  $saveformdata;
 my  %plugin_config;
 my $kalliope_runstatus;
 
-
+# $lbhomedir 		- Heimatverzeichnis von Loxberry
+# $lbpplugindir		- Unterverzeichnis des gerade aktiven Plugins, z.B. squeezelite
+# $lbphtmlauthdir	- Vollständiger Pfad zum HTMLAUTH-Verzeichnis des aktiven Plugins,
+#			  z.B. $lbhomedir/webfrontend/htmlauth/plugins/squeezelite
+# $lbphtmldir		- Vollständiger Pfad zum HTML-Verzeichnis des aktiven Plugins,
+#			  z.B. $lbhomedir/webfrontend/html/plugins/squeezelite
+# $lbptemplatedir	- Vollständiger Pfad zum Template-Verzeichnis des aktiven Plugins,
+#			  z.B. $lbhomedir/templates/plugins/squeezelite
+# $lbpdatadir		- Vollständiger Pfad zum Data-Verzeichnis des aktiven Plugins,
+#			  z.B. $lbhomedir/data/plugins/squeezelite
+# $lbplogdir		- Vollständiger Pfad zum Log-Verzeichnis des aktiven Plugins,
+#			  z.B. $lbhomedir/log/plugins/squeezelite
+# $lbpconfigdir		- Vollständiger Pfad zum Config-Verzeichnis des aktiven Plugins,
+#			  z.B. $lbhomedir/config/plugins/squeezelite
+# $lbpbindir		- Vollständiger Pfad zum Bin-Verzeichnis des aktiven Plugins,
+#			  z.B. $lbhomedir/bin/plugins/squeezelite#
 ##########################################################################
 # Read Settings
 ##########################################################################
@@ -73,8 +92,8 @@ my $kalliope_runstatus;
 $version = "0.3";
 
 # Figure out in which subfolder we are installed
-$psubfolder = abs_path($0);
-$psubfolder =~ s/(.*)\/(.*)\/(.*)$/$2/g;
+#$psubfolder = abs_path($0);
+#$psubfolder =~ s/(.*)\/(.*)\/(.*)$/$2/g;
 
 # Start with HTML header
 #print $cgi->header(
@@ -84,19 +103,22 @@ $psubfolder =~ s/(.*)\/(.*)\/(.*)$/$2/g;
 print "Content-type: text/html\n\n";
 
 # Read general config
-$cfg	 	= new Config::Simple("$home/config/system/general.cfg") or die $cfg->error();
-$installfolder	= $cfg->param("BASE.INSTALLFOLDER");
-$lang		= $cfg->param("BASE.LANG");
+#$cfg	 	= new Config::Simple("$home/config/system/general.cfg") or die $cfg->error();
+#$installfolder	= $cfg->param("BASE.INSTALLFOLDER");
+#$lang		= $cfg->param("BASE.LANG");
 
 # Read plugin config
 # FIXME: This is still not used - could be deleted
-$plugin_cfg 	= new Config::Simple("$installfolder/config/plugins/$psubfolder/webfrontend.cfg") or die $plugin_cfg->error();
+$plugin_cfg 	= new Config::Simple("$lbpconfigdir/webfrontend.cfg") or die $plugin_cfg->error();
 $pname          = $plugin_cfg->param("MAIN.SCRIPTNAME");
 $plogfile         = "kalliope.log";
 
+# Start logging
+LOGSTART "Kalliope plugin - webfrontend";
+
 # Read Kalliope config
 #$kalliope_cfg   = new Config::YAML(config=>"$installfolder/config/plugins/$psubfolder/settings.yml") or die $kaliope_cfg->error();
-my $kalliope_cfg_file = "$installfolder/config/plugins/$psubfolder/settings.yml";
+my $kalliope_cfg_file = "$lbpconfigdir/settings.yml";
 $kalliope_cfg = YAML::Tiny->read($kalliope_cfg_file) or die $kaliope_cfg->error();
 
 # get text to speech engines
@@ -137,8 +159,8 @@ if (!-d "/var/run/kalliope/$psubfolder") {
 #elsif ( $exit_status  == 1 ) {
 #    $kalliope_runstatus = 0;
 #}
-if ( -e "$installfolder/system/daemons/plugins/$pname" ) {
-	system("$installfolder/system/daemons/plugins/$pname status > /dev/null 2>&1") == 0 or die "system call failed: $?"; 
+if ( -e "$lbhomedir/system/daemons/plugins/$pname" ) {
+	system("$lbhomedir/system/daemons/plugins/$pname status > /dev/null 2>&1") == 0 or die "system call failed: $?"; 
 }
 if ( $?  == -1 ) {
     $kalliope_runstatus = 0;
@@ -151,12 +173,12 @@ else {
 }
 
 # Set parameters coming in - get over post
-if ( $cgi->url_param('lang') ) {
-	$lang = quotemeta( $cgi->url_param('lang') );
-}
-elsif ( $cgi->param('lang') ) {
-	$lang = quotemeta( $cgi->param('lang') );
-}
+#if ( $cgi->url_param('lang') ) {
+#	$lang = quotemeta( $cgi->url_param('lang') );
+#}
+#elsif ( $cgi->param('lang') ) {
+#	$lang = quotemeta( $cgi->param('lang') );
+#}
 if ( $cgi->url_param('saveformdata') ) {
 	$saveformdata = quotemeta( $cgi->url_param('saveformdata') );
 }
@@ -173,12 +195,14 @@ elsif ( $cgi->param('saveformdata') ) {
 
 # Main
 $maintemplate = HTML::Template->new(
-	filename => "$installfolder/templates/plugins/$psubfolder/multi/main.html",
+	filename => "$lbptemplatedir/main.html",
 	global_vars => 1,
 	loop_context_vars => 1,
 	die_on_bad_params => 0,
 	associate => $cgi,
 );
+
+%L = LoxBerry::System::readlanguage($maintemplate, "language.ini");
 
 # Footer # At the moment not in HTML::Template format
 #$footertemplate = HTML::Template->new(filename => "$installfolder/templates/system/$lang/footer.html");
@@ -190,34 +214,34 @@ $maintemplate = HTML::Template->new(
 
 # Init Language
 # Clean up lang variable
-$lang         =~ tr/a-z//cd;
-$lang         = substr($lang,0,2);
+#$lang         =~ tr/a-z//cd;
+#$lang         = substr($lang,0,2);
 
 # Read Plugin transations
 # Read English language as default
 # Missing phrases in foreign language will fall back to English
-$languagefileplugin 	= "$installfolder/templates/plugins/$psubfolder/en/language.txt";
-Config::Simple->import_from($languagefileplugin, \%TPhrases);
+#$languagefileplugin 	= "$installfolder/templates/plugins/$psubfolder/en/language.txt";
+#Config::Simple->import_from($languagefileplugin, \%TPhrases);
 
 # If there's no language phrases file for choosed language, use english as default
-if (!-e "$installfolder/templates/system/$lang/language.dat")
-{
-  $lang = "en";
-}
+#if (!-e "$installfolder/templates/system/$lang/language.dat")
+#{
+#  $lang = "en";
+#}
 
 # Read foreign language if exists and not English
-$languagefileplugin = "$installfolder/templates/plugins/$psubfolder/$lang/language.txt";
-if ((-e $languagefileplugin) and ($lang ne 'en')) {
-	# Now overwrite phrase variables with user language
-	Config::Simple->import_from($languagefileplugin, \%TPhrases);
-}
+#$languagefileplugin = "$installfolder/templates/plugins/$psubfolder/$lang/language.txt";
+#if ((-e $languagefileplugin) and ($lang ne 'en')) {
+#	# Now overwrite phrase variables with user language
+#	Config::Simple->import_from($languagefileplugin, \%TPhrases);
+#}
 
 # Parse Language phrases to html templates
-while (my ($name, $value) = each %TPhrases){
-	$maintemplate->param("T::$name" => $value);
+#while (my ($name, $value) = each %TPhrases){
+#	$maintemplate->param("T::$name" => $value);
 	#$headertemplate->param("T::$name" => $value);
 	#$footertemplate->param("T::$name" => $value);
-}
+#}
 
 ##########################################################################
 # Main program
@@ -399,7 +423,7 @@ sub lbheader
 {
 	 # Create Help page
   $helplink = "http://www.loxwiki.eu/display/LOXBERRY/kalliope";
-  open(F,"$installfolder/templates/plugins/$psubfolder/multi/help.html") || die "Missing template plugins/$psubfolder/$lang/help.html";
+  open(F,"$lbptemplatedir/help.html") || die "Missing template $lbptemplatedir/help.html";
     @help = <F>;
     foreach (@help)
     {
@@ -410,7 +434,7 @@ sub lbheader
     }
   close(F);
     
-  open(F,"$installfolder/templates/system/$lang/header.html") || die "Missing template system/$lang/header.html";
+  open(F,"$lbptemplatedir/header.html") || die "Missing template $lbptemplatedir/header.html";
     while (<F>) 
     {
       $_ =~ s/<!--\$(.*?)-->/${$1}/g;
@@ -425,7 +449,7 @@ sub lbheader
 
 sub lbfooter 
 {
-  open(F,"$installfolder/templates/system/$lang/footer.html") || die "Missing template system/$lang/footer.html";
+  open(F,"$lbptemplatedir/footer.html") || die "Missing template $lbptemplatedir/footer.html";
     while (<F>) 
     {
       $_ =~ s/<!--\$(.*?)-->/${$1}/g;
