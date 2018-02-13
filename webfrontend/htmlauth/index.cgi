@@ -35,6 +35,7 @@ use String::Escape qw( unquotemeta );
 use Cwd 'abs_path';
 #use HTML::Template;
 use warnings;
+#use File::Basename;
 #use strict;
 #no strict "refs"; # we need it for template system and for contructs like ${"skalar".$i} in loops
 
@@ -42,32 +43,15 @@ use warnings;
 # Variables
 ##########################################################################
 my  $cgi = new CGI;
-my  $cfg;
 my  $plugin_cfg;
-my  $kalliope_cfg;
-#my  $lang;
-my  $log = LoxBerry::Log->new ( name => 'kalliope' );
-#my  $installfolder;
-#my  $languagefile;
-my  $version;
-my  $home = File::HomeDir->my_home;
-#my  $psubfolder;
+my  $lbplog = LoxBerry::Log->new ( name => 'lbp_kalliope', addtime => 1  );
 my  $pname;
-my  $plogfile;
-my  $languagefileplugin;
-my  %TPhrases;
-my  @heads;
-my  %head;
-my  $maintemplate;
-my  $template_title;
-my  $phrase;
-my  $helplink;
-my  @help;
-my  $helptext;
 my  $saveformdata;
-my  %plugin_config;
-my $kalliope_runstatus;
 
+my  $kalliope_runstatus;
+my  $kalliope_cfg;
+
+# from Loxberry module:
 # $lbhomedir 		- Heimatverzeichnis von Loxberry
 # $lbpplugindir		- Unterverzeichnis des gerade aktiven Plugins, z.B. squeezelite
 # $lbphtmlauthdir	- Vollständiger Pfad zum HTMLAUTH-Verzeichnis des aktiven Plugins,
@@ -89,35 +73,17 @@ my $kalliope_runstatus;
 ##########################################################################
 
 # Version of this script
-my $version = LoxBerry::System::pluginversion();
-
-# Figure out in which subfolder we are installed
-#$psubfolder = abs_path($0);
-#$psubfolder =~ s/(.*)\/(.*)\/(.*)$/$2/g;
-
-# Start with HTML header
-#print $cgi->header(
-#	type	=>	'text/html',
-#	charset	=>	'utf-8',
-#); 
-#print "Content-type: text/html\n\n";
-
-# Read general config
-#$cfg	 	= new Config::Simple("$home/config/system/general.cfg") or die $cfg->error();
-#$installfolder	= $cfg->param("BASE.INSTALLFOLDER");
-#$lang		= $cfg->param("BASE.LANG");
+my $lbpversion = LoxBerry::System::pluginversion();
 
 # Read plugin config
-# FIXME: This is still not used - could be deleted
 $plugin_cfg 	= new Config::Simple("$lbpconfigdir/webfrontend.cfg") or die $plugin_cfg->error();
 $pname          = $plugin_cfg->param("MAIN.SCRIPTNAME");
-$plogfile         = "kalliope.log";
+$kalliope_log   = $plugin_cfg->param("MAIN.KALLIOPELOG");
 
 # Start logging
 LOGSTART "Kalliope plugin - webfrontend";
 
 # Read Kalliope config
-#$kalliope_cfg   = new Config::YAML(config=>"$installfolder/config/plugins/$psubfolder/settings.yml") or die $kaliope_cfg->error();
 my $kalliope_cfg_file = "$lbpconfigdir/settings.yml";
 $kalliope_cfg = YAML::Tiny->read($kalliope_cfg_file) or die $kaliope_cfg->error();
 
@@ -141,24 +107,11 @@ foreach (@{$kalliope_cfg->[0]->{'text_to_speech'}}) {
 }
 
 # Create temp folder if not already exist
-if (!-d "/var/run/kalliope/$psubfolder") {
-	system("mkdir -p /var/run/kalliope/$psubfolder > /dev/null 2>&1");
+if (!-d "/var/run/kalliope/$pname") {
+	system("mkdir -p /var/run/kalliope/$pname > /dev/null 2>&1");
 }
 
 # Check if kalliope is running
-#my $exit_status = -2;
-#if ( -e "$installfolder/system/daemons/plugins" ) {
-#	$exit_status = system("$installfolder/system/daemons/plugins status > /dev/null 2>&1"); 
-#}
-#if ( $exit_status  == -1 ) {
-#    $kalliope_runstatus = 0;
-#}
-#elsif ( $exit_status  == 0 ) {
-#    $kalliope_runstatus = 1;
-#}
-#elsif ( $exit_status  == 1 ) {
-#    $kalliope_runstatus = 0;
-#}
 if ( -e "$lbhomedir/system/daemons/plugins/$pname" ) {
 	system("$lbhomedir/system/daemons/plugins/$pname status > /dev/null 2>&1"); 
 }
@@ -190,12 +143,8 @@ elsif ( $cgi->param('saveformdata') ) {
 # Initialize html templates
 ##########################################################################
 
-# Header # At the moment not in HTML::Template format
-#$headertemplate = HTML::Template->new(filename => "$installfolder/templates/system/$lang/header.html");
-LoxBerry::Web::lbheader("Kalliope v$version", "http://www.loxwiki.eu/display/LOXBERRY/Kalliope", "help.html");
-
 # Main
-$maintemplate = HTML::Template->new(
+my $maintemplate = HTML::Template->new(
 	filename => "$lbptemplatedir/main.html",
 	global_vars => 1,
 	loop_context_vars => 1,
@@ -205,45 +154,6 @@ $maintemplate = HTML::Template->new(
 
 my %Phrases = LoxBerry::System::readlanguage($maintemplate, "language.ini");
 
-# Footer # At the moment not in HTML::Template format
-#$footertemplate = HTML::Template->new(filename => "$installfolder/templates/system/$lang/footer.html");
-
-
-##########################################################################
-# Translations
-##########################################################################
-
-# Init Language
-# Clean up lang variable
-#$lang         =~ tr/a-z//cd;
-#$lang         = substr($lang,0,2);
-
-# Read Plugin transations
-# Read English language as default
-# Missing phrases in foreign language will fall back to English
-#$languagefileplugin 	= "$installfolder/templates/plugins/$psubfolder/en/language.txt";
-#Config::Simple->import_from($languagefileplugin, \%TPhrases);
-
-# If there's no language phrases file for choosed language, use english as default
-#if (!-e "$installfolder/templates/system/$lang/language.dat")
-#{
-#  $lang = "en";
-#}
-
-# Read foreign language if exists and not English
-#$languagefileplugin = "$installfolder/templates/plugins/$psubfolder/$lang/language.txt";
-#if ((-e $languagefileplugin) and ($lang ne 'en')) {
-#	# Now overwrite phrase variables with user language
-#	Config::Simple->import_from($languagefileplugin, \%TPhrases);
-#}
-
-# Parse Language phrases to html templates
-#while (my ($name, $value) = each %TPhrases){
-#	$maintemplate->param("T::$name" => $value);
-	#$headertemplate->param("T::$name" => $value);
-	#$footertemplate->param("T::$name" => $value);
-#}
-
 ##########################################################################
 # Main program
 ##########################################################################
@@ -251,7 +161,6 @@ my %Phrases = LoxBerry::System::readlanguage($maintemplate, "language.ini");
 &form;
 
 exit;
-
 
 #####################################################
 # 
@@ -266,13 +175,16 @@ exit;
 sub form 
 {
 
-	# Clear Cache
-	#if ( $clearcache ) {
-	#	system("rm /var/run/shm/$psubfolder/* > /dev/null 2>&1");
-	#}
+    # Header 
+    LoxBerry::Web::lbheader("Kalliope v$lbpversion", "http://www.loxwiki.eu/display/LOXBERRY/Kalliope", "help.html");
 
-	# If the form was saved, update config file
-	if ( $saveformdata ) {
+    # Clear Cache
+    #if ( $clearcache ) {
+    #	system("rm /var/run/shm/$psubfolder/* > /dev/null 2>&1");
+    #}
+
+    # If the form was saved, update config file
+    if ( $saveformdata ) {
         
         # REST-API
         if ($cgi->param('restapi') == 0) {
@@ -321,23 +233,18 @@ sub form
         
         # TTS
 
-		$plugin_cfg->save;
+	$plugin_cfg->save;
         $kalliope_cfg->write( $kalliope_cfg_file );
 
-	}
-	
-	# The page title read from language file + our name
-	#$template_title = $phrase->param("TXT0000") . ": " . $pname;
+    }	
 
-	# Print Template header
-	#&lbheader;
     
     # Read options and set them for template
     $maintemplate->param( PSUBFOLDER	=> $lbpplugindir );  
     $maintemplate->param( PLUGINVERSION	=> $version );
     $maintemplate->param( RUNNING 	=> $kalliope_runstatus );
     $maintemplate->param( HOST 		=> $ENV{HTTP_HOST} );
-    $maintemplate->param( LOGFILE 	=> $plogfile );
+    $maintemplate->param( LOGFILE 	=> $kalliope_log);
     
     # RESTAPI  
     if ( uc($kalliope_cfg->[0]->{rest_api}->{password_protected}) eq "TRUE" ) {
@@ -380,7 +287,7 @@ sub form
     $maintemplate->param( STT_DEFAULT	=> $kalliope_cfg->[0]->{default_speech_to_text});
     
     # set config parameters
-	$maintemplate->param( STT_GOOGLE_LANG	=> $stt_engines{"google"}->{language});
+    $maintemplate->param( STT_GOOGLE_LANG	=> $stt_engines{"google"}->{language});
     $maintemplate->param( STT_WIT_KEY	=> $stt_engines{"wit"}->{key});
     $maintemplate->param( STT_BING_LANG	=> $stt_engines{"bing"}->{language});     
     $maintemplate->param( STT_BING_KEY	=> $stt_engines{"bing"}->{key});
@@ -410,55 +317,12 @@ sub form
     print $maintemplate->output;
 
     # Parse page footer		
-    #&lbfooter;
-    # Schlussendlich lassen wir noch den Footer ausgeben.
     LoxBerry::Web::lbfooter();
 
     exit;
 
 }
 
-#####################################################
-# Page-Header-Sub
-#####################################################
-
-#sub lbheader 
-#{
-#	 # Create Help page
-#  $helplink = "http://www.loxwiki.eu/display/LOXBERRY/kalliope";
-#  open(F,"$lbptemplatedir/help.html") || die "Missing template $lbptemplatedir/help.html";
-#    @help = <F>;
-#    foreach (@help)
-#    {
-#      $_ =~ s/<!--\$psubfolder-->/$psubfolder/g;
-#      s/[\n\r]/ /g;
-#      $_ =~ s/<!--\$(.*?)-->/${$1}/g;
-#      $helptext = $helptext . $_;
-#    }
-#  close(F);
-#    
-#  open(F,"$lbtemplatedir/head.html") || die "Missing template $lbptemplatedir/head.html";
-#    while (<F>) 
-#    {
-#      $_ =~ s/<!--\$(.*?)-->/${$1}/g;
-#    }
-#close(F);
-#}
-
-#####################################################
-# Footer
-#####################################################
-
-#sub lbfooter 
-#{
-#  open(F,"$lbtemplatedir/foot.html") || die "Missing template $lbptemplatedir/foot.html";
-#    while (<F>) 
-#    {
-#      $_ =~ s/<!--\$(.*?)-->/${$1}/g;
-#      print $_;
-#    }
-#  close(F);
-#}
 
 
 
