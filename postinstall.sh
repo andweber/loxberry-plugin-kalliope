@@ -279,8 +279,6 @@ git clone https://github.com/andweber/kalliope_neuron_loxscontrol.git ./loxscont
 
 echo "<INFO> Configuring Kalliope LoxSControl Neuron..."
 
-#FIXME this is preliminary - it should use global variables or config parameters
-#which can be changed easily from webfrontend or at least support all languages
 /bin/sed -i --follow-symlinks "s:REPLACEMINISERVER1USER:$MINISERVER1ADMIN:g" $LBHOMEDIR/config/plugins/$PDIR/vr_loxscontrol.yml 
 /bin/sed -i --follow-symlinks "s:REPLACEMINISERVER1PASS:$MINISERVER1PASS:g" $LBHOMEDIR/config/plugins/$PDIR/vr_loxscontrol.yml
 /bin/sed -i --follow-symlinks "s:REPLACEMINISERVER1IP:$MINISERVER1IPADDRESS:g" $LBHOMEDIR/config/plugins/$PDIR/vr_loxscontrol.yml
