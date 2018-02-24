@@ -11,24 +11,45 @@ PI ?= loxberry.local
 # Username
 USER = loxberry
 # Homedir of loxberry install on target
-LBHOMEDIR = /opt/loxberry
+LBHOMEDIR ?= /opt/loxberry
+#
 # Please not, it is assume that USER home is equal to LBHOMEDIR!
 # ----------------
 # do not modify below this line
+undefine PLUGINNAME
+undefine PLUGINFOLDER
+undefine PLUGINVERSION
 # --------------------------------------------------------------------
 
 # ini parser from https://www.joedog.org/2015/02/13/sh-script-ini-parser/
 # and http://mark.aufflick.com/blog/2007/11/08/parsing-ini-files-with-sed
-define ini_parser
-	eval `sed -e 's/[[:space:]]*\=[[:space:]]*/=/g' \
+define ini_parser =
+	$(shell sed -e 's/[[:space:]]*\=[[:space:]]*/:=/g' \
 		-e 's/;.*$$//' \
 		-e 's/[[:space:]]*$$//' \
 		-e 's/^[[:space:]]*//' \
 		-e "s/^\(.*\)=\([^\"']*\)$$/$(2)\1=\"\2\"/" \
 		< $(1) \
-		| sed -n -e "/^\[$(2)\]/,/^\s*\[/{/^[^;].*\=.*/p;}"`
+		| sed -n -e "/^\[$(2)\]/,/^\s*\[/{/^[^;].*\=.*/p;}" \
+		| grep $(3) )
 endef
 
+# get pluginconfig
+$(eval $(call ini_parser,./plugin.cfg,PLUGIN, PLUGINNAME))
+$(eval $(call ini_parser,./plugin.cfg,PLUGIN, PLUGINVERSION))
+$(eval $(call ini_parser,./plugin.cfg,PLUGIN, PLUGINFOLDER))
+$(eval $(call ini_parser,./plugin.cfg,PLUGIN, PLUGINTITLE))
+
+# only continue if PLUGINFOLDER is defined
+ifndef PLUGINFOLDER
+$(error PLUGINFOLDER is not set)
+endif
+
+ifeq ($(strip $(PLUGINFOLDER)),"")
+$(error PLUGINFOLDER contains no valid value)
+endif
+
+# rules
 info:
 	@echo "Makefile for deploying Plugins"
 	@echo "------------------------------"
@@ -36,7 +57,6 @@ info:
 	@echo "target: $(PI), user: $(USER)"
 	
 plugininfo:
-	@$(call ini_parser,./plugin.cfg,PLUGIN)
 	@echo "Pluginname:      $(PLUGINNAME)"
 	@echo "Plugintitle:     $(PLUGINTITLE)"
 	@echo "Pluginfolder:    $(PLUGINFOLDER)"
@@ -117,6 +137,13 @@ deploy_config: info plugininfo
 	@ssh $(USER)@$(PI) 'sed -i "s:REPLACEBYNAME:$(PLUGINNAME):g" ~/config/plugins/$(PLUGINFOLDER)/webfrontend.cfg'
 	@echo ""
 
+	tmpfile=$(mktemp /tmp/$(PLUGINNAME).tmp)
+	scp $(USER)@$(PI):~/config/system/general.cfg $(tmpfile)
+	$(eval $(call ini_parser,$(tmpfile),MINISERVER1,MINISERVER1ADMIN))
+	sed -i --follow-symlinks "s:REPLACEMINISERVER1USER:$(MINISERVER1ADMIN):g" $LBHOMEDIR/config/plugins/$PDIR/vr_loxscontrol.yml
+	rm "$(tmpfile)"
+	
+	
 #@$(call ini_parser,$(scp $(USER)@$(PI):~/config/system/general.cfg /dev/stdout),MINISERVER1)
 #@echo "$(MINISERVER1ADMIN)"
 #FIXME Miniserverconfig missing
