@@ -49,7 +49,7 @@ echo "/opt/loxberry/AIY-projects-python/src" > \
   /opt/loxberry/AIY-projects-python/env/lib/python3.5/site-packages/aiy.pth
 '''
 
-Know active driver:
+now activate audio driver:
 '''
 su root
 scripts/configure-driver.sh
@@ -59,12 +59,23 @@ reboot
 After reboot and your are logged in again, copy asound config and run check script:
 '''
 su root
-cd ~/AIY-projects-python
+cd AIY-projects-python
 cp scripts/asound.conf /etc/asound.conf
 source env/bin/activate
 checkpoints/check_audio.py
 reboot
 '''
+
+If you get an error message like this:
+'''
+ALSA lib pcm_dmix.c:1052:(snd_pcm_dmix_open) unable to open slave
+'''
+try:
+'''
+adduser root audio
+'''
+and repeat the steps above.
+
 
 ## Check install and configuration
 

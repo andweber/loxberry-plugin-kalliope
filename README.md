@@ -22,7 +22,7 @@ For issues with audio or microphone the [audio guide](AUDIO.md) may help.
 
 In case you want to use a [Google AIY-Voicekit](https://aiyprojects.withgoogle.com/voice/) as hardware - you find some tipps in the [AIY Voicekit tutorial](AIY_VOICEKIT.md).
 
-You can download the last stable version of this plugin from [http://plugins.loxberry.de/](http://plugins.loxberry.de/) or the [releases pages](https://github.com/andweber/loxberry-plugin-kalliope/releases). For the development version download this repository as `*.zip`.
+You can download the last stable version of this plugin from [master branch](https://github.com/andweber/loxberry-plugin-kalliope/archive/master.zip) or the [releases pages](https://github.com/andweber/loxberry-plugin-kalliope/releases). For the development version download the [dev branch](https://github.com/andweber/loxberry-plugin-kalliope/archive/dev.zip).
 
 Navigate in the LoxBerry Webfrontend to Plugin-Installation, select the downloaded `*.zip` and install the plugin. The first install will take some time, because of the dependencies needed to build.
 
@@ -32,22 +32,22 @@ Finally restart the LoxBerry.
 
 ## Usage
 
-The Webfrontend provides some hints for the usage of Kalliope. For any further documentation about the usage of Kalliope, please refer to the [Kalliope project](https://github.com/kalliope-project/kalliope/).
+The Webfrontend provides some hints for the usage of [Kalliope](https://github.com/kalliope-project/kalliope/). For any further documentation about the usage of Kalliope, please refer to the [Kalliope project](https://github.com/kalliope-project/kalliope/).
 
 The Kalliope brain is stored in the plugin config folder and can be adjusted and improved as needed. 
 
 
 ## RoadMap
 
-Version 0.4
+Version 0.5
 - Improved Webfrontend
-- use global variables in synapses (0.4.3 feature)
+- [Done] use global variables in synapses (0.4.3 feature)
 - [Done] Update kalliope
 - Plugin upgrade is possible
 - Proof of Voice Control Kalliope
 - Proof of Voice Control of Loxone
 
-Version 0.5
+Version 0.6
 - Advanced configuring of Kalliope using the webfrontend (Support multiple Miniserver, Trigger Selection, etc.)
 
 Future feature collection
