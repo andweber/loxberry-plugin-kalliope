@@ -76,6 +76,12 @@ adduser root audio
 '''
 and repeat the steps above.
 
+## Known Issues
+
+There seems to be an issue with pulseaudio and audio playback and record. Pulseaudio is installed as dependency of kalliope. It should be possible to deinstall it:
+'''
+apt-get remove pulseaudio
+'''
 
 ## Check install and configuration
 
