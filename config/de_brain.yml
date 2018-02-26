@@ -12,9 +12,8 @@
         - brains/de_loxscontrol_list.yml
         - brains/de_loxberry_install.yml
 
-  - name: "default-synapse"
-    signals:
-      - order: "default-synapse"
+  - name: "order-not-found-synapse"
+    signals: []
     neurons:
       - say:
           message:
@@ -25,13 +24,21 @@
             - "Ich verstehe das nicht."
             - "Wie bitte?"
 
-  - name: "default-ok"
-    signals:
-      - order: "default-ok"
+  - name: "on-triggered-synapse"
+    signals: []
     neurons:
       - say:
           message:
-            - "In Ordnung."
-            - "Okay."
-            - "Gut."
-            - "Ja."
+            - "ja bitte?"
+            - "Ich höre?"
+            - "Ich höre auf Dich?"
+            - "Ja?"
+            - "Was kann ich für Dich tun?"
+            - "Wie kann ich Dir helfen?"
+
+  - name: "on-start-synapse"
+    signals: []
+    neurons:
+      - say:
+          message:
+            - "Was kann ich für Dich tun?"

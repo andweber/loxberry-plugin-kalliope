@@ -76,7 +76,7 @@ text_to_speech:
 # players
 # ---------------------------
 # This is the sound player that will be used by default
-default_player: "pyalsaaudio"
+default_player: "pyaudioplayer"
 
 # players configuration
 # Available engine are:
@@ -87,56 +87,28 @@ default_player: "pyalsaaudio"
 players:
   - mplayer: {}
   - pyalsaaudio:
-     device: "plughw:CARD=ALSA,DEV=0"
+#     device: "plughw:CARD=ALSA,DEV=0"
      convert_to_wav: False
   - pyaudioplayer:
      convert_to_wav: True
   - sounddeviceplayer:
      convert_to_wav: True
 
-
 # ---------------------------
-# Wake up answers
+# Hooks
 # ---------------------------
-# When Kalliope detect the hotword/trigger, he will select randomly a phrase in the following list
-# to notify the user that he's listening for orders
-random_wake_up_answers:
-  - "ja bitte?"
-  - "Ich höre?"
-  - "Ich höre auf Dich?"
-  - "Ja?"
-  - "Was kann ich für Dich tun?"
-  - "Wie kann ich Dir helfen?"
-
-# You can play a sound when Kalliope detect the hotword/trigger instead of saying something from
-# the `random_wake_up_answers`. To active the 'random_wake_up_sounds' you must comment out the 'random_wake_up_answers'
-# The file must be .wav or .mp3 format.
-random_wake_up_sounds:
-  - "REPLACEINSTALLFOLDER/data/plugins/REPLACEFOLDERNAME/trigger/dong.wav"
-# - "/my/personal/full/path/my_file.mp3"
-
-# ---------------------------
-# On ready notification
-# ---------------------------
-# This section is used to notify the user when Kalliope is waiting for a trigger detection by playing a sound or speak a sentence out loud
-
-# This parameter define if you play the on ready answer:
-# - always: every time Kalliope is ready to be awaken
-# - never: never play a sound or sentences when kalliope is ready
-# - once: at the first start of Kalliope
-play_on_ready_notification: "always"
-
-# The on ready notification can be a sentence. Place here a sentence or a list of sentence. If you set a list, one sentence will be picked up randomly
-on_ready_answers:
-  - "ich bin bereit"
-  - "ich warte auf eine Anfrage"
-
-# You can play a sound instead of a sentence.
-# Remove the `on_ready_answers` parameters by commenting it out and use this one instead.
-# Place here the path of the sound file. Files must be .wav or .mp3 format.
-on_ready_sounds:
-#  - "sounds/ding.wav"
-  - "REPLACEINSTALLFOLDER/data/plugins/REPLACEFOLDERNAME/trigger/dong.wav"
+hooks:
+  on_start: "on-start-synapse"
+  on_waiting_for_trigger:
+  on_triggered: "on-triggered-synapse"
+  on_start_listening:
+  on_stop_listening:
+  on_order_found:
+  on_order_not_found: "order-not-found-synapse"
+  on_mute:
+  on_unmute:
+  on_start_speaking:
+  on_stop_speaking:
 
 # ---------------------------
 # Rest API
@@ -147,12 +119,6 @@ rest_api:
   password_protected: True
   login: admin
   password: secret
-
-# ---------------------------
-# Default Synapse
-# ---------------------------
-# Specify an optional default synapse response in case your order is not found.
-default_synapse: "default-synapse"
 
 # ---------------------------
 # resource directory path
@@ -169,12 +135,9 @@ resource_directory:
 var_files:
   - REPLACEINSTALLFOLDER/config/plugins/REPLACEFOLDERNAME/vr_loxscontrol.yml
 
-# ---------------------------
-# Raspberry Pi GPIO settings
-# ---------------------------
-#rpi:
-#  pin_mute_button: 24
-#  pin_led_started: 23
-#  pin_led_muted: 17
-#  pin_led_talking: 27
-#  pin_led_listening: 22
+# -------------
+# Start options
+# -------------
+#start_options:
+#  muted: False
+
