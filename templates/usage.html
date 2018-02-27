@@ -69,7 +69,7 @@
 <tr>
    	<td colspan=4>
 	<TMPL_VAR FORMTABLEUSAGE.USAGE_HELP> <br>
-    <font size="-1"><TMPL_VAR FORMTABLEUSAGE.USAGE_HELP2></font>
+	<font size="-1"><TMPL_VAR FORMTABLEUSAGE.USAGE_HELP2></font>
 	</td>
 </tr>
 
@@ -98,7 +98,23 @@
 
                 <a id="btnusage_datetime" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1">><TMPL_VAR FORMTABLEUSAGE.BASIC_DATETIME_BTN><</font></a>
  
-              <a id="btnusage_orders" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1">><TMPL_VAR FORMTABLEUSAGE.BASIC_ORDERS_BTN><</font></a>
+                <a id="btnusage_orders" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1">><TMPL_VAR FORMTABLEUSAGE.BASIC_ORDERS_BTN><</font></a>
+  
+	</td>
+	<td width="5%" valign="middle">
+	 &nbsp;
+	</td>
+	<td width="35%">
+	 <font size="-1"><TMPL_VAR FORMTABLEUSAGE.BASIC_HELP></font>
+	</td>
+</tr>
+
+<tr>
+	<td width="20%">
+		
+	</td>
+	<td width="40%">
+                <a id="btnusage_wikikalliope" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1">><TMPL_VAR FORMTABLEUSAGE.BASIC_WIKIKALLIOPE_BTN><</font></a>
   
 	</td>
 	<td width="5%" valign="middle">
@@ -123,9 +139,81 @@
 	 &nbsp;
 	</td>
 	<td width="35%">
-	 <font size="-1"><TMPL_VAR FORMTABLEUSAGE.LOXSCONTROL_HELP></font>
+	 <font size="-1"><TMPL_VAR FORMTABLEUSAGE.LOXSCONTROL_HELP1></font>
 	</td>
 </tr>
+
+<tr>
+	<td width="20%">
+		
+	</td>
+	<td width="40%">
+                <a id="btnusage_welcheraeume" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1">><TMPL_VAR FORMTABLEUSAGE.LOXSCONTROL_WELCHERAEUME_BTN><</font></a>
+
+                <a id="btnusage_welcheslicht" data-role="button" data-inline="true" data-mini="true" data-icon="audio" href="#"><font size="-1">><TMPL_VAR FORMTABLEUSAGE.LOXSCONTROL_WELCHESLICHT_BTN><</font></a>
+                
+	</td>
+	<td width="5%" valign="middle">
+	 &nbsp;
+	</td>
+	<td width="35%">
+	 <font size="-1"><TMPL_VAR FORMTABLEUSAGE.LOXSCONTROL_HELP2></font>
+	</td>
+</tr>
+
+<tr>
+	<td>
+	&nbsp;
+	</td>
+	<td colspan=3>
+            <font size="-1"><div id="labelusage_status">	&nbsp;</div></font>
+	</td>
+</tr>
+
+<tr>
+	<td colspan=4>
+	<h2><TMPL_VAR FORMTABLEUSAGE.COMMANDLIST></h2>
+	</td>
+</tr>
+
+<tr>
+	<td colspan=4>
+	  <font><TMPL_VAR FORMTABLEUSAGE.COMMANDLIST_HELP></font> 
+	</td>
+</tr>
+
+<tr>
+  	<td width="20%">
+	&nbsp;
+	</td>
+	<td width="40%">
+	  <font>
+	    <li><TMPL_VAR FORMTABLEUSAGE.BASIC_HALLO_BTN></li>
+	    <li><TMPL_VAR FORMTABLEUSAGE.BASIC_DATETIME_BTN></li>
+	    <li><TMPL_VAR FORMTABLEUSAGE.COMMANDLIST_DATE_CMDHELP></li>
+	    <li><TMPL_VAR FORMTABLEUSAGE.COMMANDLIST_WIKIKALLIOPE_CMDHELP></li>
+	    <li><TMPL_VAR FORMTABLEUSAGE.COMMANDLIST_SAYHELLO_CMDHELP></li>
+	  </font> 
+	</td>
+	<td width="5%" valign="middle">
+	 &nbsp;
+	</td>	
+	<td width="35%">
+	  <font>
+	    <li><TMPL_VAR FORMTABLEUSAGE.LOXSCONTROL_WELCHERAEUME_BTN></li>
+	    <li><TMPL_VAR FORMTABLEUSAGE.LOXSCONTROL_WELCHESLICHT_BTN></li>
+	    <li><TMPL_VAR FORMTABLEUSAGE.COMMANDLIST_LICHTRAUMEINAUS_CMDHELP></li>
+	    <li><TMPL_VAR FORMTABLEUSAGE.COMMANDLIST_SCHALTEREINAUS_CMDHELP></li>
+	  </font> 
+	</td>	
+</tr>
+
+<tr>
+	<td colspan=4>
+	  <font><TMPL_VAR FORMTABLEUSAGE.COMMANDLIST_HELP2></font>
+	</td>
+</tr>
+
 
 <tr>
 	<td>
@@ -142,15 +230,16 @@
 	</td>
 </tr>
 
+
 <tr>
 	<td colspan=4>
-    <font><TMPL_VAR FORMTABLE.RESTAPI_HELP> <br> 
-    <pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD> -X POST http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/id/SYNAPSENNAME</pre>
-     <TMPL_VAR FORMTABLE.RESTAPI_HELP_2>
-     <pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD>  -H "Content-Type: application/json" -X POST -d '{"order":"my order"}'  http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/order</pre>
-     <TMPL_VAR FORMTABLE.RESTAPI_HELP_3>
-     <a href="https://github.com/kalliope-project/kalliope/blob/master/Docs/rest_api.md"><TMPL_VAR FORMTABLE.RESTAPI_HELP_4></a></font>
-	 <br></td>
+	<font><TMPL_VAR FORMTABLE.RESTAPI_HELP> <br> 
+	<pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD> -X POST http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/id/SYNAPSENNAME</pre>
+	<TMPL_VAR FORMTABLE.RESTAPI_HELP_2>
+	<pre>curl -i --user <TMPL_VAR NAME=RESTAPI_LOGIN>:<TMPL_VAR NAME=RESTAPI_PASSWORD>  -H "Content-Type: application/json" -X POST -d '{"order":"my order"}'  http://<TMPL_VAR NAME=HOST>:<TMPL_VAR NAME=RESTAPI_PORT>/synapses/start/order</pre>
+	<TMPL_VAR FORMTABLE.RESTAPI_HELP_3>
+	<a href="https://github.com/kalliope-project/kalliope/blob/master/Docs/rest_api.md"><TMPL_VAR FORMTABLE.RESTAPI_HELP_4></a></font>
+	<br></td>
 </tr>
 
 <tr>
@@ -172,8 +261,6 @@
 	<TMPL_VAR FORMTABLEUSAGE.USEMINISERVER_HELP_8> <br>
     </td>
 </tr>
-
-
 
 <!--<tr>
 	<td colspan=4>
@@ -206,7 +293,6 @@
 </p>-->
 
 </form>
-
 
 <script>
 	// Error messages
@@ -283,6 +369,12 @@
     order("<TMPL_VAR FORMTABLEUSAGE.BASIC_ORDERS_BTN>"); 
     }); //click 
 
+  // order=Wikipedia
+  $('#btnusage_wikikalliope').click( function(e) {
+    e.preventDefault();
+    order("<TMPL_VAR FORMTABLEUSAGE.BASIC_WIKIKALLIOPE_BTN>"); 
+    }); //click 
+
   // order=light on
   $('#btnusage_lighton').click( function(e) {
     e.preventDefault();
@@ -293,12 +385,23 @@
   $('#btnusage_lightoff').click( function(e) {
     e.preventDefault();
     order("<TMPL_VAR FORMTABLEUSAGE.LOXSCONTROL_LIGHTOFF_BTN>"); 
-    }); //click      
+    }); //click
+
+  // order=welcheraeume
+  $('#btnusage_welcheraeume').click( function(e) {
+    e.preventDefault();
+    order("<TMPL_VAR FORMTABLEUSAGE.LOXSCONTROL_WELCHERAEUME_BTN>"); 
+    }); //click   
+
+  // order=welcheslicht
+  $('#btnusage_welcheslicht').click( function(e) {
+    e.preventDefault();
+    order("<TMPL_VAR FORMTABLEUSAGE.LOXSCONTROL_WELCHESLICHT_BTN>"); 
+    }); //click     
   
   }); //ready
  
 </script>
-
 
 
 

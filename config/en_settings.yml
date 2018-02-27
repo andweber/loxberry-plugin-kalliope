@@ -28,7 +28,11 @@ default_speech_to_text: "google"
 # Spreech to Text engines configuration
 # Available engine are:
 # - google (via SpeechRecognition)
-# -
+# - wit
+# - bing
+# - apiai
+# - houndify
+# - cmusphinx (must be installed first)
 speech_to_text:
   - google:
       language: "en-EN"
@@ -40,8 +44,8 @@ speech_to_text:
       key: "place your key here"
       language: "en"
   - houndify:
-      key: "7zj90T7qAV74OYXk4X4vI2Xhk7wPsJu4aEZ0G5Ll-BMmV1JGtFpCxtSH9SmTY4G3bpEJ7a5y_GTQid-CAKI6vw=="
-      client_id: "lN4JXeaSticbSo9-llczbA=="
+      key: "place your key here"
+      client_id: "place your key here"
   #- cmusphinx
 
 # ---------------------------
@@ -55,22 +59,20 @@ cache_path: "/tmp/kalliope_tts_cache"
 # Text to Spreech engines configuration
 # Available engine are:
 # - pico2wave
-# - voxygen
+# - watson
+# - googletts
+# - voicerss
 text_to_speech:
   - pico2wave:
       language: "en-US"
       cache: True
-  - acapela:
-      language: "sonid15"
-      voice: "Manon"
-      cache: True
   - googletts:
       language: "en"
       cache: True
+      convert_to_wav: True
   - voicerss:
-      language: "en-us"
+      language: "en-US"
       cache: True
-
 
 # ---------------------------
 # players
