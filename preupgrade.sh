@@ -57,4 +57,7 @@ echo "<INFO> Plugin Data folder is: $PDATA"
 echo "<INFO> Plugin Log folder (on RAMDISK!) is: $PLOG"
 echo "<INFO> Plugin CONFIG folder is: $PCONFIG"
 
+mkdir $PTEMPDIR\SAVE_CONFIG\
+cp -rav $PCONFIG\ $PTEMPDIR\USR_SAVE_CONFIG\
+
 exit 0

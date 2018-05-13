@@ -1,9 +1,14 @@
 ---
-
+# ----------------------------------
+# global french brain
+#
+# Changes may be overriden by plugin update
+# make custom changes in usr_brain/usr_brain.yml
+# ----------------------------------
   - includes:
-        - brains/fr_say.yml
-        - brains/fr_systemdate.yml
-        - brains/fr_neurotransmitter.yml
+        - global_brain/fr_systemdate.yml
+        - global_brain/fr_neurotransmitter.yml
+        - usr_brain/usr_brain.yml        
 
   - name: "order-not-found-synapse"
     signals: []

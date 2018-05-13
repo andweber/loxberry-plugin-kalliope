@@ -1,0 +1,7 @@
+---
+# ----------------------------------
+# usr_brain - make adjustments here
+# Use YAML syntax
+# ----------------------------------
+  - includes:
+        - usr_brain/de_say.yml

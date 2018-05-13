@@ -1,0 +1,15 @@
+---
+  - name: "say-hello-fr"
+    signals:
+      - order: "Bonjour"
+    neurons:
+      - say:
+          message:
+            - "Bonjour monsieur"
+
+  - name: "gouter-time"
+    signals:
+      - order: "est-ce qu'il est l'heure du goûter"
+    neurons:
+      - systemdate:
+          file_template: "usr_templates/systemdate_template_gouter.j2"

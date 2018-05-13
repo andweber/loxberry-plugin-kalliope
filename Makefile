@@ -15,7 +15,7 @@ LBHOMEDIR ?= /opt/loxberry
 # Config-file of the plugin
 PLUGINCONFFILE := ./plugin.cfg
 #
-# Please not, it is assume that USER home is equal to LBHOMEDIR!
+# Please note, it is assume that USER home is equal to LBHOMEDIR!
 # ----------------
 # do not modify below this line
 undefine PLUGINNAME
@@ -107,7 +107,7 @@ deploy: deploy_rpi
 
 deploy_zip: ## deploy whole plugin to zip file
 deploy_zip: info plugininfo
-	@git ls-files | zip -v --exclude=".*" --exclude="*.desktop" $(PLUGINNAME)_dev_$(SNAPSHOT).zip -@
+	@git ls-files | zip -v --exclude=".*" --exclude="*.desktop" --exclude="Makefile" $(PLUGINNAME)_dev_$(SNAPSHOT).zip -@
 	@echo "[DONE] Deployed $(PLUGINTITLE) to: $(PLUGINNAME)_dev_$(SNAPSHOT).zip"
 
 deploy_webfrontend: ## deploy only webfrontend
@@ -137,14 +137,22 @@ deploy_webfrontend: info plugininfo
 
 deploy_config:  ## deploy only config
 deploy_config: info plugininfo
-#config/brains
-	@echo "[INFO] Deploying  ~/config/brains/... to $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/brains/"
-	@git ls-files | grep -i config/brains/ | xargs -L 1 basename | rsync -vd --files-from - config/brains/ $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/brains/
+#config/global_brain
+	@echo "[INFO] Deploying  ~/config/global_brain/... to $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/global_brain/"
+	@git ls-files | grep -i config/global_brain/ | xargs -L 1 basename | rsync -vd --files-from - config/global_brain/ $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/global_brain/
 	@echo ""
-#config/templates
-	@echo "[INFO] Deploying  ~/config/templates/... to $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/templates/"
-	@git ls-files | grep -i config/templates/ | xargs -L 1 basename | rsync -vd --files-from - config/templates/ $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/templates/
+#config/usr_brain
+	@echo "[INFO] Deploying  ~/config/usr_brain/... to $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/usr_brain/"
+	@git ls-files | grep -i config/usr_brain/ | xargs -L 1 basename | rsync -vd --files-from - config/usr_brain/ $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/usr_brain/
+	@echo ""	
+#config/global_templates
+	@echo "[INFO] Deploying  ~/config/global_templates/... to $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/global_templates/"
+	@git ls-files | grep -i config/global_templates/ | xargs -L 1 basename | rsync -vd --files-from - config/global_templates/ $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/global_templates/
 	@echo ""
+#config/usr_templates
+	@echo "[INFO] Deploying  ~/config/usr_templates/... to $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/usr_templates/"
+	@git ls-files | grep -i config/usr_templates/ | xargs -L 1 basename | rsync -vd --files-from - config/usr_templates/ $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/usr_templates/
+	@echo ""	
 #config/
 	@echo "[INFO] Deploying  ~/config/... to $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/"
 	@git ls-files | grep -i "^config/[^/]*\." | xargs -L 1 basename | rsync -vd --files-from - config/ $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/

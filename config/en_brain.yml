@@ -1,12 +1,17 @@
 ---
-
+# ----------------------------------
+# global english brain
+#
+# Changes may be overriden by plugin update
+# make custom changes in usr_brain/usr_brain.yml
+# ----------------------------------
   - includes:
-        - brains/en_say.yml
-        - brains/en_systemdate.yml
-        - brains/en_neurotransmitter.yml
-        - brains/en_uri.yml
-        - brains/en_repeat.yml
-        - brains/en_loxberry_install.yml
+        - global_brain/en_systemdate.yml
+        - global_brain/en_neurotransmitter.yml
+        - global_brain/en_uri.yml
+        - global_brain/en_repeat.yml
+        - global_brain/en_loxberry_install.yml
+        - usr_brain/usr_brain.yml
 
   - name: "order-not-found-synapse"
     signals: []

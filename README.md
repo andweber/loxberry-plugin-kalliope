@@ -15,12 +15,14 @@ For Details visit [http://www.loxwiki.eu](http://www.loxwiki.eu:80/x/o4CO) or [K
 This project is a non-commercial community project and not connected to the company [Loxone](www.loxone.com).
 Source Code of LoxBerry can be found on [GitHub](https://github.com/mschlenstedt/Loxberry).
 
-## Installation
+## Required Hardware
 
 /!\ You need to have a running [LoxBerry](http://www.loxwiki.eu:80/x/o4CO) installation with a microphone and an audio output connected. You can get the latest version from [https://download.loxberry.de/](https://download.loxberry.de/). Consult the [installation instructions](http://www.loxwiki.eu:80/x/r4CO) for more details.
 For issues with audio or microphone the [audio guide](AUDIO.md) may help.
 
 In case you want to use a [Google AIY-Voicekit](https://aiyprojects.withgoogle.com/voice/) as hardware - you find some tipps in the [AIY Voicekit tutorial](AIY_VOICEKIT.md).
+
+## Installation
 
 You can download the last stable version of this plugin from [master branch](https://github.com/andweber/loxberry-plugin-kalliope/archive/master.zip) or the [releases pages](https://github.com/andweber/loxberry-plugin-kalliope/releases). For the development version download the [dev branch](https://github.com/andweber/loxberry-plugin-kalliope/archive/dev.zip).
 
@@ -35,17 +37,18 @@ Finally restart the LoxBerry.
 The Webfrontend provides some hints for the usage of [Kalliope](https://github.com/kalliope-project/kalliope/). For any further documentation about the usage of Kalliope, please refer to the [Kalliope project](https://github.com/kalliope-project/kalliope/).
 
 The Kalliope brain is stored in the plugin config folder and can be adjusted and improved as needed. 
-
+/!\ `usr_bain` and `usr_templates` folders are preserved during plugin update. Use these folders for adjustments and extensions. All other config files may be overriden during plugin update.
 
 ## RoadMap
 
-Version 0.5
-- Improved Webfrontend
+Version 0.5.1
+- [Done] Improved Webfrontend
 - [Done] use global variables in synapses (0.4.3 feature)
-- [Done] Update kalliope
-- Plugin upgrade is possible
-- Proof of Voice Control Kalliope
-- Proof of Voice Control of Loxone
+- [Done] Update auf kalliope 5.1
+- [Done] Update auf LoxBerry 1.2
+- [Done] Plugin upgrade is possible
+- [Done] Proof of Voice Control Kalliope
+- [Done] Proof of Voice Control of Loxone
 
 Version 0.6
 - Advanced configuring of Kalliope using the webfrontend (Support multiple Miniserver, Trigger Selection, etc.)

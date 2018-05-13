@@ -1,0 +1,18 @@
+---
+## GPIO definitions (BCM)
+#_GPIO_BUTTON = 23
+#_GPIO_LED = 25
+
+- name: "gpio-test"
+  signals:
+    - gpio_input:
+        pins:
+          - 23          
+  neurons:
+    - say:
+        message: "Button pressed !" 
+    - gpio:
+          set_pin_high:
+            - 24
+
+

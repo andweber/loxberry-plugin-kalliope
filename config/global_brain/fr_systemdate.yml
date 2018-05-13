@@ -15,9 +15,3 @@
       - systemdate:
           file_template: "templates/systemdate_template.j2"
 
-  - name: "gouter-time"
-    signals:
-      - order: "est-ce qu'il est l'heure du goûter"
-    neurons:
-      - systemdate:
-          file_template: "templates/systemdate_template_gouter.j2"

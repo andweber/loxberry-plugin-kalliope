@@ -1,8 +1,0 @@
----
-  - name: "say-hello"
-    signals:
-      - order: "Hello"
-    neurons:
-      - say:
-          message:
-            - "Hello sir"

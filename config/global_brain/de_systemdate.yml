@@ -16,9 +16,3 @@
       - systemdate:
           file_template: "templates/de_systemdate_template.j2"
 
-  - name: "tea-time"
-    signals:
-      - order: "Ist es Zeit für Tee"
-    neurons:
-      - systemdate:
-          file_template: "templates/de_systemdate_template_tea.j2"

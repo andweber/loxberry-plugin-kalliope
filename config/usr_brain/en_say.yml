@@ -1,0 +1,15 @@
+---
+  - name: "say-hello"
+    signals:
+      - order: "Hello"
+    neurons:
+      - say:
+          message:
+            - "Hello sir"
+
+  - name: "tea-time"
+    signals:
+      - order: "is it time for tea"
+    neurons:
+      - systemdate:
+          file_template: "usr_templates/en_systemdate_template_tea.j2"

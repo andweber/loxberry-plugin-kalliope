@@ -1,16 +1,26 @@
 ---
-
-  - includes:
-        - brains/de_say.yml
-        - brains/de_systemdate.yml
-        - brains/de_neurotransmitter.yml
-        - brains/de_uri.yml
-        - brains/de_kill_switch.yml        
-        - brains/de_repeat.yml
-        - brains/de_wikipedia.yml
-        - brains/de_loxscontrol_light.yml
-        - brains/de_loxscontrol_list.yml
-        - brains/de_loxberry_install.yml
+# ----------------------------------
+# global german brain
+#
+# Changes may be overriden by plugin update
+# make custom changes in usr_brain/usr_brain.yml
+#
+# Aenderungen hier werden durch ein Plugin-Update überschrieben
+# Eigene Anpassungen unter usr_brain/usr_brain.yml vornehmen
+#
+# ----------------------------------
+  - includes: 
+        - global_brain/de_systemdate.yml
+        - global_brain/de_neurotransmitter.yml
+        - global_brain/de_uri.yml
+        - global_brain/de_kill_switch.yml        
+        - global_brain/de_repeat.yml
+        - global_brain/de_wikipedia.yml
+        - global_brain/de_loxscontrol_light.yml
+        - global_brain/de_loxscontrol_list.yml
+        - global_brain/de_loxberry_install.yml
+        - global_brain/de_aiy_voicehat.yml
+        - usr_brain/usr_brain.yml
 
   - name: "order-not-found-synapse"
     signals: []

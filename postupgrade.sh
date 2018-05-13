@@ -57,4 +57,11 @@ echo "<INFO> Plugin Data folder is: $PDATA"
 echo "<INFO> Plugin Log folder (on RAMDISK!) is: $PLOG"
 echo "<INFO> Plugin CONFIG folder is: $PCONFIG"
 
+# restore saved config - not sure if this is clever
+cp -ruv $PTEMPDIR\USR_SAVE_CONFIG\
+
+# restore usr config
+cp -ruv $PTEMPDIR\USR_SAVE_CONFIG\usr_brain $PCONFIG\usr_brain 
+cp -ruv $PTEMPDIR\USR_SAVE_CONFIG\usr_templates $PCONFIG\usr_templates 
+
 exit 0

@@ -1,6 +1,8 @@
 ---
 # ---------------------------
 # Kalliope default settings
+#
+# Changes may be overriden by plugin update
 # Use YAML syntax
 # ---------------------------
 
@@ -107,10 +109,12 @@ hooks:
   on_stop_listening:
   on_order_found:
   on_order_not_found: "order-not-found-synapse"
-  on_mute:
-  on_unmute:
+  on_processed_synapses:
+  on_deaf:
+  on_undeaf:
   on_start_speaking:
   on_stop_speaking:
+  on_stt_error:
 
 # ---------------------------
 # Rest API
@@ -127,20 +131,25 @@ rest_api:
 # resource directory path
 # ---------------------------
 resource_directory:
-  neuron: "resources/neurons"
-  stt: "resources/stt"
-  tts: "resources/tts"
-  signal: "resources/signal"
+  neuron: "REPLACEINSTALLFOLDER/data/plugins/REPLACEFOLDERNAME/neurons"
+  signal: "REPLACEINSTALLFOLDER/data/plugins/REPLACEFOLDERNAME/signal"  
+  stt: "REPLACEINSTALLFOLDER/data/plugins/REPLACEFOLDERNAME/stt"
+  tts: "REPLACEINSTALLFOLDER/data/plugins/REPLACEFOLDERNAME/tts"
+# trigger: "resources/trigger"
 
 # ---------------------------
 # Global files variables
 # /!\ If a variable is defined in different files, the last file defines the value.
 # ---------------------------
 var_files:
-  - global_variables/variables.yml
+  - REPLACEINSTALLFOLDER/config/plugins/REPLACEFOLDERNAME/vr_loxscontrol.yml
 
 # -------------
-# Start options
+# options
 # -------------
-#start_options:
-#  muted: False
+options:
+#  energy_threshold: 4000                 # Speech to text option
+#  adjust_for_ambient_noise_second: 1     # Speech to text option
+#  stt_timeout: 5                          # Speech to text option
+  deaf: False
+  mute: False

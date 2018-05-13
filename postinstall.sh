@@ -230,7 +230,7 @@ echo "<OK> Kalliope configured."
 
 ############################################################################
 # SECTION D.1
-# Install Additional Neurons 
+# Install Additional Neurons and signals
 ############################################################################
 # this is a crude hack because
 # kalliope install --git-url is not working in an unattended mode
@@ -265,8 +265,20 @@ git clone https://github.com/bacardi55/kalliope-repeat.git ./repeat
 
 #All Orders
 #17.09.17: not compatible to dev - open issue: https://github.com/bacardi55/kalliope-list-available-orders/issues/2
-#echo "<INFO> Installing Neuron: kalliope_list_available_orders..."
-#git clone https://github.com/bacardi55/kalliope-list-available-orders.git ./list_available_orders
+echo "<INFO> Installing Neuron: kalliope_list_available_orders..."
+git clone https://github.com/bacardi55/kalliope-list-available-orders.git ./list_available_orders
+
+#gpio-neuron
+echo "<INFO> Installing Neuron: gpio-neuron..."
+git clone https://github.com/corus87/gpio-neuron.git ./gpio
+pip install RPi.GPIO
+
+echo "<INFO> Installing additional signals"
+cd $LBHOMEDIR/data/plugins/$PDIR/signal
+#signal_gpio_input
+echo "<INFO> Installing Neuron: gpio-neuron..."
+git clone https://github.com/kalliope-project/kalliope_signal_gpio_input.git ./gpio_input
+
 
 ############################################################################
 # SECTION D.2
