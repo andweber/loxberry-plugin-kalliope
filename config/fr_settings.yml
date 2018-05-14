@@ -145,6 +145,7 @@ resource_directory:
 # ---------------------------
 var_files:
   - REPLACEINSTALLFOLDER/config/plugins/REPLACEFOLDERNAME/vr_loxscontrol.yml
+  - REPLACEINSTALLFOLDER/config/plugins/REPLACEFOLDERNAME/vr_general.yml
 
 # -------------
 # options

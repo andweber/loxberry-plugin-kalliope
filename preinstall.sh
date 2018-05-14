@@ -62,8 +62,8 @@ kalliope_installversion=dev
 . $LBHOMEDIR/libs/bashlib/loxberry_log.sh
 PACKAGE=$PSHNAME
 NAME=kalliope
-FILENAME=${LBPLOG}/${PACKAGE}/daemon.log
-#NOFILE=1
+#FILENAME=${LBPLOG}/${PACKAGE}/daemon.log
+NOFILE=1
  
 LOGSTART "kalliope preinstall started."
 LOGDEB "Command is: $COMMAND"

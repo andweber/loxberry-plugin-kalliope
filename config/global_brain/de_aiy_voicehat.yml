@@ -1,18 +1,24 @@
 ---
+## AIY_Voicehat
 ## GPIO definitions (BCM)
 #_GPIO_BUTTON = 23
 #_GPIO_LED = 25
 
-- name: "gpio-test"
+- name: "AIY_Voicehat_button"
   signals:
     - gpio_input:
         pins:
-          - 23          
+          - 23
   neurons:
     - say:
-        message: "Button pressed !" 
+          message:
+            - "Hallo, mein Name ist {{kalliope_name}}. Ich warte auf eine Frage von dir."
+            - "Hallo, ich heise {{kalliope_name}}. Ich höre jetzt zu."
+            - "Hallo, ich bin jetzt bereit."
+            - "Du kannst mich jetzt etwas Fragen"
+ 
     - gpio:
           set_pin_high:
-            - 24
+            - 25
 
 
