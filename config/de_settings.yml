@@ -75,6 +75,10 @@ text_to_speech:
   - voicerss:
       language: "de-DE"
       cache: True
+  - watson:
+      username: "me"
+      password: "password"
+      voice: "de-DE_ReneeVoice"
 
 # ---------------------------
 # players

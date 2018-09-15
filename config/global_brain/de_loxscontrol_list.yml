@@ -10,7 +10,7 @@
         lx_password: "{{lx_password}}"      
         control_type: "room"
         action: "list"   
-        file_template:  "templates/de_loxscontrol_template.j2"
+        file_template:  "global_templates/de_loxscontrol_template.j2"
 
 - name: "list-lights"
   signals:
@@ -23,6 +23,6 @@
         lx_password: "{{lx_password}}"      
         control_type: "lights"
         action: "list"   
-        file_template:  "templates/de_loxscontrol_template.j2"
+        file_template:  "global_templates/de_loxscontrol_template.j2"
 
 

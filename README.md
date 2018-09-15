@@ -37,7 +37,9 @@ Finally restart the LoxBerry.
 The Webfrontend provides some hints for the usage of [Kalliope](https://github.com/kalliope-project/kalliope/). For any further documentation about the usage of Kalliope, please refer to the [Kalliope project](https://github.com/kalliope-project/kalliope/).
 
 The Kalliope brain is stored in the plugin config folder and can be adjusted and improved as needed. 
-/!\ `usr_bain` and `usr_templates` folders are preserved during plugin update. Use these folders for adjustments and extensions. All other config files may be overriden during plugin update.
+/!\ `usr_bain` folder is preserved during plugin update. Use this folders for adjustments and extensions. All other config files may be overriden during plugin update.
+
+For advanced users the user templates can be stored in the plugin data folder `usr_templates`. This folder is also preserved during plugin update. 
 
 ## RoadMap
 

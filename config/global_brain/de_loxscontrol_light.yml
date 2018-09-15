@@ -16,7 +16,7 @@
         newstate: "on"
         control_type: lights
         action: "change"        
-        file_template:  "templates/de_loxscontrol_template.j2"
+        file_template:  "global_templates/de_loxscontrol_template.j2"
 
 - name: "turn-off-room"
   signals:
@@ -35,7 +35,7 @@
         newstate: "off"
         control_type: lights
         action: "change"
-        file_template:  "templates/de_loxscontrol_template.j2"         
+        file_template:  "global_templates/de_loxscontrol_template.j2"         
           
 - name: "turn-on-named"
   signals:
@@ -49,7 +49,7 @@
         control_name: "{{control_name}}" 
         newstate: "on"  
         action: "change"  
-        file_template:  "templates/de_loxscontrol_template.j2"
+        file_template:  "global_templates/de_loxscontrol_template.j2"
 
 - name: "turn-off-named"
   signals:
@@ -63,7 +63,7 @@
         control_name: "{{control_name}}" 
         newstate: "off"
         action: "change"         
-        file_template:  "templates/de_loxscontrol_template.j2"
+        file_template:  "global_templates/de_loxscontrol_template.j2"
 
 - name: "turn-on-light"
   signals:

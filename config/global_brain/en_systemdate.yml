@@ -13,6 +13,6 @@
       - order: "which date are we"
     neurons:
       - systemdate:
-          file_template: "templates/en_systemdate_template.j2"
+          file_template: "gloabl_templates/en_systemdate_template.j2"
 
 

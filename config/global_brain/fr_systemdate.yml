@@ -13,5 +13,5 @@
       - order: "quelle date sommes-nous"
     neurons:
       - systemdate:
-          file_template: "templates/systemdate_template.j2"
+          file_template: "global_templates/systemdate_template.j2"
 

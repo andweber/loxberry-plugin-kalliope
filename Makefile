@@ -146,12 +146,12 @@ deploy_config: info plugininfo
 	@git ls-files | grep -i config/usr_brain/ | xargs -L 1 basename | rsync -vd --files-from - config/usr_brain/ $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/usr_brain/
 	@echo ""	
 #config/global_templates
-	@echo "[INFO] Deploying  ~/config/global_templates/... to $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/global_templates/"
-	@git ls-files | grep -i config/global_templates/ | xargs -L 1 basename | rsync -vd --files-from - config/global_templates/ $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/global_templates/
+	@echo "[INFO] Deploying  ~/data/global_templates/... to $(USER)@$(PI):~/data/plugins/$(PLUGINFOLDER)/global_templates/"
+	@git ls-files | grep -i data/global_templates/ | xargs -L 1 basename | rsync -vd --files-from - data/global_templates/ $(USER)@$(PI):~/data/plugins/$(PLUGINFOLDER)/global_templates/
 	@echo ""
 #config/usr_templates
-	@echo "[INFO] Deploying  ~/config/usr_templates/... to $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/usr_templates/"
-	@git ls-files | grep -i config/usr_templates/ | xargs -L 1 basename | rsync -vd --files-from - config/usr_templates/ $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/usr_templates/
+	@echo "[INFO] Deploying  ~/data/usr_templates/... to $(USER)@$(PI):~/data/plugins/$(PLUGINFOLDER)/usr_templates/"
+	@git ls-files | grep -i data/usr_templates/ | xargs -L 1 basename | rsync -vd --files-from - data/usr_templates/ $(USER)@$(PI):~/data/plugins/$(PLUGINFOLDER)/usr_templates/
 	@echo ""	
 #config/
 	@echo "[INFO] Deploying  ~/config/... to $(USER)@$(PI):~/config/plugins/$(PLUGINFOLDER)/"

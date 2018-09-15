@@ -14,5 +14,5 @@
       - order: "Welches Datum ist heute"      
     neurons:
       - systemdate:
-          file_template: "templates/de_systemdate_template.j2"
+          file_template: "global_templates/de_systemdate_template.j2"
 
