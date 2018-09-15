@@ -34,6 +34,7 @@ PDIR=$3       # Third argument is Plugin installation folder
 PVERSION=$4   # Forth argument is Plugin version
 #LBHOMEDIR=$5 # Comes from /etc/environment now. Fifth argument is
               # Base folder of LoxBerry
+PTEMPPATH=$6  # Sixth argument is full temp path during install (see also $1)
 
 # Combine them with /etc/environment
 PCGI=$LBPCGI/$PDIR

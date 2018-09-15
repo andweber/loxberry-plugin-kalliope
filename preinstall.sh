@@ -40,10 +40,12 @@
 ############################################################################
 # To use important variables from command line use the following code:
 COMMAND=$0 # Zero argument is shell command
-PTEMPDIR=$1 # First argument is temp folder during install
+PTEMPDIR=$1 # First argument is temp folder name during install
 PSHNAME=$2 # Second argument is Plugin-Name for scipts etc.
 PDIR=$3 # Third argument is Plugin installation folder
 PVERSION=$4 # Forth argument is Plugin version
+PTEMPPATH=$6 # Sixth argument is full temp path during install (see also $1)
+
 # Combine them with /etc/environment
 PCGI=$LBPCGI/$PDIR
 PHTML=$LBPHTML/$PDIR
@@ -55,7 +57,7 @@ PSBIN=$LBPSBIN/$PDIR
 PBIN=$LBPBIN/$PDIR
 ############################################################################
 # Definitions
-#kalliope_installversion=v0.5.0
+#kalliope_installversion=v0.5.2
 kalliope_installversion=dev
 ############################################################################
 # Switch on Loggin
@@ -68,6 +70,7 @@ NOFILE=1
 LOGSTART "kalliope preinstall started."
 LOGDEB "Command is: $COMMAND"
 LOGDEB "Temporary folder is: $PTEMPDIR"
+LOGDEB "Temporary folder is: $PTEMPPATH"
 LOGDEB "(Short) Name is: $PSHNAME"
 LOGDEB "Installation folder is: $PDIR"
 LOGDEB "Plugin version is: $PVERSION"
@@ -80,9 +83,9 @@ LOGDEB "Plugin CONFIG folder is: $PCONFIG"
 
 # Download Pip
 LOGINF "Getting latest pip from https://bootstrap.pypa.io"
-/usr/bin/wget --progress=dot:mega -t 10 -O /tmp/uploads/$PTEMPDIR/data/get-pip.py https://bootstrap.pypa.io/get-pip.py
+/usr/bin/wget --progress=dot:mega -t 10 -O $PTEMPPATH/data/get-pip.py https://bootstrap.pypa.io/get-pip.py
 
-if [ ! -f /tmp/uploads/$PTEMPDIR/data/get-pip.py ]; then
+if [ ! -f $PTEMPPATH/data/get-pip.py ]; then
     LOGCRIT "Something went wrong while trying to download pip."
     exit 2
 else
@@ -91,9 +94,9 @@ fi
 
 # Download Kalliope
 LOGINF "Getting latest kalliope from https://github.com/kalliope-project/kalliope/archive/$kalliope_installversion.zip"
-/usr/bin/wget --progress=dot:mega -t 10 -O /tmp/uploads/$PTEMPDIR/data/kalliope.zip https://github.com/kalliope-project/kalliope/archive/$kalliope_installversion.zip
+/usr/bin/wget --progress=dot:mega -t 10 -O $PTEMPPATH/data/kalliope.zip https://github.com/kalliope-project/kalliope/archive/$kalliope_installversion.zip
 
-if [ ! -f /tmp/uploads/$PTEMPDIR/data/kalliope.zip ]; then
+if [ ! -f $PTEMPPATH/data/kalliope.zip ]; then
     LOGCRIT "Something went wrong while trying to download kalliope."
     exit 2
 else
@@ -101,7 +104,7 @@ else
 
     # Unpack Kalliope
     LOGINF "Unpacking..."
-    cd /tmp/uploads/$PTEMPDIR/data/
+    cd $PTEMPPATH/data/
     unzip kalliope.zip
     if [ $? -ne 0 ]; then
         LOGCRIT "Unpacking kalliope failed."

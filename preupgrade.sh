@@ -28,12 +28,14 @@
 
 # To use important variables from command line use the following code:
 COMMAND=$0    # Zero argument is shell command
-PTEMPDIR=$1   # First argument is temp folder during install
+PTEMPDIR=$1   # First argument is temp folder name
 PSHNAME=$2    # Second argument is Plugin-Name for scipts etc.
 PDIR=$3       # Third argument is Plugin installation folder
 PVERSION=$4   # Forth argument is Plugin version
 #LBHOMEDIR=$5 # Comes from /etc/environment now. Fifth argument is
               # Base folder of LoxBerry
+PTEMPPATH=$6  # Sixth argument is full temp path during install (see also $1)
+
 
 # Combine them with /etc/environment
 PCGI=$LBPCGI/$PDIR
@@ -57,7 +59,7 @@ echo "<INFO> Plugin Data folder is: $PDATA"
 echo "<INFO> Plugin Log folder (on RAMDISK!) is: $PLOG"
 echo "<INFO> Plugin CONFIG folder is: $PCONFIG"
 
-mkdir $PTEMPDIR\SAVE_CONFIG\
-cp -rav $PCONFIG\ $PTEMPDIR\USR_SAVE_CONFIG\
+mkdir $PTEMPPATH\SAVE_CONFIG\
+cp -rav $PCONFIG\ $PTEMPPATH\USR_SAVE_CONFIG\
 
 exit 0

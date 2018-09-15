@@ -39,11 +39,12 @@
 # <FAIL> This is a fail!"
 ############################################################################
 COMMAND=$0 # Zero argument is shell command
-PTEMPDIR=$1 # First argument is temp folder during install
+PTEMPDIR=$1 # First argument is temp folder name during install
 PSHNAME=$2 # Second argument is real Plugin name
 PDIR=$3 # Third argument is Plugin installation folder
 PVERSION=$4 # Forth argument is Plugin version
 LBHOMEDIR=$5 # Fifth argument is Base folder of LoxBerry
+PTEMPPATH=$6 # Sixth argument is full temp path during install (see also $1)
 echo "<INFO> Command is: $COMMAND"
 echo "<INFO> Temporary folder is: $PTEMPDIR"
 echo "<INFO> (Short) Name is: $PSHNAME"
@@ -52,7 +53,7 @@ echo "<INFO> Plugin version is: $PVERSION"
 echo "<INFO> Base folder is: $LBHOMEDIR"
 ############################################################################
 # Definitions
-#kalliope_installversion=0.4.5
+#kalliope_installversion=0.5.2
 kalliope_installversion=dev
 ############################################################################
 # SECTION A

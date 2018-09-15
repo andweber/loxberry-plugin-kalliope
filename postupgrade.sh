@@ -34,6 +34,7 @@ PDIR=$3       # Third argument is Plugin installation folder
 PVERSION=$4   # Forth argument is Plugin version
 #LBHOMEDIR=$5 # Comes from /etc/environment now. Fifth argument is
               # Base folder of LoxBerry
+PTEMPPATH=$6  # Sixth argument is full temp path during install (see also $1)
 
 # Combine them with /etc/environment
 PCGI=$LBPCGI/$PDIR
@@ -58,10 +59,10 @@ echo "<INFO> Plugin Log folder (on RAMDISK!) is: $PLOG"
 echo "<INFO> Plugin CONFIG folder is: $PCONFIG"
 
 # restore saved config - not sure if this is clever
-cp -ruv $PTEMPDIR\USR_SAVE_CONFIG\
+cp -ruv $PTEMPPATH\USR_SAVE_CONFIG\
 
 # restore usr config
-cp -ruv $PTEMPDIR\USR_SAVE_CONFIG\usr_brain $PCONFIG\usr_brain 
-cp -ruv $PTEMPDIR\USR_SAVE_CONFIG\usr_templates $PCONFIG\usr_templates 
+cp -ruv $PTEMPPATH\USR_SAVE_CONFIG\usr_brain $PCONFIG\usr_brain 
+cp -ruv $PTEMPPATH\USR_SAVE_CONFIG\usr_templates $PCONFIG\usr_templates 
 
 exit 0
