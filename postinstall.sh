@@ -53,8 +53,8 @@ echo "<INFO> Plugin version is: $PVERSION"
 echo "<INFO> Base folder is: $LBHOMEDIR"
 ############################################################################
 # Definitions
-#kalliope_installversion=0.5.2
-kalliope_installversion=dev
+kalliope_installversion=0.5.2
+#kalliope_installversion=dev
 ############################################################################
 # SECTION A
 # Definition of Helper Functions and check input
