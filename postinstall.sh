@@ -164,7 +164,7 @@ ini_parser $configfile "MINISERVER1"
 echo "<INFO> Language is: $BASELANG"
 echo "<INFO> No. of Miniservers: $BASEMINISERVERS"
 echo "<INFO> User: $MINISERVER1ADMIN"
-echo "<INFO> Password: $MINISERVER1PASS"
+#echo "<INFO> Password: $MINISERVER1PASS"
 echo "<INFO> IPADDRESS: $MINISERVER1IPADDRESS"
 echo "<INFO> Port: $MINISERVER1PORT"
 

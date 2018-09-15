@@ -44,11 +44,12 @@ The Kalliope brain is stored in the plugin config folder and can be adjusted and
 Version 0.5.1
 - [Done] Improved Webfrontend
 - [Done] use global variables in synapses (0.4.3 feature)
-- [Done] Update auf kalliope 5.1
-- [Done] Update auf LoxBerry 1.2
+- [Done] Update auf kalliope 5.2
+- [Done] Update auf LoxBerry 1.2.5
 - [Done] Plugin upgrade is possible
 - [Done] Proof of Voice Control Kalliope
 - [Done] Proof of Voice Control of Loxone
+- [Done] Various small fixes and improvements
 
 Version 0.6
 - Advanced configuring of Kalliope using the webfrontend (Support multiple Miniserver, Trigger Selection, etc.)

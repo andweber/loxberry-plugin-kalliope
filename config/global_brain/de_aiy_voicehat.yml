@@ -4,7 +4,7 @@
 #_GPIO_BUTTON = 23
 #_GPIO_LED = 25
 
-- name: "AIY_Voicehat_button"
+- name: "AIY-Voicehat-button"
   signals:
     - gpio_input:
         pins:
