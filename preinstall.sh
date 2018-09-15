@@ -57,8 +57,8 @@ PSBIN=$LBPSBIN/$PDIR
 PBIN=$LBPBIN/$PDIR
 ############################################################################
 # Definitions
-kalliope_installversion=v0.5.2
-#kalliope_installversion=dev
+#kalliope_installversion=v0.5.2
+kalliope_installversion=dev
 ############################################################################
 # Switch on Loggin
 . $LBHOMEDIR/libs/bashlib/loxberry_log.sh
