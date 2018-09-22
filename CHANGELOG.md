@@ -1,10 +1,24 @@
 #Changelog
 
+##v0.5.2
+This release includes:
+    - fix plugin install bug, due to limited tmp size
+    - small fixes and improvements
+
+##v0.5.1
+This release includes:
+    - small fixes and improvements
+
 ##v0.5.0
 This release includes:
     - update for LoxBerry >1.0
     - updated to Kalliope 0.5.0
-
+    - Improved Webfrontend
+    - use global variables in synapses (0.4.3 feature)
+    - Plugin upgrade is possible
+    - Proof of Voice Control Kalliope
+    - Proof of Voice Control of Loxone
+   
 ##v0.4.0
 This release includes:
     - updated to Kalliope 0.4.5

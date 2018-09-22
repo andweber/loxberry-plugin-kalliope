@@ -11,6 +11,7 @@ PI ?= loxberry.local
 # Username
 USER = loxberry
 # Homedir of loxberry install on target
+# LBHOMEDIR ?= REPLACELBHOMEDIR
 LBHOMEDIR ?= /opt/loxberry
 # Config-file of the plugin
 PLUGINCONFFILE := ./plugin.cfg

@@ -24,14 +24,14 @@ This shows the log of kalliope. If you have any problems open an [issues](../../
 
 ## EditBrain
 
-`
+```
 >>not yet implemented<< 
-`
+```
 
 To edit the brain, use ssh or samba to retain the files stored in the config folder:
-`
+```
 \opt\loxberry\config\kalliope_loxscontrol\
-`
+```
 The [Kalliope project](https://github.com/kalliope-project/kalliope/blob/master/Docs/brain.md) contains a full documentation how to customize your brain.
  
 

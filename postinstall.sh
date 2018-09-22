@@ -2,7 +2,7 @@
 ######################### LoxBerry Plugin KalliopeLoxSControl ##############
 # Installscript
 # Autor:        Andreas Weber, andweber@gmail.com
-# Version:      0.4 - 11.02.2018
+# Version:      0.5 - 22.09.2018
 #
 ############################################################################
 # Disclaimer
@@ -51,6 +51,15 @@ echo "<INFO> (Short) Name is: $PSHNAME"
 echo "<INFO> Installation folder is: $PDIR"
 echo "<INFO> Plugin version is: $PVERSION"
 echo "<INFO> Base folder is: $LBHOMEDIR"
+# Combine them with /etc/environment
+PCGI=$LBPCGI/$PDIR
+PHTML=$LBPHTML/$PDIR
+PTEMPL=$LBPTEMPL/$PDIR
+PDATA=$LBPDATA/$PDIR
+PLOG=$LBPLOG/$PDIR # Note! This is stored on a Ramdisk now!
+PCONFIG=$LBPCONFIG/$PDIR
+PSBIN=$LBPSBIN/$PDIR
+PBIN=$LBPBIN/$PDIR
 ############################################################################
 # Definitions
 #kalliope_installversion=0.5.2
@@ -94,6 +103,9 @@ else
     . pyvenv/bin/activate
 fi
 
+#Lege tmp-dir an
+mkdir $PDATA/tmp
+
 #falls sich pip in virtual venv nicht installieren lässt, dann local und suchpfad
 #virtualenv --extra-search-dir=/path/to/distributions
 
@@ -107,6 +119,8 @@ else
     cd $LBHOMEDIR/data/plugins/$PDIR/
     python get-pip.py
     rm get-pip.py
+    #set environment tempdir, because /tmp may not have enough space for install
+    TEMPDIR=$PDATA/tmp
     pip install --upgrade setuptools
 fi
 
@@ -118,8 +132,9 @@ else
     echo "<OK> Kalliope install found."
     echo "<INFO> Installing..."
     cd $LBHOMEDIR/data/plugins/$PDIR/kalliope-$kalliope_installversion
-    #python setup.py install --user    
-    $LBHOMEDIR/data/plugins/$PDIR/pyvenv/bin/pip install .
+    #python setup.py install --user
+    #-- build-dir used, because /tmp may not have enough space for install   
+    $LBHOMEDIR/data/plugins/$PDIR/pyvenv/bin/pip install --build-dir $PDATA/tmp . 
     if [ $? -ne 0 ]; then
         echo "<FAIL> Installing kalliope failed."
         exit 1
@@ -214,8 +229,9 @@ fi
 /bin/sed -i --follow-symlinks "s:REPLACEINSTALLFOLDER:$LBHOMEDIR:g" $LBHOMEDIR/config/plugins/$PDIR/settings.yml 
 
 # Replace correct absolut path in daemon
-/bin/sed -i "s:REPLACEFOLDERNAME:$PDIR:g" $LBHOMEDIR/system/daemons/plugins/$PSHNAME
-/bin/sed -i "s:REPLACEINSTALLFOLDER:$LBHOMEDIR:g" $LBHOMEDIR/system/daemons/plugins/$PSHNAME
+# This is replaced by LoxBerry Install Script
+#/bin/sed -i "s:REPLACEFOLDERNAME:$PDIR:g" $LBHOMEDIR/system/daemons/plugins/$PSHNAME
+#/bin/sed -i "s:REPLACEINSTALLFOLDER:$LBHOMEDIR:g" $LBHOMEDIR/system/daemons/plugins/$PSHNAME
 
 # Replace webfrontend
 /bin/sed -i "s:REPLACEFOLDERNAME:$PDIR:g" $LBHOMEDIR/config/plugins/$PDIR/webfrontend.cfg
@@ -247,7 +263,12 @@ cd $LBHOMEDIR/data/plugins/$PDIR/neurons
 #Wikipedia
 echo "<INFO> Installing Neuron: kalliope_neuron_wikipedia..."
 git clone https://github.com/kalliope-project/kalliope_neuron_wikipedia.git ./wikipedia_searcher
-pip install wikipedia>=1.4.0
+if [ ! -f ./wikipedia_searcher/install.yml ]; then
+    echo "<FAIL> Neuron kalliope_neuron_wikipedia not available!"
+    exit 1
+fi
+pip install wikipedia
+
 
 #Twitter
 # needs Login data -> webfrontend needed
@@ -258,27 +279,47 @@ pip install wikipedia>=1.4.0
 #RSS_Reader
 echo "<INFO> Installing Neuron: kalliope_neuron_rss_reader..."
 git clone https://github.com/kalliope-project/kalliope_neuron_rss_reader.git ./rss_reader
-pip install feedparser>=5.2.1
+if [ ! -f ./rss_reader/install.yml ]; then
+    echo "<FAIL> Neuron kalliope_neuron_rss_reader not available!"
+    exit 1
+fi
+pip install feedparser
 
 #Repeat
-echo "<INFO> Installing Neuron: kalliope_list_available_orders..."
+echo "<INFO> Installing Neuron: kalliope_repeat..."
 git clone https://github.com/bacardi55/kalliope-repeat.git ./repeat
+if [ ! -f ./repeat/install.yml ]; then
+    echo "<FAIL> Neuron kalliope_repeat not available!"
+    exit 1
+fi
 
 #All Orders
 #17.09.17: not compatible to dev - open issue: https://github.com/bacardi55/kalliope-list-available-orders/issues/2
 echo "<INFO> Installing Neuron: kalliope_list_available_orders..."
 git clone https://github.com/bacardi55/kalliope-list-available-orders.git ./list_available_orders
+if [ ! -f ./list_available_orders/install.yml ]; then
+    echo "<FAIL> Neuron kalliope_list_available_orders not available!"
+    exit 1
+fi
 
 #gpio-neuron
 echo "<INFO> Installing Neuron: gpio-neuron..."
 git clone https://github.com/corus87/gpio-neuron.git ./gpio
+if [ ! -f ./gpio/install.yml ]; then
+    echo "<FAIL> Neuron gpio-neuron not available!"
+    exit 1
+fi
 pip install RPi.GPIO
 
 echo "<INFO> Installing additional signals"
 cd $LBHOMEDIR/data/plugins/$PDIR/signal
 #signal_gpio_input
-echo "<INFO> Installing Neuron: gpio-neuron..."
+echo "<INFO> Installing Signal: gpio-input..."
 git clone https://github.com/kalliope-project/kalliope_signal_gpio_input.git ./gpio_input
+if [ ! -f ./gpio_input/install.yml ]; then
+    echo "<FAIL> Signal gpio-input not available!"
+    exit 1
+fi
 
 
 ############################################################################
@@ -289,7 +330,10 @@ git clone https://github.com/kalliope-project/kalliope_signal_gpio_input.git ./g
 echo "<INFO> Installing Neuron: kalliope_neuron_loxscontrol..."
 cd $LBHOMEDIR/data/plugins/$PDIR/neurons
 git clone https://github.com/andweber/kalliope_neuron_loxscontrol.git ./loxscontrol
-
+if [ ! -f ./loxscontrol/install.yml ]; then
+    echo "<FAIL> Signal gpio-input not available!"
+    exit 1
+fi
 echo "<INFO> Configuring Kalliope LoxSControl Neuron..."
 
 /bin/sed -i --follow-symlinks "s:REPLACEMINISERVER1USER:$MINISERVER1ADMIN:g" $LBHOMEDIR/config/plugins/$PDIR/vr_loxscontrol.yml 

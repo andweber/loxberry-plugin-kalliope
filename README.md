@@ -70,7 +70,7 @@ If you'd like to contribute to the project you can:
 ## License
 
 Copyright (c) 2017. All rights reserved.
-The install scripts are covery by the MIT license.
+The install scripts are covered by the MIT license.
 
 Loxone is a registered trademark by the loxone company. See [www.loxone.com](www.loxone.com). 
 
